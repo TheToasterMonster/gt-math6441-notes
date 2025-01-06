@@ -1,0 +1,223 @@
+\chapter{Jan.~6 --- CW-Complexes}
+
+\section{Introduction and Motivation}
+Algebraic topology builds ``functions'' (actually
+\emph{functors})
+\[
+  \{
+    \text{topological spaces, continuous maps}
+  \}
+  \longrightarrow
+  \{
+    \text{algebraic things, algebraic maps}
+  \},
+\]
+where ``algebraic things'' can be groups, vector
+spaces, etc. The main objective of algebraic topology is
+to \emph{distinguish topological spaces}, e.g.
+showing that $\R^n \ncong \R^m$ for $n \ne m$.
+More applications are:
+\begin{enumerate}
+  \item Studying maps between spaces.\footnote{All maps and functions in this class are continuous unless otherwise specified.}
+    \begin{itemize}
+      \item Does a given space $M$ embed in $N$? For
+        instance, for what $m$ does $\R P^n$ embed
+        in $\R^m$? (This is still not known in general.)
+        Here $\R P^n$ is the real projective space.
+      \item Lifting maps, i.e. given
+        $f : A \to B$ and $g : E \to B$, does
+        there exist a map $\widetilde{f} : A \to E$
+        such that $g \circ \widetilde{f} = f$?
+        In other words, is there a map $\widetilde{f}$
+        such that the following diagram commutes:
+        \begin{center}
+        \begin{tikzcd}
+          & E \arrow[d, "g"] \\
+          A \arrow[ur, "\widetilde{f}", dashed] \arrow[r, "f", swap] & B
+        \end{tikzcd}
+        \end{center}
+      \item Fixed point problems: Given $f : X \to X$,
+        does $f$ have a fixed point, i.e. $x \in X$
+        such that $f(x) = x$? Such theorems are used
+        to prove the existence of solutions to
+        ordinary differential equations, for instance.
+    \end{itemize}
+  \item Group actions, e.g. which finite groups act
+    freely on $S^n$?
+  \item Group theory, e.g. showing that every subgroup of a free
+    group is free.
+    Another example is that if $F_n$ is
+    the free group on $n$ generators, then
+    its \emph{commutator} $[F_n, F_n]$ is not
+    finitely generated.
+  \item Algebra, e.g. proving the fundamental theorem
+    of algebra.
+\end{enumerate}
+
+This course will cover the following topics:
+\begin{enumerate}
+  \item The \emph{fundamental group}
+    $\pi_1(X, x_0)$ of a space $X$ for $x_0 \in X$,
+    and \emph{covering spaces}.
+  \item The \emph{homology groups} $H_k(X)$ for
+    $k = 0, 1, 2, \dots$. These groups are abelian.
+  \item The \emph{cohomology ring}
+    $H^*(X) = \bigoplus_{k = 0}^\infty H^k(X)$.
+\end{enumerate}
+But before getting to this, we need to develop some
+important ideas.
+
+\section{CW-Complexes}
+
+\begin{definition}
+  Let $D^n \subseteq \R^n$ be the unit disk and
+  $S^{n - 1} = \partial D^n$. Given a topological
+  space $Y$ and a continuous map $a : S^{n - 1} \to Y$,
+  the space obtained from $Y$ by \emph{attaching} an
+  \emph{$n$-cell} (\emph{via $a$}) is
+  \[
+    Y \cup_a D^n = (Y \sqcup D^n) / {\sim},
+  \]
+  where the equivalence relation $\sim$ is given by
+  $x \sim a(x)$ for $x \in \partial D^n$.\footnote{Here $A \sqcup B$ denotes the \emph{disjoint union} of A and B.}
+\end{definition}
+
+\begin{definition}
+  An \emph{$n$-complex} or an \emph{$n$-dimensional CW-complex}
+  is defined inductively by:
+  \begin{itemize}
+    \item A $(-1)$-complex is the empty set $\varnothing$.
+    \item An $n$-complex $X^n$ is a space obtained
+      from an $(n - 1)$-complex by attaching $n$-cells.
+  \end{itemize}
+  An $n$-complex is \emph{finite} if it involves
+  only a finite number of cells. The \emph{$k$-skeleton}
+  of $X$ is the union of all $n$-cells in $X$
+  with $n \le k$.
+\end{definition}
+
+\begin{remark}
+  Any CW-complex is Hausdorff. See Hatcher for a proof.
+\end{remark}
+
+\begin{example}
+  Here are some examples of CW-complexes:
+  \begin{itemize}
+    \item A $0$-complex is a union of points.
+      This is because $D^0 = \{\text{pt}\}$ and
+      $\partial D^0 = \varnothing$.
+    \item A $1$-complex is a graph (points and lines
+      connecting them).
+    \item The torus $T$ (a square with opposite sides
+      identified) is a $2$-complex. Here
+      the $0$-skeleton $T^{(0)}$ is the common corner
+      on the square and the $1$-skeleton $T^{(1)}$
+      is two sides of the square after taking the
+      quotient. The $2$-skeleton $T = T^{(2)}$ is the
+      entire torus.
+    \item Another example of a $2$-complex is the
+      two-holed torus, which is obtained by identifying
+      the edges of an octagon (pairs of every other
+      edge identified with opposite orientation).
+    \item A third example of a $2$-complex is
+      $X^{(1)} \cup_a D^2$ given an attaching map
+      $D^2 \to X^{(1)}$.
+    \item Consider the unit sphere $S^n \subseteq \R^{n + 1}$.
+      One way to give $S^2$ a CW-complex structure is
+      to see the sphere as two disks $D^2$ glued together,
+      resulting in one $0$-cell, one $1$-cell, and two
+      $2$-cells. Another way is to start with
+      two points, attach a $1$-cell to get a circle,
+      and then attaching two disks to get $S^2$. This
+      results in two $0$-cell, two $1$-cell, and two
+      $2$-cells.
+
+      The second idea generalizes to $S^n$. We can
+      write
+      \[
+        S^n = S^{n - 1} \cup_{a_1} D^n \cup_{a_2} D^n,
+      \]
+      where $S^{n - 1}$ inductively has a CW-complex
+      structure. This yields two $k$-cells for each
+      $k \le n$.
+
+      Another way to put a CW-complex structure
+      on $S^n$ is to attach $D^n$ to a point with
+      $\partial D^n \to \{\text{pt}\}$.
+      In particular, notice that a space
+      can in general have several different CW-complex
+      structures.
+    \item Consider the \emph{$n$-dimensional real projective space}
+      \[
+        \R P^n = \{\text{lines through the origin in } \R^{n + 1}\}.
+      \]
+      Since each line through the origin passes through
+      $S^n$ twice, we can equivalently think of $\R P^n$
+      as the unit sphere $S^n$ with antipodal points
+      identified.
+
+      We can also think of this as $D^n$ with
+      antipodal points on $\partial D^n$ identified.
+      Since $\partial D^n = S^{n - 1}$, this is
+      simply $\R P^{n - 1} \cup_{a} D^n$, where
+      $a : \partial D^n \to \R P^{n - 1}$ is the
+      quotient map. This gives $\R P^n$ a CW-complex
+      structure with one $k$-cell for each $k \le n$.
+    \item The complex projective space
+      $\C P^n$ has a similar CW-complex structure with
+      one $k$-cell for each even $k \le 2n$.
+      One can verify this as an exercise.
+    \item Any smooth manifold has a CW-complex
+      structure. See Hatcher.
+  \end{itemize}
+\end{example}
+
+\begin{exercise}
+  Show the product of CW-complexes is a CW-complex.
+\end{exercise}
+
+\begin{definition}
+  A \emph{subcomplex} of a CW-complex $X$ is a closed
+  subset $A \subseteq X$ that is a union of cells in $X$.
+  In particular, $A$ is also a CW-complex and
+  $(X, A)$ is called a \emph{CW-pair}.
+\end{definition}
+
+\section{Homotopy}
+
+\begin{definition}
+  Let $X$ and $Y$ be topological spaces. Two maps
+  $f, g : X \to Y$ are \emph{homotopic}, denoted
+  $f \sim g$, if there exists a continuous map
+  $\Phi : X \times [0, 1] \to Y$ such that
+  \[
+    \Phi(x, 0) = f(x) \quad \text{and} \quad \Phi(x, 1) = g(x).
+  \]
+  In this case, $\Phi$ is called a \emph{homotopy}
+  between $f$ and $g$.
+\end{definition}
+
+\begin{remark}
+  We note the following:
+  \begin{itemize}
+    \item A homotopy $\Phi$ gives a family of maps
+      $\Phi_{t_0} : X \to Y$ given by
+      $x \mapsto \Phi(x, t_0)$ which is continuous
+      in $t_0$. So maps are homotopic if there is a
+      continuous family of maps between them.
+    \item If $A \subseteq X$ then we say that
+      $f$ is \emph{homotopic to $g$ rel $A$},
+      denoted $f \sim_A g$, if there exists
+      $\Phi$ as above with the additional property
+      that $\Phi(x, t) = f(x)$ for all $x \in A$,
+      i.e. points in $A$ are fixed.
+    \item If $A \subseteq X$ and $B \subseteq Y$,
+      then the notation $f : (X, A) \to (X, B)$
+      means that $f : X \to Y$ and
+      $f(a) \in B$ for each $a \in A$.
+      We say that $f$ is a \emph{map of pairs}.
+      If $f, g : (X, A) \to (Y, B)$, then $f, g$
+      are homotopic as maps of pairs if each
+      $\Phi_t$ is a map of pairs.
+  \end{itemize}
+\end{remark}
