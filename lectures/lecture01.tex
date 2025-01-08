@@ -79,7 +79,8 @@ important ideas.
     Y \cup_a D^n = (Y \sqcup D^n) / {\sim},
   \]
   where the equivalence relation $\sim$ is given by
-  $x \sim a(x)$ for $x \in \partial D^n$.\footnote{Here $A \sqcup B$ denotes the \emph{disjoint union} of A and B.}
+  $x \sim a(x)$ for $x \in \partial D^n$.
+  Here $\sqcup$ denotes disjoint union.
 \end{definition}
 
 \begin{definition}
@@ -118,7 +119,8 @@ important ideas.
     \item Another example of a $2$-complex is the
       two-holed torus, which is obtained by identifying
       the edges of an octagon (pairs of every other
-      edge identified with opposite orientation).
+      edge identified with opposite orientation).\footnote{This CW-decomposition of the two-holed torus results in one $0$-cell,
+      four $1$-cells, and one $2$-cell.}
     \item A third example of a $2$-complex is
       $X^{(1)} \cup_a D^2$ given an attaching map
       $D^2 \to X^{(1)}$.
@@ -191,8 +193,9 @@ important ideas.
   $f \sim g$, if there exists a continuous map
   $\Phi : X \times [0, 1] \to Y$ such that
   \[
-    \Phi(x, 0) = f(x) \quad \text{and} \quad \Phi(x, 1) = g(x).
+    \Phi(x, 0) = f(x) \quad \text{and} \quad \Phi(x, 1) = g(x)
   \]
+  for all $x \in X$.
   In this case, $\Phi$ is called a \emph{homotopy}
   between $f$ and $g$.
 \end{definition}
@@ -201,8 +204,8 @@ important ideas.
   We note the following:
   \begin{itemize}
     \item A homotopy $\Phi$ gives a family of maps
-      $\Phi_{t_0} : X \to Y$ given by
-      $x \mapsto \Phi(x, t_0)$ which is continuous
+      $\phi_{t_0} : X \to Y$ given by
+      $x \mapsto \phi(x, t_0)$ which is continuous
       in $t_0$. So maps are homotopic if there is a
       continuous family of maps between them.
     \item If $A \subseteq X$ then we say that
@@ -217,7 +220,7 @@ important ideas.
       $f(a) \in B$ for each $a \in A$.
       We say that $f$ is a \emph{map of pairs}.
       If $f, g : (X, A) \to (Y, B)$, then $f, g$
-      are homotopic as maps of pairs if each
-      $\Phi_t$ is a map of pairs.
+      are \emph{homotopic as maps of pairs} if each
+      $\phi_t : (X, A) \to (X, B)$ is a map of pairs.
   \end{itemize}
 \end{remark}

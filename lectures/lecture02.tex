@@ -1,0 +1,270 @@
+\chapter{Jan.~8 --- Homotopy}
+
+\section{More on Homotopy}
+
+\begin{example}
+  For any space $X$, any map $f : X \to [0, 1]$ is
+  homotopic to the map $g : X \to [0, 1]$ given by
+  $x \mapsto 0$. To see this, we have the homotopy
+  $\Phi : X \times [0, 1] \times [0, 1]$ defined by
+  \[
+    (x, t) \mapsto (1 - t) f(x).
+  \]
+  We can see that $\Phi(x, 0) = f(x)$ and
+  $\Phi(x, 1) = 0 = g(x)$.
+\end{example}
+
+\begin{exercise}
+  Show that homotopy is an equivalence relation on
+  maps $X \to Y$.
+\end{exercise}
+
+\begin{definition}
+  Let $C(X, Y) = \{\text{continuous maps from $X$ to $Y$}\}$.
+  Let $[X, Y] = C(X, Y) / {\sim}$, i.e. homotopic
+  maps are identified with each other.
+\end{definition}
+
+\begin{example}
+  We have the following:
+  \begin{enumerate}
+    \item $[X, [0, 1]] = \{g\}$ for any space $X$, where
+      $g$ is the map $x \mapsto 0$ as above.
+    \item $[\{*\}, X] = \{\text{path components of $X$}\}$.
+  \end{enumerate}
+\end{example}
+
+\section{Homotopy Groups}
+\begin{definition}
+  We call a space $X$ \emph{pointed} if there
+  is a designated ``base point'' $x_0 \in X$.
+  Given two pointed spaces $(X, x_0)$ and
+  $(Y, y_0)$, we define
+  \[
+    [X, Y]_0 = \{\text{homotopy classes of maps of pairs
+    $(X, \{x_0\}) \to (Y, \{y_0\})$}\}.
+  \]
+\end{definition}
+
+\begin{definition}
+  Let $y_0$ be the north pole in $S^n$, i.e.
+  $S^n \subseteq \R^{n + 1}$ is the unit sphere and
+  $y_0 = (0, \dots, 0, 1)$. The
+  \emph{$n$th homotopy group}
+  of a pointed space $(X, x_0)$ is
+  $\pi_n(X, x_0) = [S^n, X]_0$.
+\end{definition}
+
+\begin{remark}
+  The homotopy group $\pi_n(X, x_0)$ is in fact a
+  group. We will study $\pi_1(X, x_0)$ next and it is
+  called the \emph{fundamental group} of $(X, x_0)$.
+\end{remark}
+
+\begin{remark}
+  For which $(Y, y_0)$ is $[Y, X]_0$ ``naturally'' a
+  group for all $(X, x_0)$? Similarly, for which
+  $(Y, y_0)$ is $[X, Y]_0$ a group for all $(X, x_0)$?
+  Here, given a map $f : (X_1, x_1) \to (X_2, x_2)$,
+  there is an obvious \emph{induced map}
+  $f_* : [Y, X_1]_0 \to [Y, X_2]_0$ given by
+  $[g] \mapsto [f \circ g]$. Similarly, there is a map
+  $f^* : [X_2, Y]_0 \to [X_1, Y]_0$ given by
+  $[g] \mapsto [g \circ f]$. In the questions above,
+  ``naturally'' means that $f_*$ and $f^*$ are
+  homomorphisms.
+  for any $(X_1, x_1)$ and $(X_2, x_2)$.
+  The (perhaps unsatisfying) answer is that
+  a space satisfying the first condition is called
+  an \emph{$H$-space}, and a space satisfying the second
+  is called an \emph{$H'$-space}.
+\end{remark}
+
+\section{Homotopy Equivalence}
+\begin{definition}
+  We say that $f : X \to Y$ is the \emph{homotopy inverse}
+  to a function $g : Y \to X$ if
+  $f \circ g \sim \id_Y$ and $g \circ f \sim \id_X$,
+  where $\id_X$ and $\id_Y$ are the identity maps
+  on $X$ and $Y$.
+  If $g$ has a homotopy inverse, then
+  we call $g$ a \emph{homotopy equivalence} from $Y$ to
+  $X$ and we call $X, Y$ \emph{homotopy equivalent}.\footnote{We will denote homotopy equivalence by $X \simeq Y$ or simply $X \sim Y$.}
+\end{definition}
+
+\begin{exercise}
+  Show that homotopy equivalence is an equivalence
+  relation.
+\end{exercise}
+
+\begin{lemma}
+  The following are equivalent:
+  \begin{enumerate}
+    \item $X$ and $Y$ are homotopy equivalent.
+    \item For any space $Z$, there is a one-to-one
+      correspondence $\phi_Z : [X, Z] \to [Y, Z]$
+      such that for all continuous maps
+      $h : Z \to Z'$, the following diagram commutes:
+      \begin{center}
+        \begin{tikzcd}
+          {[X, Z]} \ar[r, "\phi_Z"] \ar[d, "h_*"] & {[Y, Z]} \ar[d, "h_*"] \\
+          {[X, Z']} \ar[r, "\phi_{Z'}"] & {[Y, Z']}
+        \end{tikzcd}
+      \end{center}
+    \item For any space $Z$, there is a one-to-one
+      correspondence $\phi^Z : [Z, X] \to [Z, Y]$
+      such for that all continuous maps $h : Z \to Z'$,
+      the following diagram commutes:
+      \begin{center}
+        \begin{tikzcd}
+          {[Z', X]} \ar[r, "\phi^{Z'}"] \ar[d, "h^*"] & {[Z', Y]} \ar[d, "h^*"] \\
+          {[Z, X]} \ar[r, "\phi^{Z}"] & {[Z, Y]}
+        \end{tikzcd}
+      \end{center}
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  This is left as an exercise.
+\end{proof}
+
+\begin{remark}
+  Based on the previous lemma, two spaces are
+  homotopy equivalent if and only if homotopy classes
+  of maps to and from the space are ``naturally
+  equivalent.''
+\end{remark}
+
+\begin{example}
+  We have the following:
+  \begin{itemize}
+    \item Homeomorphic spaces are homotopy equivalent.
+    \item Let $X = S^1$ and $Y = S^1 \times [0, 1]$.
+      We claim that $X$ is homotopy equivalent to $Y$.
+
+      Define the maps $f : S^1 \to S^1 \times [0, 1]$ by
+      $x \mapsto (x, 0)$ and $g : S^1 \times [0, 1] \to S^1$
+      by $(x, t) \mapsto x$. Then we can see
+      that $g \circ f : S^1 \to S^1$ maps
+      $x \mapsto x$, so $g \circ f = \id_{S^1}$. On the
+      other hand, the composition
+      $f \circ g : S^1 \times [0, 1] \to
+      S^1 \times [0, 1]$ maps $(x, t) \mapsto (x, 0)$.
+      Now $f \circ g \sim \id_{S^1 \times [0, 1]}$ by
+      homotopy. For instance, define
+      $\Phi : (S^1 \times [0, 1]) \times [0, 1] \to
+      (S^1 \times [0, 1])$ by
+      $((x, t), s) \mapsto (x, st)$, so
+      \[
+        \Phi((x, t), 1) = (x, t) = \id_{S^1 \times [0, 1]}(x, t)
+        \quad \text{and} \quad
+        \Phi((x, t), 0) = (x, 0) = f \circ g.
+      \]
+      Thus $f$ is a homotopy equivalence from $S^1$ to
+      $S^1 \times [0, 1]$. Note that
+      $S^1 \times [0, 1]$ is the annulus.
+  \end{itemize}
+\end{example}
+
+\begin{definition}
+  A space is called \emph{contractible} if it is
+  homotopy equivalent to a point.
+\end{definition}
+
+\begin{example}
+  The spaces $[0, 1]$ and $\R^n$ are contractible
+  (exercise).
+\end{example}
+
+\begin{definition}
+  If $A \subseteq X$, then a \emph{retraction of $X$ to $A$}
+  is a map $r : X \to A$ such that $r(a) = a$ for
+  every $a \in A$. A \emph{deformation retraction} of
+  $X$ to $A$ is a retraction $r : X \to A$
+  that is homotopic rel $A$ to the identity map $\id_X$,
+  i.e. we can find $\phi_t : X \to X$ for
+  $t \in [0, 1]$ such that
+  $\phi_0(x) = x$ and $\phi_1(X) \subseteq A$ and
+  $\phi_t(x) = x$ for all $x \in A$ and $t \in [0, 1]$.
+\end{definition}
+
+\begin{remark}
+  If $X$ deformation retracts to $A$, then $X$ is
+  homotopy equivalent to $A$. To see this, suppose we
+  have a homotopy $\phi_t : X \to X$ as above, and let
+  $i : A \to X$ be the inclusion map. Then
+  $\phi_1 \circ i = \id_A$ and $i \circ \phi_1 = \phi_1 \sim \phi_0 = \id_X$, so
+  $\phi_1$ is a homotopy equivalence from $X$ to $A$.
+\end{remark}
+
+\begin{definition}
+  Given two spaces $X, Y$ and a map $f : X \to Y$,
+  the \emph{mapping cylinder} of $f$ is the space
+  \[
+    M_f = ((X \times [0, 1]) \cup Y) / {\sim},
+  \]
+  where the equivalence relation $\sim$ is given by
+  by $(x, 1) \sim f(x)$ for $x \in X$.
+\end{definition}
+
+\begin{remark}
+  The mapping cylinder $M_f$ deformation retracts to $Y$.
+  To see this, consider the map $\widetilde{\phi}_t$
+  given by
+  $(x, s) \mapsto (x, (1 - t)s + t)$ on
+  $X \times [0, 1]$ and $y \mapsto y$ on $Y$. Since
+  $\widetilde{\phi}_t$ respects the equivalence
+  relation, it descends to a map $\phi_t : M_f \to M_f$
+  on the quotient space. Note that
+  $\phi_0 = \id_{M_f}$ and $\phi_1(M_f) = Y \subseteq M_f$,
+  and $\phi_t = \id_Y$ for all $t$. Thus $\phi_1$ is a
+  deformation retraction. In particular,
+  this means that $M_f \simeq Y$.
+\end{remark}
+
+\begin{remark}
+  There are obvious inclusions
+  $i : X \to M_f$ given by $x \mapsto (x, 0)$
+  and $j : Y \to M_f$ given by $y \mapsto y$.
+  Note that $\phi_1$ defined above is the homotopy
+  inverse to $j$. Now we have the diagram
+  \[
+    \begin{tikzcd}
+      X \ar[r, "f"] \ar[dr, "i"] & Y \ar[d, "j"] \\
+      & M_f
+    \end{tikzcd}
+  \]
+  where $j$ is a homotopy equivalence and
+  $j \circ f \sim i$ (exercise).
+\end{remark}
+
+\begin{remark}
+  The above remark shows the following ``slogan''
+  of algebraic topology:
+  \begin{quote}
+    Any map is an inclusion up to homotopy.
+  \end{quote}
+\end{remark}
+
+\begin{example}
+  Let $X$ be three circles with two enclosed in a third
+  bigger one, and let $Y$ be two circles enclosing the
+  inner two circles of $X$
+  connected by a line segment. Let $Z$ be the region
+  inside by the outer circle of $X$ and outside
+  the inner two circles of $X$.
+
+  Define $f : X \to Y$
+  to be the map which sends $x \in X$ to the point in
+  $Y$ at the other end of an interval (points on the
+  inner circles of $X$ are mapped by radial lines to the
+  circles in $Y$, and points on the outer circle of $X$
+  are mapped radially to either the circles or
+  the line segment in $Y$). One can write an explicit
+  formula for $f$ as an exercise.
+
+  Then $Z$ is homeomorphic to $M_f$, and in particular
+  $Z \simeq Y$. Similarly, $M_f$ is homotopy equivalent
+  to two circles joined at a point, or a circle
+  with a diameter.
+\end{example}
