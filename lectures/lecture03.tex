@@ -1,0 +1,268 @@
+\chapter{Jan.~13 --- Homotopy, Part 2}
+
+\section{More on Homotopy Equivalence}
+\begin{lemma}\label{lem:lemma-2}
+  If $(X, A)$ is a CW pair and $A$ is contractible,
+  then $X / A \simeq X$.\footnote{Here $X / A$ denotes
+  the quotient of $X$ obtained by collapsing all of $A$
+  to a single point.}
+\end{lemma}
+
+\begin{exercise}
+  The following are some applications of this lemma:
+  \begin{enumerate}
+    \item Let $X$ be a connected graph (i.e. a
+      $1$-complex), and let $A$ be an edge in $X$
+      connecting distinct vertices. Then $A$ is
+      contractible, so $X / A \simeq X$.
+      Continuing this process, let $A$ be a maximal
+      tree in $X$, which will also be contractible.
+      Then $X \simeq X / A$, so any connected graph is
+      homotopy equivalent to a \emph{wedge of circles}
+      (with number of circles equal to the number of
+      self-loops in the graph).\footnote{A \emph{wedge} of pointed spaces $(X, x_0) \lor (Y, y_0)$ is the space obtained from $X \sqcup Y$ by identifying $x_0$ and $y_0$.}
+    \item Consider the space $X$ obtained by attaching
+      a $1$-cell $A$ connecting the north and south
+      poles on a sphere. Let $B$ be half of a great
+      circle
+      connecting the endpoints of $A$. Clearly $A$ and
+      $B$ are both contractible. After collapsing
+      $A$, we see that $X \simeq X / A$, which is
+      $S^2$ with the north and south poles identified.
+      On the other hand, by contracting $B$ instead
+      we see that $X \simeq X / B$, which is
+      $S^2 \lor S^1$.
+
+      Note that after contracting $A$,
+      the subset $B$ is actually no longer contractible.
+    \item Let $X$ be a torus with attached disks
+      $A_1, A_2, A_3$ in the tube of the torus.
+      Then
+      \[X \sim ((X / A_1) / A_2) / A_3,\]
+      which is three spheres lying in a circle, each
+      attached to the next one at a single point.
+
+      We can also obtain this space by considering
+      the space $Y$ of
+      three spheres attached in a line with an extra
+      $1$-cell $B$ attached at the ends of the chain
+      of circles. Also let $A$ be the union of halves
+      of great circles going through the chain of
+      circles, with the same endpoints as $B$. Then
+      we can see that this creates the same space as
+      before, so that $X \simeq Y / B \simeq Y$.
+      On the other hand, by contracting $A$, we see
+      that $Y \simeq Y / A = S^2 \lor S^2 \lor S^2 \lor S^1$.
+
+      Of course, all of these spaces are then homotopy
+      equivalent to each other by transitivity.
+  \end{enumerate}
+\end{exercise}
+
+\begin{lemma}\label{lem:lemma-3}
+  Let $(X, A)$ be a CW pair and $f, g : A \to Y$ 
+  be homotopic maps. Then $X \cup_f Y \simeq X \cup_g Y$.
+\end{lemma}
+
+\begin{example}
+  Let $Y = S^2$, and $X = D^2$, and $A = \partial D^2$.
+  Let $g : A \to Y$ map $A$ to a great circle, and
+  let $f : A \to Y$ map $A$ to the north pole.
+  One can show as an exercise that $f \sim g$ (e.g. by
+  pulling the equator towards the north pole).
+  So the lemma says that $X \cup_g Y$, which is a
+  sphere with a disk glued along its equator, is homotopy
+  equivalent to $X \cup_f Y = S^2 \lor S^2$.
+\end{example}
+
+\begin{remark}
+  To prove both of these lemmas, we need the
+  \emph{homotopy extension property} (HEP).
+\end{remark}
+
+\begin{definition}
+  A space $X$ and a subspace $A \subseteq X$ have the
+  \emph{homotopy extension property} if given
+  $F_0 : X \to Y$ (for any $Y$ and $F_0$) and a
+  homotopy $f_t : A \to Y$ such that $f_0 = F_0|_A$,
+  then there is a homotopy $F_t : X \to Y$ such that
+  $F_t|_A = f_t$ for every $t$.
+\end{definition}
+
+\begin{lemma}\label{lem:lemma-4}
+  A pair $(X, A)$ has the homotopy extension property
+  if and only if
+  \[
+    (X \times \{0\}) \cup (A \times [0, 1])
+  \]
+  is a retract of $X \times [0, 1]$.
+\end{lemma}
+
+\begin{proof}
+  $(\Leftarrow)$ We will assume that $A$ is closed
+  (not necessarily but makes the proof easier, and almost
+  all examples satisfy this). By assumption, we
+  have a retraction
+  \[
+    r : (X \times [0, 1]) \to (X \times \{0\}) \cup (A \times [0, 1]).
+  \]
+  Given $F_0 : X \to Y$ and $f_t : A \to Y$
+  such that $f_0 = F_0|_A$, we can define a map
+  \[
+    \widetilde{F} : (X \times \{0\}) \cup (A \times [0, 1]) \to Y
+  \]
+  by $x \mapsto F_0(x)$ on $X \times \{0\}$ and
+  $(a, t) \mapsto f_t(a)$ on $A \times [0, 1]$.
+  This map $\widetilde{F}$ is continuous since the definitions of
+  $\widetilde{F}$ agree on the intersection and the
+  intersection is closed. Now define
+  \[F : X \times [0, 1] \to Y\]
+  by $F = \widetilde{F} \circ r$,
+  which is a homotopy of $F_0$ that extends $f_t$.
+
+  $(\Rightarrow)$ Let $Y = (X \times [0, 1]) \cup (A \times [0, 1])$. Let
+  \[F_0 : X \to (X \times \{0\}) \cup (A \times [0, 1])\]
+  be given by $x \mapsto (x, 0)$, and
+  \[
+    f_t : A \mapsto (X \times \{0\}) \cup (A \times [0, 1])
+  \]
+  be given by $a \mapsto (a, t)$. Then the homotopy
+  extension property yields an extension
+  \[F : X \times [0, 1] \to (X \times \{0\}) \cup (A \times [0, 1]),\]
+  which is a retraction, as desired.
+\end{proof}
+
+\begin{lemma}\label{lem:lemma-5}
+  If $(X, A)$ is a CW pair, then
+  $(X \times \{0\}) \cup (A \times [0, 1])$ is a
+  deformation retract of $X \times [0, 1])$.
+  In particular, $(X, A)$ satisfies the homotopy
+  extension property.
+\end{lemma}
+
+\begin{proof}
+  The main idea is that for any disk $D^n$, the space
+  $(D^n \times \{0\}) \cup (\partial D^n \times [0, 1])$
+  is a (deformation) retract of $D^n \times [0, 1]$.
+  To see this, let $D^n \subseteq \R^n$ be the unit
+  disk and $D^n \times [0, 1] \subseteq \R^{n + 1}$.
+  Let
+  \[
+    p = (0, \dots, 0, 2).
+  \]
+  For any $x \in D^n \times [0, 1]$, let
+  $\ell_x$ be the line through $p$ and $x$. Note that
+  \[
+    \ell_x \cap ((D^n \times [0, 1] \cup (\partial D^n \times [0, 1]))
+  \]
+  is a unique point. Define $\widetilde{r}(x)$ to be this point,
+  which yields a map
+  \[\widetilde{r} : D^n \times [0, 1] \to (D^n \times \{0\}) \cup (\partial D^n \times [0, 1])\]
+  Note that for $x \in (D^n \times \{0\}) \cup (\partial D^n \times [0, 1])$,
+  then $\widetilde{r}(x) = x$ since the point of intersection is
+  unique and $x$ is already in the intersection.
+  Show as an exercise that $\widetilde{r}$ is continuous.
+  Then setting
+  \[
+    \widetilde{r}_t = t \widetilde{r} + (1 - t) \id_{D^n \times [0, 1]}
+  \]
+  gives a deformation retraction
+  of $D^n \times [0, 1]$ onto
+  $(D^n \times \{0\}) \cup (\partial D^n \times [0, 1])$.
+
+  To show the general case that
+  $X \times [0, 1]$ retracts to
+  $(X \times \{0\}) \cup (A \times [0, 1])$, we induct
+  on the dimension of cells. Define
+  $r$ on $X^{(0)} \times [0, 1] \to (X \times \{0\}) \cup (A \times [0, 1])$
+  by the following:
+  \begin{itemize}
+    \item if a $0$-cell $D^0 \subseteq A$, then
+      let $r$ be the identity on $D^0 \times [0, 1]$;
+    \item if a $0$-cell $D^0$ is not in $A$, then
+      send $D^0 \times [0, 1]$ to
+      $D^0 \subseteq X \times \{0\}$.
+  \end{itemize}
+  Now inductively assume $r$ is defined on
+  $X^{(k - 1)} \times [0, 1] \to (X \times \{0\}) \cup (A \times [0, 1])$.
+  For each $k$-cell $D^k$,
+  \begin{itemize}
+    \item if $D^k \subseteq A$, then
+      let $r$ be the identity on $D^k \times [0, 1]$;
+    \item if $D^k$ is not in $A$, then note that
+      $\partial D^k \times [0, 1] \to X^{(k - 1)} \times [0, 1]$
+      is defined by induction, and
+      we have an ``inclusion'' (here
+      $a : \partial D^k \to X^{(k - 1)}$ is the attaching map for $D^k$)
+      \begin{center}
+        \begin{tikzcd}
+          {D^k} \arrow[r, "i"] \arrow[rr, bend right=10, swap, "j"] & {X^{(k - 1)} \cup D^k}
+          \arrow[r, "q"] & {(X^{(k - 1)} \cup D^k) / \{(x \in \partial D^k) \sim (a(x) \in X^{k - 1})\}}
+        \end{tikzcd}
+      \end{center}
+    So we let $D^k \times \{0\} \to (X \times \{0\}) \cup (A \times [0, 1])$
+    be the map $j$ into $X \times \{0\}$. This
+    defines $r$ on
+    \[
+      (D^k \times [0, 1]) \cup (\partial D^k \times [0, 1]),
+    \]
+    which extends to $D^k \times [0, 1]$ by composing
+    with the map $\widetilde{r}$ from above.
+  \end{itemize}
+  This inductively defines the retraction
+  $r$ on all of $X \times [0, 1]$.
+  The last claim follows by Lemma
+  \ref{lem:lemma-4}.
+\end{proof}
+
+\begin{remark}
+  Now we can prove the first two lemmas from the
+  beginning of the day.
+\end{remark}
+
+\begin{proof}[Proof of Lemma \ref{lem:lemma-2}]
+  We prove that the result holds for any $(X, A)$
+  which satisfies the homotopy exttension property.
+  We show that the quotient map $q : X \to X / A$
+  has a homotopy inverse. Since $A$ is contractible,
+  we know there exists a homotopy $f_t : A \to A \subseteq X$,
+  such that $f_0 = \id_A$ and $f_1$ is constant.
+  Let $F_0 : X \to X$ be the identity (note that
+  $F_0|_A = \id_A$), so that the homotopy extension
+  property gives a homotopy
+  $F_t : X \to X$ extending $f_t$.
+  Since $F_t(A) \subseteq A$ for every $t$, we get maps
+  \[
+    \widetilde{F}_t : X / A \to X / A,
+  \]
+  which is well defined since points in $A$ are mapped
+  to points in $A$. Furthermore, $F_1(A) = \{\text{pt}\}$,
+  so $F_1$ factors through $X / A$ to give a map
+  $h : X / A \to X$. This gives the diagram:
+  \begin{center}
+    \begin{tikzcd}
+      X \arrow[d, swap, "q"] \arrow[r, "F_1"] & X \arrow[d, "q"] \\
+      X / A \arrow [ru, "h"] \arrow[r, swap, "\overline{F}_1"] & X / A
+    \end{tikzcd}
+  \end{center}
+  It is easy to check that $h \circ q = F_1$ and
+  $q \circ h = \overline{F}_1$, so that the
+  diagram commutes. But then
+  \[
+    h \circ q = F_1 \sim F_0 = \id_X \quad \text{and} \quad
+    q \circ h = \overline{F}_1 \sim \overline{F}_0 = \id_{X / A},
+  \]
+  so $q$ is a homotopy equivalence.
+\end{proof}
+
+\begin{proof}[Proof of Lemma \ref{lem:lemma-3}]
+  Let $F : A \times [0, 1] \to Y$ be a homotopy,
+  which extends to $F : X \times [0, 1] \to Y$
+  by the homotopy extension property. Consider
+  the mapping cylinder
+  \[
+    M_F = (X \times [0, 1]) \cup_F Y,
+  \]
+  and one can show that
+  $M_F \simeq X \cup_g Y \simeq X \cup_f Y$.
+\end{proof}
