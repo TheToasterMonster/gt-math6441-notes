@@ -1,0 +1,323 @@
+\chapter{Jan.~22 --- Simple Computations}
+
+\section{Fundamental Groups and Homotopy Equivalence}
+\begin{lemma}
+  Suppose $f_0, f_1 : X \to Y$ are homotopic by
+  the homotopy $H : X \times [0, 1] \to Y$. Let
+  $x_0 \in X$ be a basepoint and define
+  $h : [0, 1] \to Y$ by $t \mapsto H(x_0, t)$. Then
+  the following diagram commutes:
+  \begin{center}
+    \begin{tikzcd}
+      \pi_1(X, x_0) \ar[r, "(f_0)_*"] \ar[dr, swap, "(f_1)_*"] & \pi_1(Y, f_0(x_0)) \\
+      & \pi_1(Y, f_1(x_0)) \ar[u, swap, "\phi_h"]
+    \end{tikzcd}
+  \end{center}
+\end{lemma}
+
+\begin{proof}
+  Fix an arbitrary $[\gamma] \in \pi_1(X, x_0)$, and we construct a
+  homotopy from $h * (f_1 \circ \gamma) * \overline{h}$
+  to $f_0 \circ \gamma$. The picture is the following:
+  we have $h * (f_1 \circ \gamma) * \overline{h}$
+  at the top and $f_0 \circ \gamma$ at the bottom,
+  where $t$ parametrizes the horizontal direction and
+  $s$ parametrizes the vertical direction.
+  Draw a trapezoidal shape by connecting the
+  middle two points on the top edge to the two bottom
+  corners.
+
+  Define the homotopy
+  as follows: For a fixed $s$, define
+  $H'(t, s)$ first by $h_s(t)$ in the first third, $H(\gamma(t), s)$ in the second third,
+  and then $\overline{h}_s(t)$ in the last third.
+  Construct the explicit homotopy as an exercise.
+\end{proof}
+
+\begin{theorem}
+  If $f : X \to Y$ is a homotopy equivalence, then
+  the induced map
+  \[f_* : \pi_1(X, x_0) \to \pi_1(Y, f(x_0))\]
+  on fundamental groups is an isomorphism.
+\end{theorem}
+
+\begin{proof}
+  Let $g$ be a homotopy inverse to $f$, so we
+  have the composition:
+  \begin{center}
+    \begin{tikzcd}
+      \pi_1(X, x_0) \ar[r, "f_*"] & \pi_1(Y, f(x_0)) \ar[r, "g_*"] & \pi_1(X, g(f(x_0)))
+    \end{tikzcd}
+  \end{center}
+  But we know $g \circ f = \id_X$, so by the lemma
+  there exists a path $h : X \to X$ from $x_0$
+  to $g(f(x_0))$ such that $g_* \circ f_* = \phi_h$
+  is an isomorphism. So $f_*$ is injective.
+  Similarly, $f_* \circ g_*$ is an isomorphism,
+  and therefore $f_*$ is surjective. Since
+  we already know $f_*$ is a homomorphism, this
+  shows that $f_*$ is an isomorphism.
+\end{proof}
+
+\begin{remark}
+  Recall that we have defined a ``functor''
+  \[
+    \{\text{pointed topological spaces, pointed maps}\}
+    \to \{\text{groups, homomorphisms}\},
+  \]
+  where homotopy equivalent spaces are mapped to
+  isomorphic
+  groups and homotopic maps give rise to the ``same''
+  homomorphism. We will finally make some
+  computations of fundamental groups next.
+\end{remark}
+
+\section{Simple Computations of Fundamental Groups}
+
+\begin{lemma}
+  If $X$ is contractible, then
+  $\pi_1(X, x_0) = \{1\}$ for all $x_0 \in X$, where
+  $\{1\}$ is the trivial group.
+\end{lemma}
+
+\begin{proof}
+  If $Y = \{y_0\}$ is a one-point space, then there
+  exists a unique loop $\gamma : [0, 1] \to X$
+  given by $t \mapsto y_0$. So $\pi_1(Y, y_0) = \{1\}$.
+  Since $X$ is contractible, it is homotopy
+  equivalent to $Y$ and so $\pi_1(X, x_0) = \{1\}$.
+\end{proof}
+
+\begin{definition}
+  We say that a space $X$ is \emph{simply connected} if
+  \begin{enumerate}
+    \item $X$ is path-connected, and
+    \item $\pi_1(X, x_0) = \{1\}$
+      for some $x_0 \in X$.
+  \end{enumerate}
+\end{definition}
+
+\begin{remark}
+  Simply connected means that ``points in $X$ are
+  connected in a very simple way.''
+\end{remark}
+
+\begin{lemma}
+  A space $X$ is simply connected if and only if
+  every two points in $X$ are connected by a unique
+  homotopy class of paths in $X$.
+\end{lemma}
+
+\begin{proof}
+  $(\Leftarrow)$ Clearly $X$ is path-connected.
+  Furthermore, any loop based at $x_0$ is a path
+  from $x_0$ to itself, and the constant is as well.
+  Thus any loop is homotopic to the constant loop,
+  i.e. $\pi_1(X, x_0) = \{1\}$.
+
+  $(\Rightarrow)$ For any $a, b \in X$, there exists a
+  path from $a$ to $b$ (since $X$ is path-connected).
+  Now suppose $\gamma, \delta : [0, 1] \to X$
+  are paths from $a$ to $b$. By
+  $\pi_1(X, a) = \{1\}$ we know that
+  $\gamma * \overline{\delta} \sim e_a$, so
+  \[
+    \gamma \sim \gamma * (\overline{\delta} * \delta)
+    \sim (\gamma * \overline{\delta}) * \delta
+    \sim e_a * \delta
+    \sim \delta,
+  \]
+  i.e. $\gamma$ and $\delta$ are in the same
+  homotopy class.
+\end{proof}
+
+\begin{lemma}
+  Let $X = A \cup B$, where $A, B, A \cap B$
+  are open and path-connected. Let $x_0 \in A \cap B$.
+  Then any loop $\gamma : [0, 1] \to X$ based at
+  $x_0$ can be written as
+  \[
+    \gamma \sim \gamma_1 * \gamma_2 * \dots * \gamma_n,
+  \]
+  where each $\gamma_i$ is a loop in $A$ or $B$
+  based at $x_0$.
+\end{lemma}
+
+\begin{proof}
+  We first claim that there exist
+  $0 = t_0 < t_1 < \dots < t_n = 1$ such that
+  $\im \gamma|_{[t_{i - 1}, t_i]} \subseteq A$
+  or $B$, and $\gamma(t_i) \in A \cap B$ for every $i$.
+  The proof of this will use the following
+  topology fact:
+  \begin{quote}
+    \textbf{Lemma} (Lebesgue number lemma)\textbf{.}
+    Let $X$ be a compact
+    metric space and $\{U_\alpha\}_{\alpha \in A}$ be
+    an open cover. Then there exists a \emph{Lebesgue number}
+    $\delta > 0$ such that for all sets $S$ with
+    $\diam(S) = \sup_{x, y \in S} d(x, y) < \delta$,
+    there exists $\alpha \in A$ such that $S \subseteq U_\alpha$.
+  \end{quote}
+  To prove the claim, let $U_1 = \gamma^{-1}(A)$
+  and $U_2 = \gamma^{-1}(B)$, which is an open
+  cover of $[0, 1]$. So there exists $\delta > 0$
+  such that if $|b - a| < \delta$, then
+  $[a, b] \subseteq U_i$ for $i = 1$ or $2$. Thus
+  $\gamma([a, b]) \subseteq A$ or $B$. Now let
+  $n$ be a positive integer such that $1 / n < \delta$,
+  so that for each $i$ we have
+  \[\im \gamma|_{[i / n, (i + 1) / n]} \subseteq A \text{ or } B.\]
+  So we start with $t_i = 1 / n$ for $i = 0, \dots, n$.
+  Now if $\gamma|_{[t_{i - 1}, t_i]}$ and
+  $\gamma|_{[t_i, t_{i + 1}]}$ both have image in
+  $A$ (or both in $B$), then throw out $t_i$. Then
+  $\gamma|_{[t_{i - 1}, t_{i}]}$ will have image in
+  $A$ or $B$ and $\gamma(t_{i}) \in A \cap B$,
+  as desired.
+
+  Now given the claim, let
+  $\delta_i : [0, 1] \to A \cap B$ connect
+  $x_0$ to $\gamma(t_1)$, and set
+  $\gamma_i = \gamma|_{[t_{i - 1}, t_i]}$. Then
+  \[
+    \gamma \sim \gamma_1 * \gamma_2 * \dots * \gamma_n
+    \sim (\gamma_1 * \overline{\delta}_1)
+    * (\delta_1 * \gamma_2 * \overline{\delta}_2)
+    * \dots
+    * \delta_{n - 1} * \gamma_n),
+  \]
+  where each of the above loops is either in
+  $A$ or $B$.
+\end{proof}
+
+\begin{theorem}
+  We have $\pi_1(S^n, x_0) = \{1\}$ for all $n \ge 2$.
+\end{theorem}
+
+\begin{proof}
+  We have $\pi_1(S^n, x_0) = \{1\}$ for all $n \ge 2$.
+  Let $A = S^n \setminus \{(0, \dots, 0, 1)\}$ and
+  $B = S^n \setminus \{(0, \dots, 0, -1)\}$.
+  Note that $A \cong B \cong \R^n$, so they are path-connected.
+  Furthermore, $A \cap B = S^{n - 1} \times \R$,
+  which is also path-connected if $n \ge 2$.\footnote{Note that this does not work for $n = 1$: the intersection $S^0 \times \R = \{\pm 1\} \times \R$ is not
+  path-connected.}
+  Now take any $x_0 \in A \cap B$. Then any
+  $[\gamma] \in \pi_1(S^n, x_0)$ can be written as
+  \[
+    [\gamma] = [\gamma_1] * [\gamma_2] * \dots * [\gamma_n],
+  \]
+  where $[\gamma_i] \in \pi_1(A, x_0)$ or
+  $\pi_1(B, x_0)$ by the lemma. But we have
+  \[
+    \pi_1(A, x_0) = \pi_1(B, x_0) = \{1\},
+  \]
+  so $[\gamma] = [e_{x_0}]$ and hence
+  $\pi_1(S^n, x_0) = \{1\}$.
+\end{proof}
+
+\begin{theorem}
+  Given two spaces $X$ and $Y$, we have
+  $\pi_1(X \times Y, (x_0, y_0)) \cong \pi_1(X, x_0) \times \pi_1(Y, y_0)$.
+\end{theorem}
+
+\begin{proof}
+  The map $\Phi : \pi_1(X, x_0) \times \pi_1(Y, y_0) \to \pi_1(X \times Y, (x_0, y_0))$
+  given by
+  \[
+    ([\gamma], [\delta]) \mapsto [\gamma \times \delta],
+  \]
+  where $(\gamma \times \delta)(t) = (\gamma(t), \delta(t))$,
+  is an isomorphism. Check as an exercise that
+  $\Phi$ is well-defined and a bijection (for the
+  second part, consider the projections $p_X : X \times Y \to X$
+  and $p_Y : X \times Y \to Y$).
+\end{proof}
+
+\section{Fundamental Group of the Circle}
+
+Our next objective is the following computation:
+\begin{theorem}\label{thm:fund-group-circle}
+  We have $\pi_1(S^1, (1, 0)) \cong \Z$. In particular,
+  the map sending $n \in \Z$ to
+  \[
+    \gamma_n : [0, 1] \to S^1 : t \mapsto (\cos 2\pi nt, \sin 2\pi nt)
+  \]
+  is an isomorphism $\Z \to \pi_1(S^1, (1, 0))$.
+\end{theorem}
+
+\begin{remark}
+  The proof is an example of a very important
+  technique that we will see again soon. The proof
+  involves studying the map
+  \[
+    p : \R \to S^1 : t \mapsto (\cos 2\pi t, \sin 2\pi t).
+  \]
+  Note that $p^{-1}((1, 0)) = \Z$. This is a
+  particular example of a \emph{covering map}, which we
+  will study later.
+\end{remark}
+
+\begin{definition}
+  If $\gamma : [0, 1] \to S^1$ is a path based at
+  the point $(1, 0)$, then a
+  \emph{lift of $\gamma$ based at}
+  $n \in \Z$ is a map $\widetilde{\gamma}_n : [0, 1] \to \R$
+  such that $\widetilde{\gamma}_n(0) = n$ and
+  $p \circ \widetilde{\gamma}_n = \gamma$.
+\end{definition}
+
+\begin{lemma}\label{lem:lifting}
+  We have the following:
+  \begin{enumerate}
+    \item For each $n \in \Z$, each loop
+      $\gamma : [0, 1] \to S^1$ based at $(0, 1)$
+      lifts to a unique path $\widetilde{\gamma}_n$
+      based at $n$.
+    \item If $\gamma \sim \gamma'$ are loops in
+      $S^1$ based at $(0, 1)$ and
+      $\widetilde{\gamma}_n, \widetilde{\gamma}'_n$
+      are their lifts based at $n$, then
+      $\widetilde{\gamma}_n \sim \widetilde{\gamma}'_n$
+      rel $\{0, 1\}$.
+  \end{enumerate}
+  The above properties are called \emph{path lifting}
+  and \emph{homotopy lifting}.
+\end{lemma}
+
+\begin{proof}
+  We will prove this next class.
+\end{proof}
+
+\begin{proof}[Proof of Theorem \ref{thm:fund-group-circle}]
+  Given $[\gamma] \in \pi_1(S^1, (1, 0))$, part (a) of Lemma \ref{lem:lifting} says that there is a unique lift $\widetilde{\gamma}_0 : [0, 1] \to \R$.
+  Since $\widetilde{\gamma}_0(1) \in p^{-1}((1, 0)) = \Z$,
+  we can define $\Phi : \pi_1(S^1, (1, 0)) \to \Z$ by
+  $[\gamma] \mapsto \widetilde{\gamma}_0(1)$.
+  Part (b) of Lemma \ref{lem:lifting} says that $\Phi$ is
+  well-defined. We need to show the following:
+  \begin{enumerate}
+    \item $\Phi$ is surjective:
+      
+      Let $\widetilde{\delta}^n(t) = nt$ for
+      $t \in [0, 1]$ and $\delta^n = p \circ \widetilde{\delta}$.
+      Then $\widetilde{\delta}^n$ is the lift of $\delta^n$ based at $0$, and
+      $\Phi([\delta^n]) = n$.
+    \item $\Phi$ is injective:
+
+      Suppose $\gamma, \gamma'$ are loops in $S^1$
+      such that
+      \[
+        \Phi([\gamma]) = \widetilde{\gamma}_0(1) = \widetilde{\gamma}'_0(1) = \Phi([\gamma']).
+      \]
+      Set $\widetilde{H}(s, t) = (1 - t) \widetilde{\gamma}_0(s) + t \widetilde{\gamma}'_0(s)$
+      and $H = p \circ \widetilde{H}$. Then $H$ is a
+      homotopy from $\gamma$ to $\gamma'$ (exercise).
+    \item $\Phi$ is a homomorphism:
+
+      We will prove this next class.
+  \end{enumerate}
+  Thus $\Phi$ is an isomorphism, and we have
+  $\pi_1(S^1, (1, 0)) \cong \Z$.
+\end{proof}
