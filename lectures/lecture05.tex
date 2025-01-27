@@ -262,7 +262,7 @@ Our next objective is the following computation:
 \begin{definition}
   If $\gamma : [0, 1] \to S^1$ is a path based at
   the point $(1, 0)$, then a
-  \emph{lift of $\gamma$ based at}
+  \emph{lift} of $\gamma$ based at
   $n \in \Z$ is a map $\widetilde{\gamma}_n : [0, 1] \to \R$
   such that $\widetilde{\gamma}_n(0) = n$ and
   $p \circ \widetilde{\gamma}_n = \gamma$.
@@ -316,7 +316,23 @@ Our next objective is the following computation:
       homotopy from $\gamma$ to $\gamma'$ (exercise).
     \item $\Phi$ is a homomorphism:
 
-      We will prove this next class.
+      Let $[\gamma], [\gamma'] \in \pi_1(S^1, (1, 0))$
+      and let $\widetilde{\gamma}_0, \widetilde{\gamma}'_0$
+      be their lifts based at $0$. Then
+      \[
+        \Phi([\gamma]) = \widetilde{\gamma}_0(1) = n \in \Z \quad \text{and} \quad
+        \Phi([\gamma']) = \widetilde{\gamma}'_0(1) = m \in \Z.
+      \]
+      Then note the following:
+      \begin{enumerate}
+        \item $t \mapsto n + \widetilde{\gamma}'_0(t)$
+          is a lift of $\gamma'$ and starts at $n$,
+          so by uniqueness it is $\widetilde{\gamma}_n'$,
+          and
+        \item $\widetilde{\gamma}_0 * \widetilde{\gamma}_n'$ is a lift of $\gamma * \gamma'$.
+      \end{enumerate}
+      So $\Phi([\gamma] * [\gamma']) = \widetilde{\gamma} * \widetilde{\gamma}'_0(1) = n + m = \Phi([\gamma]) + \Phi([\gamma'])$,
+      i.e. $\Phi$ is a homomorphism.
   \end{enumerate}
   Thus $\Phi$ is an isomorphism, and we have
   $\pi_1(S^1, (1, 0)) \cong \Z$.
