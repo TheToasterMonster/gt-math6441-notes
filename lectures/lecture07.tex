@@ -1,0 +1,282 @@
+\chapter{Jan.~29 --- Some Group Theory}
+
+\section{Group Presentations}
+
+\begin{definition}
+  The \emph{free group} on $n$ generators, denoted
+  $F_n$, is defined inductively via
+  \[
+    F_n = F_{n - 1} * \Z,
+  \]
+  where $F_1 = \Z$. (One can also consider
+  $F_\infty$.)
+\end{definition}
+
+\begin{remark}
+  Note that any homomorphism $\phi : \Z \to G$
+  (for any group $G$) is determined by $\phi(1)$.
+  Moreover, given any $g \in G$, there is a unique
+  homomorphism which maps $1 \mapsto g$. Thus
+  by the universal property of the free product,
+  a homomorphism $F_n \to G$ is determined
+  uniquely by a choice of
+  $g_1, \dots, g_n \in G$.
+\end{remark}
+
+\begin{definition}
+  A \emph{group presentation} is a group
+  $\langle X | R \rangle$ defined as follows:
+  \begin{itemize}
+    \item $X$ is some set (of generators);
+    \item $R$ is a set of
+      words (relations) in $X \cup X^{-1}$ (formally
+      denote $x \in X$ as $x^{-1} \in X^{-1}$);
+    \item let $n = |X|$ and $F_n$ be the free group
+      on $n$ generators, so that we can think of
+      $R \subseteq F_n$;
+    \item let $\langle R \rangle$ be the smallest
+      normal subgroup of $F_n$ containing $R$;
+    \item define the group
+      $\langle X | R \rangle = F_n / \langle R \rangle$.
+  \end{itemize}
+  We say that $\langle X | R \rangle$ is a \emph{presentation} of
+  a group $G$ if $G \cong \langle X | R \rangle$.
+\end{definition}
+
+\begin{example}
+  The group $\langle g | g^n \rangle$ is all the words
+  in $g, g^{-1}$:
+  \[
+    \dots, g^{-2}, g^{-1}, e, g, g^2, g^3, \dots,
+  \]
+  but $g^n = e$, so $g^{n + 1} = g^n g = eg = g$
+  and thus we have $g^{-1} = eg^{-1} = g^n g^{-1} = g^{n - 1} g g^{-1} = g^{n - 1}$.
+  So there is a one-to-one correspondence between
+  elements of $\langle g | g^n \rangle$ and
+  $g^k$ for $k = 0, \dots, n - 1$.
+\end{example}
+
+\begin{exercise}
+  Show that $\langle g | g^n \rangle \cong \Z / n$, so that $\langle g | g^n \rangle$ is a
+  presentation of $\Z / n$.
+\end{exercise}
+
+\begin{lemma}
+  Every group has a presentation.
+\end{lemma}
+
+\begin{proof}
+  Let $G$ be a group. Let $X \subseteq G$ be a
+  collection of elements of $G$ that generate $G$
+  (e.g. take $X = G$ itself). Let $n = |X|$, so
+  there exists a unique $\phi : F_n \to G$
+  sending the generators of $F_n$ to the $g_i \in X$.
+  Let $N = \ker \varphi$, so the first isomorphism
+  theorem says that $G \cong F_n / N$ (note that
+  $\phi$ is clearly surjective). Let
+  $R$ be a subset of $N$ that generates $N$
+  (e.g. take $R = N$). Then
+  $G \cong \langle X | R \rangle$.
+\end{proof}
+
+\begin{definition}
+  We say that $G$ is \emph{finitely generated}
+  if $G \cong \langle X | R \rangle$ such that
+  $|X| < \infty$. We say that $G$ is
+  \emph{finitely presented} if both
+  $|X|, |R| < \infty$.
+\end{definition}
+
+\begin{exercise}
+   Show the following:
+   \begin{enumerate}
+     \item If $G = \langle g_1, \dots, g_n | r_1, \dots, r_m \rangle$, then for any group $H$ and
+       any map $h : \{g_1, \dots, g_n\} \to H$
+       satisfying $h(r_i) = e_H$ (the notation
+       $h(r_i)$ means to replace
+       any letters $g_j$ in $r_i$ by $h(g_j)$),
+       there exists a unique homomorphism
+       $\phi_h : G \to H$ such that
+       $\phi_h(g_i) = h(g_i)$.
+     \item If $G_1 = \langle g_1, \dots, g_n | r_1, \dots, r_m \rangle$ and
+       $G_2 = \langle h_1, \dots, h_k | s_1, \dots, s_\ell \rangle$, then
+       \[
+         G_1 * G_2 = \langle g_1, \dots, g_n, h_1, \dots, h_k | r_1, \dots, r_m, s_1, \dots, s_\ell \rangle.
+       \]
+   \end{enumerate}
+\end{exercise}
+
+\begin{definition}
+  Given groups $G_1, G_2$ and $K$, and homomorphisms
+  $\psi_i : K \to G_i$, the \emph{free product with amalgamation}
+  is
+  \[
+  G_1 *_K G_2 = \frac{G_1 * G_2}{\langle \{\psi_1(k) \psi_2(k)^{-1}\}_{k \in K} \rangle},
+  \]
+  where $\langle \{\psi_1(k) \psi_2(k)^{-1}\}_{k \in K} \rangle$ is the
+  smallest normal subgroup of $G_1 * G_2$ containing
+  $\{\psi_1(k) \psi_2(k)^{-1}\}_{k \in K}$.
+\end{definition}
+
+\begin{remark}
+  The idea is that $G_1 *_K G_2$ is the set of all
+  words in $G_1 \cup G_2$ but if we see
+  $\psi_1(k)$ in a word, we can replace it
+  by $\psi_2(k)$ and vice versa. In terms of
+  group presentations, if
+  \begin{align*}
+    G_1 &= \langle g_1, \dots, g_n | r_1, \dots, r_m \rangle, \\
+    G_2 &= \langle g_1', \dots, g_{n'}' | r_{1}', \dots, r_{m'}' \rangle, \\
+    K &= \langle h_1, \dots, h_k | s_1, \dots, s_\ell \rangle,
+  \end{align*}
+  then we can write
+  \[
+    G_1 *_K G_2 = \langle g_1, \dots, g_n, g_1', \dots, g_{n'}' | r_1, \dots, r_m, r_{1}', \dots, r_{m'}', \psi_1(h_1) (\psi_2(h_1))^{-1}, \dots, \psi_1(h_k)(\psi_2(h_k))^{-1} \rangle.
+  \]
+  Note that the $s_i$ show up in the above since
+  $\psi_1, \psi_2$ are homomorphisms.
+\end{remark}
+
+\begin{exercise}
+  Show the following:
+  \begin{enumerate}
+    \item Check that the above presentation for
+      $G_1 *_K G_2$ is correct.
+    \item Let $\iota_i : G_i \to G_1 * G_2$ be the inclusions
+      and $j_i : G_i \to G_1 *_K G_2$
+      be the induced maps. Then given any homomorphisms
+      $\phi_i : G_i \to H$ (where $H$ is any group)
+      such that
+      \[
+        \phi_1 \circ \psi_1(k) = \phi_2 \circ \psi_2(k)
+        \quad \text{ for all } k \in K,
+      \]
+      then there exists a unique homomorphism
+      $\Phi : G_1 *_K G_2 \to H$ such that
+      $\Phi \circ j_i = \phi_i$, i.e.
+      \begin{center}
+        \begin{tikzcd}
+          & G_1 \ar[dr, "j_1"] \ar[drr, "\phi_1", bend left=30] \\
+          K \ar[ur, "\psi_1"], \ar[dr, "\psi_2", swap] & & G_1 *_K G_2 \ar[r, "\Phi", dashed] & H \\
+                                                 & G_2 \ar[ur, "j_2", swap] \ar[urr, "\phi_2", bend right=30]
+        \end{tikzcd}
+      \end{center}
+      Show that this
+      is the \emph{universal property} for the
+      free product with amalgamation.
+  \end{enumerate}
+\end{exercise}
+
+\section{Seifert-van Kampen Theorem}
+\begin{theorem}[Seifert-van Kampen]
+  Let $X$ be a topological space with base point $x_0$.
+  Let $A, B \subseteq X$ be open sets with
+  $X = A \cup B$ such that $A, B, A \cap B$ are
+  path-connected and $x_0 \in A \cap B$. Let
+  \[
+    \psi_A : \pi_1(A, x_0) \to \pi_1(X, x_0)
+    \quad \text{ and } \quad
+    \psi_B : \pi_1(B, x_0) \to \pi_1(X, x_0)
+  \]
+  be the homomorphisms induced from the inclusions
+  $A \cap B \to A$ and $A \cap B \to B$. Then
+  \[
+    \pi_1(X, x_0) \cong \pi_1(A, x_0) *_{\pi_1(A \cap B, x_0)} \pi_1(B, x_0).
+  \]
+\end{theorem}
+
+\begin{remark}
+  There is a more general version where
+  $X = \bigcup_{\alpha \in A} U_\alpha$. See Hatcher
+  for more details.
+\end{remark}
+
+\begin{example}
+  Consider $W_2 = S^1 \lor S^1$, a wedge of two circles.
+  Let $x_0$ be the point of intersection of the circles.
+  Let $A$ be an open neighborhood of the left circle
+  and $B$ be an open neighborhood of the right circle.
+  Note that $A \simeq B \simeq S^1$ and
+  $A \cap B \simeq \{\text{pt}\}$. So we see that
+  \[
+    \pi_1(A, x_0) \cong \Z \cong
+    \langle g_1 |\ \rangle, \quad
+    \pi_1(B, x_0) \cong \Z \cong \langle g_2 |\ \rangle, \quad
+    \pi_1(A \cap B, x_0) = \{e\},
+  \]
+  and so
+  $\psi_A : \pi_1(A \cap B, x_0) \to \pi_1(A, x_0)$ and
+  $\psi_B : \pi_1(A \cap B, x_0) \to \pi_1(B, x_0)$
+  must both map $e \mapsto e$. Thus
+  \[
+    \pi_1(W_2, x_0) \cong \pi_1(A, x_0) *_{\pi_1(A \cap B, x_0)} \pi_1(B, x_0)
+    \cong \langle g_1, g_2 | \psi_A(e)(\psi_B(e))^{-1} \rangle
+    \cong \langle g_1, g_2 | \ \rangle
+    \cong F_2,
+  \]
+  by the Seifert-van Kampen theorem.
+\end{example}
+
+\begin{exercise}
+  Show the following:
+  \begin{enumerate}
+    \item If $W_n$ is a wedge of $n$ circles,
+      then $\pi_1(W_n, x_0) \cong F_n$.
+    \item We have
+      $\pi_1(\text{any connected graph}) = F_n$
+      for some $n$.
+  \end{enumerate}
+\end{exercise}
+
+\begin{example}
+  Consider the torus $T^2 = S^1 \times S^1$. Recall
+  that for a product, we know
+  \[
+    \pi_1(T^2) \cong \pi_1(S^1) \times \pi_1(S^1) \cong \Z \times \Z.
+  \]
+  We can also use van Kampen's theorem to see this.
+  Think of $T^2$ as a square with opposite sides
+  identified. Let $A$ be the square with a circle
+  missing in the circle, which deformation retracts
+  to the boundary of the square. Let $B$ be a big disk
+  in the middle, so that $A \cap B$ deformation
+  retracts to a circle. So
+  \[
+    A \simeq W_2, \quad B \simeq \{\text{pt}\}, \quad
+    A \cap B \simeq S^1.
+  \]
+  Thus by our previous computations, we have
+  \[
+    \pi_1(A, x_0) \cong \langle g_1, g_2 | \ \rangle, \quad
+    \pi_1(B, x_0) \cong \{e\}, \quad
+    \pi_1(A \cap B, x_0) \cong \langle h | \ \rangle.
+  \]
+  The inclusion $\psi_B : \pi_1(A \cap B, x_0) \to \pi_1(B, x_0)$
+  sends $h \to e$, and $\psi_A : \pi_1(A \cap B, x_0) \to \pi_1(A, x_0)$
+  sends $h \mapsto g_1 g_2 g_1^{-1} g_2^{-1}$. To see the
+  last claim, push a loop in $A \cap B$ to the boundary
+  of the square (note that under the homotopy equivalence
+  of $A$ and $W_2$, we can assume $x_0$ maps to a corner
+  point), where it follows the four edges of the
+  square. These are the loops
+  $g_1, g_2, g_1^{-1}, g_2^{-1}$, where the last two
+  loops are oriented in the opposite direction of
+  the first two. Thus by van Kampen's theorem,
+  \[
+    \pi_1(T^2, x_0) \cong \pi_1(A, x_0) *_{\pi_1(A \cap B, x_0)} \pi_1(B, x_0)
+    \cong \langle g_1, g_2 | \psi_A(h)(\psi_B(h))^{-1} \rangle
+    = \langle g_1, g_2 | g_1 g_2 g_1^{-1} g_2^{-1} \rangle.
+  \]
+\end{example}
+
+\begin{exercise}
+  Check the following:
+  \begin{enumerate}
+    \item Show that $\Z \times \Z \cong \langle g_1, g_2 | g_1 g_2 g_1^{-1} g_2^{-1} \rangle$, so that
+      $\pi_1(T^2) \cong \Z \times \Z$ again.
+    \item Compute $\pi_1(\Sigma_g, x_0)$, where
+      $\Sigma_g$ is the surface of genus $g$.
+      Show that
+      $\pi_1(\Sigma_g)$ is not abelian if $g > 1$.
+  \end{enumerate}
+\end{exercise}
