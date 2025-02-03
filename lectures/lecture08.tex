@@ -1,0 +1,242 @@
+\chapter{Feb.~3 --- Seifert-van Kampen Theorem}
+
+\section{Applications of the Seifert-van Kampen Theorem}
+\begin{theorem}
+  Let $X$ be a path-connected space
+  $f : \partial D^n \to X$ be continuous with
+  $x_0 \in \partial D^n$. Set
+  \[
+    Y = X \cup_f D^n = X \sqcup D^n / \{(x \in D^n) \sim (f(x) \in X)\}.
+  \]
+  Then (for $n = 1$, we need $X$ to have a
+  base point $f(x_0)$ with an open neighborhood
+  $U \simeq \{f(x_0)\}$)
+  \[
+    \pi_1(Y, y_0) =
+    \begin{cases}
+      \pi_1(X, f(x_0)) * \Z & \text{if $n = 1$}, \\
+      \pi_1(X, f(x_0)) / \langle r \rangle & \text{if $n = 2$}, \\
+      \pi_1(X, f(x_0)) & \text{if $n \geq 3$},
+    \end{cases}
+  \]
+  where $r = f_*(g)$ where $g$ generates
+  $\pi_1(\partial D^2, x_0) \cong \Z$.
+\end{theorem}
+
+\begin{proof}
+  We proof this in the case $n = 2$. Let
+  \[
+    A = X \cup_f (D^2 \setminus \{0\})
+    = X \cup_f (S^1 \times (0, 1]) \simeq X
+  \]
+  and $B$ be the interior of $D^2$ (so
+  $B \simeq \{\text{pt}\}$. Then we can see that
+  \[
+    A \cap B = (\intt D^2) \setminus \{0\}
+    = S^1 \times (0, 1) \simeq S^1.
+  \]
+  Note that we can choose $y_0$ to be $f(x_0) \in X$
+  because the that is where it is sent under the
+  deformation retraction from $A$ to $X$. Now
+  $\psi_A : \pi_1(A \cap B, y_0) \to \pi_1(A, y_0)$
+  \[\pi_1(A \cap B, y_0) \cong \langle g | \ \rangle
+  \quad \text{and} \quad \pi_1(A, y_0) \cong \pi_1(X, f(x_0))\]
+  is given by $g \mapsto f_*(g)$, and $\psi_B(g) = e$.
+  Thus the Seifert-van Kampen theorem implies
+  \[
+    \pi_1(Y, y_0) \cong \pi_1(A, y_0) *_{\pi_1(A \cap B, y_0)} \pi_1(B, y_0) \\
+    \cong \frac{\pi_1(A, y_0) * \{e\}}{\langle \psi_A(g) (\psi_B(g))^{-1} \rangle}
+    \cong \frac{\pi_1(A, y_0)}{\langle r \rangle}
+    \cong \frac{\pi_1(X, f(x_0))}{\langle r \rangle},
+  \]
+  which is the desired result for $n = 2$. The
+  $n \ge 3$ case is similar (except the intersection
+  is now contractible in this case). Check the $n = 1$
+  case as an exercise.
+\end{proof}
+
+\begin{remark}
+  This allows us to compute the fundamental group
+  of any CW complex (hence any manifold).
+\end{remark}
+
+\begin{corollary}
+  Let $G$ be a finitely presented group. Then there
+  exists a topological space $X$ (in fact, a compact
+  CW complex) such that $\pi_1(X, x_0) \cong G$.
+\end{corollary}
+
+\begin{proof}
+  Let $G = \langle g_1, \dots, g_n | r_1, \dots, r_m$
+  and $W_n$ be the wedge of $n$ circles, so that
+  \[
+    \pi_1(W_n, x_0) \cong F_n \cong \langle g_1, \dots, g_n | \ \rangle.
+  \]
+  Now for each $r_i$ let $f_i : S^1 \to W_n$ be a
+  map such that $(f_i)_*(g) = r_i$ (show as an exercise
+  that such $f_i$ exists; essentially for each word,
+  take the loops corresponding to each letter in order).
+  Let
+  \[
+    X = W_n \cup_{f_i} \left(\bigsqcup_{i = 1}^m D^2\right),
+  \]
+  and the previous theorem tells us that
+  $\pi_1(X, x_0) \cong \langle g_1, \dots, g_n | r_1, \dots, r_m \rangle \cong G$.
+\end{proof}
+
+\begin{remark}
+  The topological space realizing $G$ as its
+  fundamental group is not unique. For instance,
+  we can take the above construction and add
+  a $5$-cell, which does not change the fundamental
+  group.
+\end{remark}
+
+\section{Proof of the Seifert-van Kampen Theorem}
+
+\begin{proof}[Proof of Theorem \ref{thm:van-kampen}]
+  We have the inclusions $A \subseteq X$ and
+  $B \subseteq X$, which induce maps
+  \[
+    \phi_A : \pi_1(A, x_0) \to \pi_1(X, x_0)
+    \quad \text{and} \quad
+    \phi_B : \pi_1(B, x_0) \to \pi_1(X, x_0).
+  \]
+  By the universal property of free products, we
+  get a map $\Phi : \pi_1(A, x_0) * \pi_1(B, x_0) \to \pi_1(X, x_0)$ by
+  \[
+    ([\gamma_1], [\delta_1], [\gamma_2], \dots)
+    \mapsto \phi_A([\gamma_1]) \phi_B([\delta_1]) \phi_A([\gamma_2]) \dots.
+  \]
+  Note that if $[\gamma] \in \pi_1(A \cap B, x_0)$, then
+  $\psi_A([\gamma]) = [\gamma] = \psi_B([\gamma])$, so
+  \[
+    \phi_A \circ \psi_A([\gamma]) =
+    [\gamma] = \phi_B \circ \psi_B([\gamma]).
+  \]
+  This tells us that $\Phi(\psi_A ([\gamma]) (\psi_B ([\gamma]))^{-1}) = e$,
+  so we see that
+  \[
+    K = \langle \psi_A([\gamma]) (\psi_B([\gamma]))^{-1}\rangle_{[\gamma] \in \pi_1(A \cap B, x_0)}
+  \]
+  lies in the kernel of $\Phi$. This gives us an induced
+  map (still called it $\Phi$)
+  \[
+    \Phi : \pi_1(A, x_0) *_{\pi_1(A \cap B, x_0)} \pi_1(B, x_0) \to \pi_1(X, x_0).
+  \]
+  Lemma \ref{lem:break-paths} says that $\Phi$ is
+  surjective, so it suffices to check injectivity.
+  To do this, let
+  $[\gamma_i] \in \pi_1(A, x_0)$ and $[\eta_i] \in \pi_1(B, x_0)$
+  with
+  \[
+    \Phi([\gamma_1] [\eta_1] \dots, [\gamma_n], [\eta_n])
+    = [\gamma_1 * \eta_1 * \dots * \gamma_n * \eta_n] = e. \tag{$*$}
+  \]
+  We need to see that we can get from the word
+  $[\gamma_1] [\eta_1] \dots [\gamma_n] [\eta_n]$ to the
+  empty word by a sequence of:
+  \begin{enumerate}
+    \item replace $a, b$ by $a \cdot b$ if $a, b$ are
+      in the same group (and the reverse of this);
+    \item if we see $\psi_A(k)$ in the word, we can
+      replace it with $\psi_B(k)$ (and the reverse of
+      this).
+  \end{enumerate}
+  We will prove the theorem only for $n = 2$.
+  Now $(*)$ says that there exists a homotopy
+  $H$ between $x_0$ and $\gamma_1 * \eta_1$.
+  As before, we can use the Lebesgue number lemma
+  to find $n$ such that squares of side length
+  $1 / n$ are mapped by $H$ into either $A$ or $B$
+  (we can assume that the number of $\gamma_i, \eta_i$
+  divides $n$). Check as an exercise that we can assume
+  $H(i / n, j / n) = x_0$, i.e. that we can change
+  $H$ and $\gamma_i, \eta_i$ by a homotopy such that
+  the homotopy of $\gamma_i$ is in $A$ and the
+  homotopy of $\eta_i$ is in $B$ (hint: consider
+  radial lines around $(i / n, j / n)$). So we have
+  an $n \times n$ grid where each corner point is
+  $x_0$, and the bottom edges are
+  \[
+    \gamma_1 \sim \gamma_1' * \gamma_1''
+    \quad \text{and} \quad
+    \eta_1 \sim \eta_1' * \eta_1'',
+  \]
+  where these homotopies take place in $A$ or $B$,
+  respectively. Let $a_1, a_2, a_3, a_4$ be the four
+  edges lying above $\gamma_1', \gamma_1'', \eta_1', \eta_1''$
+  on the grid (recall that $n = 2$ in this case)
+  We will show that we can go from
+  $[\gamma_1] [\eta_1]$ to $[a_1] [a_2] [a_3] [a_4]$
+  using $(1)$ and $(2)$. Then we can inductively push
+  this to the top, which is the empty word.
+
+  Let $\delta_1, \delta_2, \delta_3$ be the three
+  interior edges which connect the bottom row and the
+  second-to-last row. Since each square maps to $A$ or
+  $B$, the first three squares lie in $A$ and the last
+  one lies in $B$. Let
+  \[
+    G = \pi_1(A, x_0) \quad \text{and} \quad H = \pi_1(B, x_0).
+  \]
+  Note that we have
+  \[
+    \delta_1 * \eta_1' \sim \delta_1 * \eta' * \delta_3 * \overline{\delta}_3 \text{ in $G$}, \quad
+    \delta_1 * \eta_1' * \delta_3 \sim a_1 * a_2 * a_3 \text{ in $G$}, \quad 
+   \delta_3 * \eta_1'' \sim a_4 \text{ in $H$},
+  \]
+  and thus we can write
+  \begin{align*}
+    [\gamma_1]^G [\eta_1]^H
+    = [\gamma_1]^G ([\eta_1'] [\eta_1''])^{H}
+    &\overset{(1)}{=} [\gamma_1]^G [\eta_1']^H [\eta_1'']^H  \\
+    &\overset{(2)}{=} [\gamma_1]^G [\eta_1']^G [\eta_1'']^H \\
+    &\overset{(1)}{=} ([\gamma_1] [\eta_1'])^G [\eta_1'']^H
+    = ([\gamma_1] [\eta_1'] [\delta_3] [\overline{\delta}_3])^G [\eta_1'']^H \\
+    &\overset{(2)}{=} ([\gamma_1] [\eta_1'] [\delta_3])^G [\overline{\delta}_3]^H [\eta_1'']^H \\
+    &\overset{(1)}{=} ([a_1] [a_2] [a_3])^G ([\overline{\delta}_3] [\eta_1''])^H = ([a_1] [a_2][a_3])^G [a_4]^H \\
+    &\overset{(1)}{=} [a_1]^G [a_2]^G [a_3]^G [a_4]^H,
+  \end{align*}
+  which proves the statement for $n = 2$. See
+  Hatcher for the general case.
+\end{proof}
+
+\section{Covering Spaces}
+
+\begin{definition}
+  A \emph{covering space} of a space $X$ is a pair
+  $(\widetilde{X}, p)$ where $\widetilde{X}$ is a
+  space and $p : \widetilde{X} \to X$ such that
+  every point $x \in X$ has an \emph{evenly covered neighborhood}.
+  An open set $U$ is \emph{evenly covered} if
+  \[
+    p^{-1}(U) = \text{disjoint union of open sets $\{U_\alpha\}$ in $\widetilde{X}$}
+  \]
+  such that $p|_{U_\alpha} : U_\alpha \to U$ is a
+  homeomorphism for every $\alpha$.
+\end{definition}
+
+\begin{example}
+  The following are examples of covering maps:
+  \begin{enumerate}
+    \item If $p : \widetilde{X} \to X$ is a
+      homeomorphism, then it is a covering map.
+    \item We saw that $p : \R \to S^1$ given by
+      $t \mapsto (\cos 2\pi t, \sin 2\pi t)$ is a
+      covering map.
+  \end{enumerate}
+\end{example}
+
+\begin{exercise}
+  If $(\widetilde{X}, p)$ is a covering space of $X$
+  and $(\widetilde{Y}, p)$ is a covering space of of $Y$,
+  then show that
+  \[
+    p \times p' : \widetilde{X} \times \widetilde{Y} \to X \times Y, \quad
+    (x, y) \mapsto (p(x), p'(y))
+  \]
+  is a covering map. This gives a covering
+  map $\R^2 \to T^2$ by
+  $(t, s) \mapsto (\cos 2\pi t, \sin 2\pi t, \cos 2\pi s, \sin 2\pi s)$.
+\end{exercise}
