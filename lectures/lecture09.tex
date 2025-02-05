@@ -1,0 +1,244 @@
+\chapter{Feb.~5 --- Covering Spaces}
+
+\section{More on Covering Spaces}
+
+\begin{example}\label{example:covering}
+  The following are more examples of covering maps:
+  \begin{enumerate}
+    \setcounter{enumi}{2}
+    \item Define $p_n : S^1 \to S^1$ by
+      $\theta \mapsto n \theta$.
+      These are covering maps for each $n \in \Z$.
+    \item Let $X$ be a wedge of two circles
+      (corresponding to $a, b$), and
+      let $\widetilde{X}$ be a circle with
+      three outer circles attached, evenly spaced (the inner
+      circle corresponding to $a_1, a_2, a_3$ and
+      the three outer circles corresponding to
+      $b_1, b_2, b_3$). Let $p$ map
+      $a_i$ to $a$ and $b_i$ to $b$. This is a covering
+      map.
+
+      Write out a formula for $p$ and really check that
+      $p$ is a covering map as an exercise.
+    \item Again let $X$ be a wedge of two circles,
+      labeled $a, b$. Let $\widetilde{X}$ be a wedge of
+      two circles, with an extra circle attached on
+      either side. Let $a_3, b_3$ be the extra circles
+      on the left and right, let $b_1, b_2$ be
+      the top and bottom halves of the circle on the
+      left, and let $a_1, a_2$ be the top and bottom
+      halves of the circles on the right. Let
+      $p$ map $a_i$ to $a$ and $b_i$ to $b$. Then
+      $p$ is a covering map.
+    \item Consider the quotient map
+      $p : S^2 \to \R P^2$.
+      This map is a covering map.
+      Note that each point
+      in $\R P^2$ has a neighborhood whose preimage
+      is two open sets on opposite sides of $S^2$.
+  \end{enumerate}
+\end{example}
+
+\begin{lemma}
+  Let $(\widetilde{X}, p)$ be a covering space of a
+  connected space $X$. Then the cardinality
+  $|p^{-1}(x)|$ is independent of $x \in X$.
+\end{lemma}
+
+\begin{proof}
+  Fix $x_0 \in X$ and let $n = |p^{-1}(x_0)|$. Let
+  $A = \{x \in X : |p^{-1}(X)| = n\}$, and note that
+  $A \ne \varnothing$ since $x_0 \in A$. We will
+  show that $A$ is both open and closed, which
+  implies that $A = X$ by connectedness.
+
+  To see that $A$ is open, let $x \in A$.
+  By the definition of a covering space, there exists
+  an open set $U$ in $X$ such that $x \in U$ and
+  $p^{-1}(U) = \{U_1, \dots, U_n\}$. Thus for
+  any $x' \in U$, we have
+  \[p^{-1}(x') \subseteq p^{-1}(U) = \{U_1, \dots, U_n\},\]
+  and $p^{-1}(x') \cap U_i = \{\text{pt}\}$ since
+  $p|_{U_i} : U_i \to U$ is a homeomorphism.
+  Thus $|p^{-1}(x')| = n$, so $x' \in A$. This holds
+  for each $x' \in U$, so $U \subseteq A$, i.e. $A$
+  is an open set.
+
+  One can make a similar argument to check that
+  if $x \notin A$, then there exists a open set $U$ about
+  $x$ such that $U \cap A = \varnothing$.
+  This shows that $X \setminus A$ is open, i.e.
+  $A$ is closed, which completes the proof.
+\end{proof}
+
+\begin{definition}
+  We call $|p^{-1}(x)|$ the \emph{degree} of the
+  covering space.
+\end{definition}
+
+\begin{definition}
+  If $(\widetilde{X}, p)$ is a covering space
+  for $X$ and $f : Y \to X$ is a continuous map,
+  then a \emph{lift} of $f$ to $\widetilde{X}$ is
+  a map $\widetilde{f} : Y \to \widetilde{X}$
+  such that $p \circ \widetilde{f} = f$, i.e.
+  the following diagram commutes:
+  \begin{center}
+    \begin{tikzcd}
+      & \widetilde{X} \ar{d}{p} \\
+      Y \ar{r}{f} \ar[dashed]{ur}{\widetilde{f}} & X
+    \end{tikzcd}
+  \end{center}
+  If $f(y_0) = x_0$ and $\widetilde{x}_0 \in \widetilde{X}$
+  with $p(\widetilde{x}_0) = x_0$, then
+  $\widetilde{f}$ is a \emph{lift of $f$ based at
+  $\widetilde{x}_0$} if $\widetilde{f}$ is a lift
+  and $\widetilde{f}(y_0) = \widetilde{x}_0$.
+\end{definition}
+
+\begin{lemma}\label{lem:general-lift}
+  Let $(\widetilde{X}, p)$ be a covering space of
+  $X$, $x_0 \in X$, and $\widetilde{x}_0 \in p^{-1}(x_0)$.
+  Then
+  \begin{enumerate}[(a)]
+    \item each path $\gamma : [0, 1] \to X$ based
+      at $x_0$ has a unique lift $\widetilde{\gamma} : [0, 1] \to X$
+      based at $\widetilde{x}_0$.
+    \item if $H : Y \times [0, 1] \to X$ is a homotopy
+      with $h_0(y) = H(y, 0)$ and
+      $\widetilde{h}_0 : Y \to \widetilde{X}$ a lift of
+      $h_0$, then there is a unique lift
+      $\widetilde{H} : Y \times [0, 1] \to \widetilde{X}$
+      of $H$ such that $\widetilde{H}(y, 0) = h_0(y)$.
+  \end{enumerate}
+  The above properties are called \emph{path lifting}
+  and \emph{homotopy lifting}.
+\end{lemma}
+
+\begin{proof}
+  $(a)$ The proof of this part is exactly the proof of
+  part $(a)$ in Lemma \ref{lem:lifting}.
+
+  $(b)$ The proof from Lemma \ref{lem:lifting} works
+  if $Y = [0, 1]$. For the general case, see the proof
+  of Theorem 23.
+\end{proof}
+
+\begin{lemma}
+  If $(\widetilde{X}, p)$ is a path connected
+  covering space of $X$ and $x_0 \in X$,
+  $\widetilde{x}_0 \in p^{-1}(x_0)$, then the map
+  $p_* : \pi_1(\widetilde{X}, \widetilde{x}_0) \to
+  \pi_1(X, x_0)$ satisfies the following:
+  \begin{enumerate}
+    \item $p_*$ is injective;
+    \item the image of $p_*$ is the set of loops
+      in $\pi_1(X, x_0)$ that when lifted are
+      loops in $\widetilde{X}$ based at $\widetilde{x}_0$;
+    \item the index $[\pi_1(X, x_0) : p_*(\pi_1(\widetilde{X}, \widetilde{x}_0))]$ is the degree of $(\widetilde{X}, p)$.
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  $(1)$ Suppose that $p_*([\gamma]) = [e]$, so
+  there exists a homotopy $H$ in $X$ between $x_0$ and
+  $p \circ \gamma$. Note that $\gamma$ is a lift
+  of $H(t, 0)$, so Lemma \ref{lem:general-lift} says
+  $H$ lifts to a homotopy $\widetilde{H}$ starting
+  at $\gamma$ in $\widetilde{X}$.
+  Note that $H|_{\{0\} \times [0, 1]}$ is a constant
+  loop and the loop $t \mapsto \widetilde{x}_0$ is a
+  lift of $H|_{\{0\} \times [0, 1]}$ based at
+  $\widetilde{x}_0$, so by uniqueness we see that
+  $\widetilde{H}|_{\{0\} \times [0, 1]} = \widetilde{x}_0$.
+  Similarly, we see that
+  $\widetilde{H}_{\{1\} \times [0, 1]} = \widetilde{x}_0$
+  and $\widetilde{H}_{[0, 1] \times \{1\}} = \widetilde{x}_0$.
+  Thus $\widetilde{H}$ is a homotopy of loops based
+  at $\widetilde{x}_0$ from $\gamma$ to the constant
+  loop, i.e. $[\gamma] = [e_{x_0}]$. So
+  $p_*$ is injective.
+
+  $(2)$ Clearly if $[\gamma] \in \pi_1(X, x_0)$ lifts
+  to a loop $\widetilde{\gamma}$ based at
+  $\widetilde{x}_0$, then $[\gamma] = p_*(\widetilde{\gamma})$, so
+  $[\gamma]$ is in the image of $p_*$. Now if
+  $[\eta] = p_*([\gamma])$, then
+  $\eta \sim p \circ \gamma$ in $X$. Let
+  $\widetilde{\eta}$ be the lift of $\eta$ based
+  at $\widetilde{x}_0$. By Lemma \ref{lem:general-lift},
+  the homotopy $\eta \sim p \circ \gamma$ lifts
+  to a homotopy $\widetilde{\eta} \sim \gamma$ rel
+  endpoints. But $\gamma$ is a loop, so
+  $\widetilde{\eta}$ must be a loop.
+
+  $(3)$ Let $H = p_*(\pi_1(\widetilde{X}, \widetilde{x}_0)) \le \pi_1(X, x_0)$.
+  If $[\gamma] \in \pi_1(X, x_0)$ and
+  $[\delta] \in H$, then note that by part (2),
+  $\delta$ lifts to a loop $\widetilde{\delta}$ based
+  at $\widetilde{x}_0$. Let $\widetilde{\delta * \gamma}$
+  be a lift of $\delta * \gamma$ based at
+  $\widetilde{x}_0$, and note that
+  $\widetilde{\gamma}(1) = \widetilde{\delta * \gamma}(1)
+  = \widetilde{\delta} * \widetilde{\gamma}(1)$.
+  This allows us to define
+  \[
+    \phi : \{\text{right cosets of $H$}\} \to p^{-1}(x_0)
+  \]
+  by $H[\gamma] \mapsto \widetilde{\gamma}(1)$, which
+  is well-defined by the above arguments.
+
+  If $\widetilde{x}_1 \in p^{-1}(x_0)$, then let
+  $\widetilde{\gamma}$ be a path in $\widetilde{X}$
+  from $\widetilde{x}_0$ to $\widetilde{x}_1$. Let
+  $\gamma = p \circ \widetilde{\gamma}$, which is
+  a loop in $X$ based at $x_0$. Clearly
+  $\phi(H[\gamma]) = \widetilde{\gamma}(1) = \widetilde{x}_1$,
+  so $\phi$ is onto.
+  Now suppose that
+  $\phi(H[\gamma]) = \phi(H[\eta])$. If
+  $\widetilde{\gamma}, \widetilde{\eta}$ are
+  lifts of $\gamma$ based at $\widetilde{x}_0$, then
+  $\widetilde{\gamma}(1) = \widetilde{\eta}(1)$.
+  Thus $\widetilde{\gamma} * \overline{\widetilde{\eta}}$
+  is a loop in $\widetilde{X}$, so
+  \[
+    p_*([\widetilde{\gamma} * \overline{\widetilde{\eta}}])
+    = [\gamma] * [\overline{\eta}]
+    = [\gamma] * [\eta]^{-1} \in H.
+  \]
+  This gives $H[\gamma] = H[\eta]$, so $\phi$ is injective.
+  Thus $\phi$ is a bijection, so
+  $[\pi_1(X, x_0) : H] = |p^{-1}(x_0)|$.
+\end{proof}
+
+\begin{example}
+  Recall the following examples from before:
+  \begin{enumerate}
+    \item For the covering map $p : \R \to S^1$, we
+      have $p_* : \pi_1(\R, 0) \to \pi_1(S^1, (1, 0))$
+      which sends $e \mapsto 0$, if we view
+      $p_*$ as $p_* : \{e\} \to \Z$. One can see
+      all three properties of the above lemma in this
+      example, in
+      particular that
+      $[\pi_1(S^1) : \pi_1(\R)] = \infty = |p^{-1}((1, 0))|$.
+    \item Let $p_n : S^1 \to S^1$
+      send $\theta \mapsto n\theta$. Then
+      $(p_n)_* : \pi_1(S^1, (1, 0)) \to \pi_1(S^1, (1, 0))$, which we can view
+      as a map $(p_n)_* : \Z \to \Z$, or $(p_n)_* : \langle g | \ \rangle \to \langle h | \ \rangle$.
+      Then $(p_n)_*$ maps $g \mapsto h^n$, so the subgroup
+      of $\Z$ corresponding to this covering space
+      is $n\Z$. Again we can see all three properties
+      of the above lemma, in particular that
+      we have $[\Z : n\Z] = n = |p_n^{-1}((1, 0))|$.
+  \end{enumerate}
+\end{example}
+
+\begin{exercise}
+  Check the properties of the above lemma explicitly
+  for Example \ref{example:covering}(4). Note that
+  picking different base points can yield different
+  images of $p_*$.
+\end{exercise}
