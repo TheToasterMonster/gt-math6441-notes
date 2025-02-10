@@ -1,0 +1,277 @@
+\chapter{Feb.~10 --- Covering Spaces, Part 2}
+
+\section{Covering Spaces, Continued}
+
+\begin{lemma}
+  If $(\widetilde{X}, p)$ is a path connected covering
+  space of $X$ and $x_0 \in X$, then
+  \[
+    \{p_*(\pi_1(\widetilde{X}, \widetilde{x}))\}_{\widetilde{x} \in p^{-1}(x_0)}
+  \]
+  is a conjugacy class of subgroups of $\pi_1(X, x_0)$.
+\end{lemma}
+
+\begin{proof}
+  Let $\widetilde{x}_0, \widetilde{x}_1 \in p^{-1}(x_0)$
+  and $H_i = p_*(\pi_1(\widetilde{X}, \widetilde{x}_i))$.
+  Since $\widetilde{X}$ is path connected, we can find a
+  path $h$ in $\widetilde{X}$ from $\widetilde{x}_0$ to
+  $\widetilde{x}_1$. Clearly $\gamma = p \circ h$ is a
+  loop in $X$ based at $x_0$. If $[\eta] \in H_1$, then by
+  Lemma \ref{lem:lemma-21} $\eta$ lifts to a loop
+  $\widetilde{\eta}$ based at $\widetilde{x}_1$.
+  Note that $h * \widetilde{\eta} * \overline{h}$ is a
+  loop based at $\widetilde{x}_0$ in $\widetilde{X}$. Then
+  \[
+    [\gamma] \cdot [\eta] \cdot [\gamma]^{-1}
+    = [(p \circ h) * (p \circ \widetilde{\eta}) * (p \circ \overline{h})]
+    = p_*([h * \widetilde{\eta} * \overline{h}])
+    \in H_0.
+  \] 
+  This says that $[\gamma] H_1 [\gamma]^{-1} \subseteq H_0$.
+  The same argument says
+  $[\gamma]^{-1} H_0 [\gamma] \subseteq H_1$, so
+  \[
+    H_0 [\gamma] [\gamma]^{-1} H_0 [\gamma] [\gamma]^{-1}
+    \subseteq [\gamma] H_1 [\gamma]^{-1}.
+  \]
+  This implies that $H_0 = [\gamma] H_1 [\gamma]^{-1}$, so
+  $H_0, H_1$ are conjugate.
+
+  We still need to show we
+  get the full conjugacy class.
+  For this, suppose $H \le \pi_1(X, x_0)$ such that
+  there exists $[\alpha] \in \pi_1(X, x_0)$ with
+  $[\alpha] H [\alpha]^{-1} = H_0$. If $[\alpha] \in H_0$,
+  then $H = H_0$ are we are done. If $[\alpha] \notin H_0$,
+  then $\alpha$ lifts to a path $\widetilde{\alpha}$ (not
+  necessarily a loop) based at $\widetilde{x}_0$.
+  Let $\widetilde{x}_2 = \widetilde{\alpha}(1)$, and set
+  $H_2 = p_*(\pi_1(\widetilde{X}, \widetilde{x}_2))$.
+  From above, we see that $H = H_2$, which completes the
+  proof.
+\end{proof}
+
+\begin{definition}
+  A space $X$ is \emph{locally path connected} if for
+  every $y \in Y$ and open set $U$ containing $y$, there
+  exists an open set $V$ such that $y \in V \subseteq U$
+  and $V$ is path connected.
+\end{definition}
+
+\begin{example}
+  An example of a space which is path connected but
+  not locally path connected is
+  \[
+    C = (\{1 / n\} \times [0, 1])_{n \in \N} \times (\{0\} \times [0, 1]) \cup ([0, 1] \times \{0\}),
+  \]
+  also known as the \emph{comb space}. We can see
+  that $C$ is path connected, but it is not locally path
+  connected, e.g. take $y = (0, 1)$ and $U$ to be
+  any small enough open neighborhood containing $y$.
+\end{example}
+
+\begin{theorem}\label{thm:theorem-23}
+  Let $(\widetilde{X}, p)$ be a covering space of $X$. Let
+  $x_0 \in X$ and $\widetilde{x}_0 \in p^{-1}(x_0)$. Suppose
+  $f : Y \to X$ is any map with $Y$ path connected
+  and locally path connected, with $y_0 \in Y$ such that
+  $f(y_0) = x_0$. Then there exists a lift
+  $\widetilde{f} : Y \to \widetilde{X}$ of $f$ such that
+  $\widetilde{f}(y_0) = \widetilde{x}_0$ if and only if
+  $f_*(\pi_1(Y, y_0)) \subseteq p_*(\pi_1(\widetilde{X}, \widetilde{x}_0))$.
+\end{theorem}
+
+\begin{proof}
+  $(\Rightarrow)$ If $\widetilde{f} : Y \to \widetilde{X}$
+  exists, then $p \circ \widetilde{f} = f$, and so
+  \[
+    f_*(\pi_1(Y, y_0))
+    = (p \circ \widetilde{f})_*(\pi_1(Y, y_0))
+    = p_*(\widetilde{f}_*(\pi_1(Y, y_0)))
+    \subseteq p_*(\pi_1(\widetilde{X}, \widetilde{x}_0))
+  \]
+  since $f_*(\pi_1(Y, y_0)) \subseteq \pi_1(X, x_0)$. This
+  proves the first direction.
+
+  $(\Leftarrow)$ Suppose that
+  $f_*(\pi_1(Y, y_0)) \subseteq p_*(\pi_1(\widetilde{X}, \widetilde{x}_0))$.
+  Since $Y$ is path connected, for any $y \in Y$, there exists
+  a path $\gamma : [0, 1] \to Y$ from $y_0$ to $y$.
+  Then there is a unique lift $\widetilde{f \circ \gamma} : [0, 1] \to \widetilde{X}$
+  based at $\widetilde{x}_0$. Define
+  \[
+    \widetilde{f}(y) = \widetilde{f \circ \gamma}(1).
+  \]
+  Note that if $\widetilde{f}$ is well-defined, then it is
+  clear that $p \circ \widetilde{f} = f$.
+
+  To see that $\widetilde{f}$ is well-defined, we must show
+  that $\widetilde{f \circ \gamma_1}(1)$ is independent
+  of the choice of path $\gamma$. Let
+  $\gamma, \eta$ be paths from $y_0$ to $y$. Note that
+  $\gamma * \overline{\eta}$ is a loop in $Y$ based at $y_0$,
+  so
+  \[
+    (f \circ \gamma) * (f \circ \overline{\eta})
+    = f_*(\gamma * \overline{\eta})
+    \in p_*(\pi_1(\widetilde{X}, \widetilde{x}_0)).
+  \]
+  Thus by Lemma \ref{lem:lemma-21}, this loop lifts
+  to a loop in $\widetilde{X}$ based at $\widetilde{x}_0$. Then
+  \[
+    \widetilde{(f \circ \gamma) * (f \circ \overline{\eta})}
+    = (\widetilde{f \circ \gamma}) * (\widetilde{f \circ \overline{\eta}}),
+  \]
+  where $\widetilde{f \circ \gamma}$ is a lift based
+  at $\widetilde{x}_0$ and $\widetilde{f \circ \overline{\eta}}$ is a lift
+  based at $\widetilde{f \circ \gamma}(1)$. But
+  $\widetilde{(f \circ \gamma) * (f \circ \overline{\eta})}$
+  is a loop, so
+  \[
+    \widetilde{f \circ \overline{\eta}}(1) = \widetilde{x}_0.
+  \]
+  Then $\overline{\widetilde{f \circ \overline{\eta}}}$
+  is the lift of $\eta$ based at $\widetilde{x}_0$, so
+  $\overline{\widetilde{f \circ \overline{\eta}}}(1)
+    = \widetilde{f \circ \overline{\eta}}(0)
+    = \widetilde{f \circ \gamma}(1)$.
+  Thus, $\widetilde{f \circ \eta}(1) = \widetilde{f \circ \gamma}(1)$.
+
+  Now it just remains to show that $\widetilde{f}$ is
+  continuous. To see this, take any open set
+  $U \subseteq \widetilde{X}$, and we will show that
+  for all $y \in \widetilde{f}^{-1}(U)$, there exists an
+  open set $V$ in $Y$ such that $y \in V \subseteq \widetilde{f}^{-1}(U)$ (this implies that
+  $\widetilde{f}^{-1}(U)$ is open). Let $W$ be an evenly
+  covered open set containing $f(y)$, and $\widetilde{W} \subseteq p^{-1}(W)$ such that
+  $p|_{\widetilde{W}} : \widetilde{W} \to W$ is a homeomorphism
+  (by possibly shrinking $W$, e.g. by intersecting
+  $\widetilde{W}$ with $U$ and taking the image under $p$, we
+  can assume that $\widetilde{W} \subseteq U$). Since
+  $Y$ is locally path connected, there exists a path
+  connected open set $V$ in $Y$ containing $y$ and
+  $V \subseteq f^{-1}(W)$
+
+  Fix a path $\gamma$ from $y_0$ to $y$. For any
+  point $y' \in V$, there exists a path $\eta$ from $y$
+  to $y'$ in $V$. By definition,
+  \[
+    \widetilde{f}(y') = \widetilde{f \circ (\gamma * \eta)}(1).
+  \]
+  But if $\widetilde{f \circ \eta}$ is a lift of
+  $f \circ \eta$ based at
+  $\widetilde{f \circ \gamma}(1) = \widetilde{f}(y)$, then
+  \[
+    \widetilde{f \circ (\gamma * \eta)}(1)
+    = \widetilde{f \circ \eta}(1).
+  \]
+  We know that $\widetilde{f \circ \eta} = (p|_{\widetilde{W}})^{-1} \circ f \circ \eta$, so we see that
+  \[
+    \widetilde{f}(y') = \widetilde{f \circ \eta}(1)
+    \in \widetilde{W} \subseteq U.
+  \]
+  This shows that $V \subseteq \widetilde{f}^{-1}(U)$, so
+  $\widetilde{f}$ is continuous, which completes the proof.
+\end{proof}
+
+\begin{remark}
+  It is fairly commmon in algebraic topology for a topological
+  hypothesis to imply some type of algebraic conclusion.
+  The opposite, however, as in the above theorem, is much rarer.
+\end{remark}
+
+\begin{lemma}
+  Let $(\widetilde{X}, p)$ be a covering space of $X$, and
+  let $\widetilde{f}_1, \widetilde{f}_2 : Y \to \widetilde{X}$
+  be two lifts of $f : Y \to X$. If $Y$ is connected and
+  $\widetilde{f}_1$ and $\widetilde{f}_2$ agree at one
+  point, then $\widetilde{f}_1 = \widetilde{f}_2$.
+\end{lemma}
+
+\begin{proof}
+  Let $A = \{y \in Y : \widetilde{f}_1(y) = \widetilde{f}_2(y)\}$.
+  Note that $A \ne \varnothing$ by assumption. If
+  $y \in A$, then let $U$ be an evenly covered neighborhood
+  of $f(y)$ and $\widetilde{U} \subseteq p^{-1}(U)$ such that
+  $\widetilde{f}_1(y) = \widetilde{f}_2(y) \in \widetilde{U}$
+  and $p|_{\widetilde{U}} : \widetilde{U} \to U$ is a homeomorphism.
+  Since $f$ is continuous, there exists an open neighborhood
+  $V$ of $y$ in $Y$ such that $f(V) \subseteq U$. Now we have
+  \[
+    \widetilde{f}_1|_V = (p|_{\widetilde{U}})^{-1} \circ f|_V
+    = \widetilde{f}_2|_V,
+  \]
+  so $V \subseteq A$, which shows that $A$ is open.
+  A similar argument shows that $Y \setminus A$ is open,
+  so $A$ is closed. Since $Y$ is connected and
+  $A$ is open, closed, nonempty, we must have
+  $A = Y$, hence $\widetilde{f}_1 = \widetilde{f}_2$.
+\end{proof}
+
+\begin{definition}
+  We say that two covering spaces $(\widetilde{X}_1, p_1)$ and
+  $(\widetilde{X}_2, p_2)$ of $X$ are \emph{isomorphic}
+  if there exists a homeomorphism $h : \widetilde{X}_1 \to \widetilde{X}_2$
+  such that $p_2 \circ h = p_1$, i.e. the following
+  diagram commutes:
+  \begin{center}
+    \begin{tikzcd}
+      \widetilde{X}_1 \ar[dr, "p_1"] \ar[r, dashed, "h"] & \widetilde{X}_2 \ar[d, "p_2"] \\
+      & X
+    \end{tikzcd}
+  \end{center}
+\end{definition}
+
+\begin{corollary}
+  Suppose $(\widetilde{X}_1, p_1)$ and $(\widetilde{X}_2, p_2)$ are
+  path connected, locally path connected covering spaces
+  of $X$ and $x_0 \in X$, $\widetilde{x}_i \in p_i^{-1}(x_0)$,
+  then
+  \begin{enumerate}[(a)]
+    \item if $(p_1)_*(\pi_1(\widetilde{X}_1, \widetilde{x}_1)) \subseteq
+      (p_2)_*(\pi_1(\widetilde{X}_2, \widetilde{x}_2))$, then
+      $p_1$ lifts to a covering map
+      $p : \widetilde{X}_1 \to \widetilde{X}_2$ which takes
+      the base point $\widetilde{x}_1$ to the
+      base point $\widetilde{x}_2$;
+    \item $(\widetilde{X}_1, \widetilde{x}_1)$ and
+      $(\widetilde{X}_2, \widetilde{x}_2)$ are isomorphic
+      covering spaces taking
+      $\widetilde{x}_1$ to $\widetilde{x}_2$ if and only if
+      \[
+        (p_1)_*(\pi_1(\widetilde{X}_1, \widetilde{x}_1)) =
+        (p_2)_*(\pi_1(\widetilde{X}_2, \widetilde{x}_2));
+      \]
+    \item $(\widetilde{X}_1, \widetilde{x}_1)$ and
+      $(\widetilde{X}_2, \widetilde{x}_2)$ are isomorphic
+      covering spaces of $X$ if and only if
+      $(p_1)_*(\pi_1(\widetilde{X}_1, \widetilde{x}_1))$
+      is conjugate to
+      $(p_2)_*(\pi_1(\widetilde{X}_2, \widetilde{x}_2))$.
+  \end{enumerate}
+\end{corollary}
+
+\begin{proof}
+  $(a)$ By Theorem \ref{thm:theorem-23}, we get a lift
+  $p : \widetilde{X}_1 \to \widetilde{X}_2$ of
+  $p_1$ taking $\widetilde{x}_1$ to $\widetilde{x}_2$.
+  We need to show that $p$ is a covering map.
+  Let $x \in \widetilde{X}_2$, and we show that $x$ has
+  an evenly covered neighborhood. Let
+  $U$ be a neighborhood of $p_2(x)$ in $X$ which is
+  evenly covered by both $p_1$ and $p_2$ (e.g. take the
+  intersection of the two neighborhoods evenly covered by
+  $p_1$ and $p_2$), so there exists a unique
+  $\widetilde{U} \subseteq \widetilde{X}_2$ such that
+  $x \in \widetilde{U}$ and
+  $p_2|_{\widetilde{U}} : \widetilde{U} \to U$ is a homeomorphism.
+  Write $p^{-1}(\widetilde{U}) = \bigcup_{\alpha} U_\alpha$.
+  Clearly $\bigcup_\alpha U_\alpha \subseteq p^{-1}(U)$, so
+  $p_1|_{\widetilde{U_\alpha}} : \widetilde{U_\alpha} \to U$ is a homeomorphism.
+  Thus $p|_{U_\alpha} : p_2^{-1}|_{\widetilde{U}} \circ p_1|_{U_\alpha}$
+  is a homeomorphism $U_\alpha \to \widetilde{U}$, so
+  $\widetilde{U}$ is evenly covered.
+
+  We finish the proof of $(b)$ and $(c)$ from $(a)$ next time.
+\end{proof}
