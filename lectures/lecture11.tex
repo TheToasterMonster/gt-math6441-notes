@@ -1,0 +1,227 @@
+\chapter{Feb.~12 --- Covering Spaces, Part 3}
+
+\section{Galois Correspondence}
+\begin{proof}[Proof of Corollary \ref{cor:corollary-25}, continued]
+  $(b)$ $(\Rightarrow)$ This direction is clear.
+
+  $(\Leftarrow)$ Let $\widetilde{p}_1 : \widetilde{X}_1 \to \widetilde{X}_2$
+  and $\widetilde{p}_2 : \widetilde{X}_2 \to \widetilde{X}_1$
+  be the lifts from part $(a)$. We have the diagram
+  \begin{center}
+    \begin{tikzcd}
+      \widetilde{X}_2 \ar[r, "\widetilde{p}_2"] \ar[dr, swap, "p_2"] & \widetilde{X}_1 \ar[d, "p_1"] \ar[r, "\widetilde{p}_1"] & \widetilde{X}_2 \ar[dl, "p_2"] \\
+      & X
+    \end{tikzcd}
+  \end{center}
+  Note that $\widetilde{p}_1 \circ \widetilde{p}_2 : \widetilde{X}_2 \to \widetilde{X}_2$
+  takes $\widetilde{x}_2$ to $\widetilde{x}_2$ and is a
+  lift of $p_2$ to $\widetilde{X}_2$. But $\id_{\widetilde{X}_2}$
+  is also a lift of $p_2$ and agrees with $\widetilde{p}_1 \circ \widetilde{p}_2$ on $\widetilde{x}_2$,
+  so by Lemma \ref{lem:lemma-24}, $\widetilde{p}_1 \circ \widetilde{p}_2 = \id_{\widetilde{X}_2}$.
+  Similarly, we can show that $\widetilde{p}_2 \circ \widetilde{p}_1 = \id_{\widetilde{X}_1}$,
+  so $\widetilde{p_2}$ is a homeomorphism and
+  $\widetilde{X}_1, \widetilde{X}_2$ are isomorphic.
+
+  $(c)$ This follows from Lemma \ref{lem:lemma-22}
+  and part $(b)$.
+\end{proof}
+
+\begin{definition}
+  A space $X$ is \emph{semi-locally simply connected} if
+  each point $x \in X$ has a neighborhood $U$ such that
+  $\pi_1(U, x) \to \pi_1(X, x)$ is trivial.
+\end{definition}
+
+\begin{example}
+  Let $X = \bigcup_{n = 1}^\infty S_{1 / n}(1 / n, 0)$,
+  where $S_{1 / n}(1 / n, 0)$ is a circle of radius $1 / n$
+  about the point $(1 / n, 0)$. Note that any
+  neighorhood of $(0, 0)$ has non-trivial fundamental group
+  that injects into $\pi_1(X, (0, 0))$.
+  So $X$ is not semi-locally simply connected. On the other
+  hand,
+  let $X'$ be the cone on $X$:
+  \[
+    X' = (X \times [0, 1]) / (X \times \{0\}).
+  \]
+  Then $X'$ is semi-locally simply connected but not
+  locally simply connected.
+\end{example}
+
+\begin{remark}
+  All CW-complexes and manifolds are semi-locally
+  simply connected.
+\end{remark}
+
+\begin{theorem}
+  Let $X$ be a path connected, locally path connected,
+  semi-locally simply connected space, and fix $x_0 \in X$.
+  Then there is a one-to-one correspondence
+  \[
+  \left\{\substack{\displaystyle\text{basepoint preserving isomorphism classes} \\ \displaystyle\text{of covering spaces $(\widetilde{X}, p, \widetilde{x_0})$}}\right\}
+    \longleftrightarrow
+    \{\text{subgroups of $\pi_1(X, x_0)$}\}
+  \]
+  given by $(\widetilde{X}, p, \widetilde{x_0}) \mapsto p_*(\pi_1(\widetilde{X}, \widetilde{x_0}))$
+  with inverse $H \mapsto (\widetilde{X}_H, p_H, \widetilde{x_0})$, which
+  satisfies:
+  \begin{enumerate}
+    \item If $H \le K$, then $(\widetilde{X}_H, p_H, \widetilde{x}_H)$ is also
+      a covering space of $(\widetilde{X}_K, p_K, \widetilde{x}_K)$.
+    \item If $p_1$ in $(\widetilde{X}_1, p_1, \widetilde{x}_1)$
+      lifts to a cover of $(\widetilde{X}_2, p_2, \widetilde{x}_2)$,
+      then $p_{1 *}(\pi_1(\widetilde{X}_1, \widetilde{x}_1)) \le p_{2 *}(\pi_1(\widetilde{X}_2, \widetilde{x}_2))$.
+    \item
+      $[\pi_1(X, x_0) : H] = n$ if and only if
+      $(\widetilde{X}_H, p_H, \widetilde{x}_H)$ is degree $n$.
+  \end{enumerate}
+  In addition, there is a one-to-one correspondence
+  \[
+    \{\text{covering spaces $(\widetilde{X}, p)$ of $X$}\}
+    \longleftrightarrow \{\text{conjugacy classes of subgroups of $\pi_1(X, x_0)$}\}.
+  \]
+\end{theorem}
+
+\begin{proof}
+  Note that $(1)$ and $(2)$ follow from
+  Corollary \ref{cor:corollary-25} once we have the
+  one-to-one correspondence, and
+  $(3)$ follows from Lemma \ref{lem:lemma-21}. Also,
+  once we have a well-defined map
+  $H \mapsto (\widetilde{X}_H, p_H, \widetilde{x}_H)$ such
+  that $(p_H)_*(\pi_1(\widetilde{X}_H, \widetilde{x}_H)) = H$,
+  then the first one-to-one correspondence follows from
+  Corollary \ref{cor:corollary-25}(b). The second
+  one-to-one correspondence follows from
+  Corollary \ref{cor:corollary-25}(c).
+
+  So we are left to construct
+  $(\widetilde{X}_H, p_H, \widetilde{x}_H)$ given
+  $H \le \pi_1(X, x_0)$. Given $H$, we define an equivalence
+  relation on paths based at $x_0$: Call two based paths
+  $\gamma, \eta : [0, 1] \to X$ (i.e. $\gamma(0) = \eta(0) = x_0$) $H$-equivalent
+  if:
+  \begin{enumerate}
+    \item $\gamma(1) = \eta(1)$, and
+    \item $[\gamma * \overline{\eta}] \in H$.
+  \end{enumerate}
+  Denote $H$-equivalence by $\gamma \sim_H \eta$ and its
+  equivalence classes by $\langle \gamma \rangle$.
+  Show as an exercise that this is an equivalence relation, and
+  if $H = \{e\}$, then $\gamma \sim_H \eta$ if and only
+  if $\gamma, \eta$ are homotopic rel endpoints. Let
+  \begin{enumerate}
+    \item $\widetilde{X}_H = \{\langle \gamma \rangle : \gamma \text{ if a path in $X$ based at $x_0$}\}$.
+
+      Note that this is a set: We will need to put a
+      topology on $\widetilde{X}_H$ later.
+    \item $p_H : \widetilde{X}_H \to X : \langle \gamma \rangle \mapsto \gamma(1)$.
+    \item $\widetilde{x}_H = \langle e_{x_0} \rangle$,
+      where $e_{x_0}$ is the constant path $x \mapsto x_0$.
+      Clearly $p_H(\widetilde{x}_H) = x_0$.
+  \end{enumerate}
+  Note that $p_H$ is onto, since $X$ is path connected.
+  In order to put a topology on $\widetilde{X}_H$, we need to
+  study the topology of $X$ in terms of paths. We claim that
+  \[
+    \mathcal{U} = \left\{
+    U \subseteq X : \substack{\displaystyle\text{$U$ is open, path connected, and} \\ \displaystyle\text{$\pi_1(U, x) \to \pi_1(X, x)$ is trivial for some $x \in U$}}
+    \right\}
+  \]
+  is a basis for the topology on $X$.\footnote{Recall that a collection of open sets in $X$ is a \emph{basis for the topology on $X$} if for every $x \in X$ and open set $U$ containing $X$, there exists a set $O$ in the collection such that $x \in O \subseteq U$.}
+  To see this, note that if $\pi_1(U, x) \to \pi_1(X, x)$
+  is trivial for some $x \in U$, then this is true
+  for all $y \in U$ since $U$ is path-connected:
+  \begin{center}
+    \begin{tikzcd}
+      \pi_1(U, x) \ar[d, "\phi_h"] \ar[r, "\text{triv}"] & \pi_1(X, x) \ar[d, "\phi_h"] \\ 
+      \pi_1(U, y) \ar[r, dashed, "i_*"] & \pi_1(X, y) \ar[u]
+    \end{tikzcd}
+  \end{center}
+  Also if $U \in \mathcal{U}$ and $V \subseteq U$ is open
+  and path connected, then:
+  \begin{center}
+    \begin{tikzcd}
+      \pi_1(V, x) \ar[r] \ar[rr, dashed, swap, bend right=20, "\text{triv}"] & \pi_1(U, x) \ar[r, "\text{triv}"] & \pi_1(X, x)
+    \end{tikzcd}
+  \end{center}
+  so $V \in \mathcal{U}$ too. Now let $x \in X$ and
+  $U$ be any open set in $X$ containing $x$. Since
+  $X$ is semi-locally simply connected, there exists an
+  open set $V$ containing $x$ such that
+  $\pi_1(V, x) \to \pi_1(X, x)$ is trivial. Then
+  $U \cap V$ is an open set containing $x$ and
+  $\pi_1(U \cap V, x) \to \pi_1(X, x)$ is trivial.
+  Now $X$ being locally path connected implies that there
+  exists an open set $W$ such that $x \in W \subseteq U \cap V$
+  and $W$ is path connected. Clearly
+  $\pi_1(W, x) \to \pi_1(X, x)$ is trivial, so
+  $W \in \mathcal{U}$. Thus $\mathcal{U}$ is a basis
+  for the topology on $X$.
+
+  Now for each $U \in \mathcal{U}$ and a path
+  $\gamma$ from $x_0 $ to a point in $U$, set
+  \[
+    U_{\gamma} = \{\langle \gamma * \eta \rangle : \eta \text{ a path in $U$ such that $\eta(0) = \gamma(1)$}\}.
+  \]
+  Note that $U_\gamma$ is a subset of $\widetilde{X}_H$.
+  We claim that $\{U_\gamma\}_{U \in \mathcal{U}, \gamma \text{ a path from $x_0$ to $x \in U$}}$ forms a basis
+  for a topology on $\widetilde{X}_H$.\footnote{Recall that a collection of subsets of a set $X$ form a \emph{basis for a topology} on $X$ if for each pair of sets $U, V$ in the collection and $x \in U \cap V$, there is another set $W$ in the collection such that $x \in W \subseteq U \cap V$, and $X$ is the union of the sets in the collection.} To see this, note the following:
+  \begin{enumerate}
+    \item If $\langle \gamma \rangle = \langle \delta \rangle$, then $U_\gamma = U_\delta$ (so we can write $U_{\langle \gamma \rangle}$).
+
+      This is because if $\gamma \sim_H \delta$, then
+      $\gamma * \eta \sim_H \delta * \eta$
+      for all paths $\eta$ in $U$ with $\eta(0) = \eta(1)$:
+      \[
+        \delta * \eta * \overline{(\gamma * \eta)}
+        = \gamma * \eta * \overline{\eta} * \overline{\delta}
+        \sim \gamma * \overline{\delta}.
+      \]
+    \item $p_H : U_{\langle \gamma \rangle} \to U$ is
+      onto since $U$ is path connected.
+    \item $p_H : U_{\gamma} \to U$ is injective.
+
+      This is because if $p_H(\langle \gamma * \eta \rangle) = p_H(\langle \gamma * \eta' \rangle)$,
+      then $\gamma * \eta(1) = \gamma * \eta'(1)$, so
+      $\eta * \overline{\eta'}$ is a loop in $U$ based
+      at $x = \gamma(1)$. So $\eta * \overline{\eta'}$ is
+      homotopic to a constant loop in $X$. Thus
+      $\gamma * \eta \sim \gamma * \eta'$ rel endpoints, so
+      \[
+        [(\langle * \eta) * \overline{(\gamma * \eta')}]
+        = [e_{x_0}] \in H.
+      \]
+      This gives $\langle \gamma * \eta \rangle = \langle \gamma * \eta' \rangle$, i.e. $p_H$ is injective.
+    \item If $\langle \gamma' \rangle \in U_{\langle \gamma \rangle}$, then
+      $U_{\langle \gamma' \rangle} = U_{\langle \gamma \rangle}$.
+
+      This is because by hypothesis, there exists
+      a path $\eta$ in $U$ such that
+      $\langle \gamma' \rangle = \langle \gamma * \eta \rangle$,
+      so we can take $\gamma * \eta$ to represent
+      $\gamma'$ by note $(1)$. So if
+      $\langle \delta \rangle \in U_{\langle \gamma' \rangle}$, then
+      \[
+        \delta = (\gamma * \eta) * \eta'
+       \sim \gamma * (\eta * \eta'),
+      \]
+      so $\langle \delta \rangle \in U_{\langle \gamma \rangle}$.
+      This shows that $U_{\langle \gamma' \rangle} \subseteq U_{\langle \gamma \rangle}$, and
+      similarly one can prove that $U_{\langle \gamma \rangle} \subseteq U_{\langle \gamma' \rangle}$.
+  \end{enumerate}
+  We will finish the proof from here next class.
+\end{proof}
+
+\begin{remark}
+  There is a ``lattice'' of subgroups of
+  $\pi_1(X, x_0)$ and a ``lattice'' of covering
+  spaces of $X$. The above theorem says that these are
+  the same (similar as in Galois theory).
+\end{remark}
+
+\begin{remark}
+  By the above correspondence, there is a unique covering
+  space of $X$ corresponding to the trivial subgroup $\{e\} \subseteq \pi_1(X, x_0)$. This is
+  called the \emph{universal cover} of $X$.
+\end{remark}
