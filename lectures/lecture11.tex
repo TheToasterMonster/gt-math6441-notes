@@ -1,30 +1,6 @@
 \chapter{Feb.~12 --- Covering Spaces, Part 3}
 
 \section{Galois Correspondence}
-\begin{proof}[Proof of Corollary \ref{cor:corollary-25}, continued]
-  $(b)$ $(\Rightarrow)$ This direction is clear.
-
-  $(\Leftarrow)$ Let $\widetilde{p}_1 : \widetilde{X}_1 \to \widetilde{X}_2$
-  and $\widetilde{p}_2 : \widetilde{X}_2 \to \widetilde{X}_1$
-  be the lifts from part $(a)$. We have the diagram
-  \begin{center}
-    \begin{tikzcd}
-      \widetilde{X}_2 \ar[r, "\widetilde{p}_2"] \ar[dr, swap, "p_2"] & \widetilde{X}_1 \ar[d, "p_1"] \ar[r, "\widetilde{p}_1"] & \widetilde{X}_2 \ar[dl, "p_2"] \\
-      & X
-    \end{tikzcd}
-  \end{center}
-  Note that $\widetilde{p}_1 \circ \widetilde{p}_2 : \widetilde{X}_2 \to \widetilde{X}_2$
-  takes $\widetilde{x}_2$ to $\widetilde{x}_2$ and is a
-  lift of $p_2$ to $\widetilde{X}_2$. But $\id_{\widetilde{X}_2}$
-  is also a lift of $p_2$ and agrees with $\widetilde{p}_1 \circ \widetilde{p}_2$ on $\widetilde{x}_2$,
-  so by Lemma \ref{lem:lemma-24}, $\widetilde{p}_1 \circ \widetilde{p}_2 = \id_{\widetilde{X}_2}$.
-  Similarly, we can show that $\widetilde{p}_2 \circ \widetilde{p}_1 = \id_{\widetilde{X}_1}$,
-  so $\widetilde{p_2}$ is a homeomorphism and
-  $\widetilde{X}_1, \widetilde{X}_2$ are isomorphic.
-
-  $(c)$ This follows from Lemma \ref{lem:lemma-22}
-  and part $(b)$.
-\end{proof}
 
 \begin{definition}
   A space $X$ is \emph{semi-locally simply connected} if
@@ -180,7 +156,7 @@
       \]
     \item $p_H : U_{\langle \gamma \rangle} \to U$ is
       onto since $U$ is path connected.
-    \item $p_H : U_{\gamma} \to U$ is injective.
+    \item $p_H : U_{\langle \gamma \rangle} \to U$ is injective.
 
       This is because if $p_H(\langle \gamma * \eta \rangle) = p_H(\langle \gamma * \eta' \rangle)$,
       then $\gamma * \eta(1) = \gamma * \eta'(1)$, so
@@ -210,7 +186,71 @@
       This shows that $U_{\langle \gamma' \rangle} \subseteq U_{\langle \gamma \rangle}$, and
       similarly one can prove that $U_{\langle \gamma \rangle} \subseteq U_{\langle \gamma' \rangle}$.
   \end{enumerate}
-  We will finish the proof from here next class.
+  Now if $\langle \delta \rangle \in U_{\langle \gamma \rangle} \cap V_{\langle \gamma' \rangle}$, then
+  $U_{\langle \gamma \rangle} = U_{\langle \delta \rangle}$
+  and $V_{\langle \gamma' \rangle} = V_{\langle \delta \rangle}$.
+  by $(4)$. So if
+  $W$ is any element of $\mathcal{U}$ such that
+  $\delta(1) \in W \subseteq U \cap V$, then
+  \[\langle \delta \rangle = W_{\langle \delta \rangle} \subseteq U_{\langle \delta \rangle} \cap V_{\langle \delta \rangle} = U_{\gamma} \cap U_{\gamma'}.\]
+  Clearly $\widetilde{X}_H$ is the union of the sets
+  in $\{U_{\gamma}\}$, so we have a basis for a basis
+  on $\widetilde{X}_H$.
+
+  We claim that with this topology,
+  $(\widetilde{X}_H, p_H)$ is a covering
+  space of $(X, x_0)$. For any
+  $U \in \mathcal{U}$ and a path $\gamma$ from
+  $x_0$ to a point in $U$,
+  $p|_{U_{\langle \gamma \rangle}} : U_{\langle \gamma \rangle} \to U$ is a homeomorphism.
+  To see this, first note $p_H$ is a bijection.
+  Next, $p_H|_{U_{\langle \gamma \rangle}}$ is continuous
+  since for any basic open set $V \subseteq U$ and
+  path $\delta$ from $x_0$ to a point in $V$,
+  \[
+    (p_H|_{U_{\langle \gamma \rangle}})^{-1}(V) = V_{\langle \delta \rangle}
+  \]
+  which is open. This also shows that
+  the image of a basic open set $V_{\langle \delta \rangle}$
+  is an open set $V$, so $p_H|_{U_{\langle \gamma \rangle}}$
+  is a homeomorphism. Note that this implies
+  $p_H : \widetilde{X}_H \to X$ is continuous.
+  Now if $x \in X$ is any point, let
+  $U \in \mathcal{U}$ be an open set containing $x$.
+  Then we have
+  \[
+    p^{-1}(U) = \bigcup_{\substack{\gamma \text{ a path from $x_0$} \\ \text{to a point in $U$}}} U_{\langle \gamma \rangle},
+  \]
+  and $p_H|_{U_{\langle \gamma \rangle}} : U_{\langle \gamma \rangle} \to U$ is a homeomorphism, so
+  $U$ is evenly covered, i.e.
+  $(\widetilde{X}_H, p_H)$ is a covering space.
+
+  It only remains to show
+  $(p_H)_*(\pi_1(\widetilde{X}_H, \widetilde{x}_H)) = H$
+  in $\pi_1(X, x_{0})$.
+  If $[\gamma] \in H$, let $\gamma_t(s)$ be the path
+  \[
+    \gamma_t : [0, 1] \to X : s \mapsto \gamma(ts).
+  \]
+  Note that $\widetilde{\gamma} : [0, 1] \to \widetilde{X}_H$
+  given by $t \mapsto \langle \gamma_t \rangle$ is a
+  loop in $\widetilde{X}_H$ since $\widetilde{\gamma}_0 = \gamma_0$
+  (the constant path in $\widetilde{X}_H$)
+  and $\widetilde{\gamma}(1) = \langle \gamma \rangle
+  = \langle e_{x_0} \rangle$ since $[\gamma] \in H$.
+  We also have $(p_H \circ \widetilde{\gamma})(t) = \gamma_t(1) = \gamma(t)$,
+  so $p_H \circ \widetilde{\gamma} = \gamma$.
+  So $\widetilde{\gamma}$ is a lift of $\gamma$ 
+  and a loop, therefore $[\gamma] \in \im((p_H)_*)$
+  by Lemma \ref{lem:lemma-21}(b). Now if
+  $\gamma \notin H$, then the path
+  $\widetilde{t}$ is not a loop since
+  $\widetilde{\gamma}(1) = \langle \gamma \rangle \notin H$,
+  so $\widetilde{\gamma}(1) \ne \langle e_{x_0} \rangle$.
+  So $[\gamma] \notin \im((p_H)_*)$ by Lemma \ref{lem:lemma-21}(b).
+  These two properties imply that
+  $(p_H)_*(\pi_1(\widetilde{X}_H, \widetilde{x}_H)) = H$,
+  which completes the proof of the theorem.
 \end{proof}
 
 \begin{remark}

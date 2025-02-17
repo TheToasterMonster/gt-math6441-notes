@@ -1,6 +1,6 @@
 \chapter{Feb.~10 --- Covering Spaces, Part 2}
 
-\section{Covering Spaces, Continued}
+\section{More Connections to the Fundamental Group}
 
 \begin{lemma}\label{lem:lemma-22}
   If $(\widetilde{X}, p)$ is a path connected covering
@@ -209,6 +209,8 @@
   $A = Y$, hence $\widetilde{f}_1 = \widetilde{f}_2$.
 \end{proof}
 
+\section{Covering Space Isomorphisms}
+
 \begin{definition}
   We say that two covering spaces $(\widetilde{X}_1, p_1)$ and
   $(\widetilde{X}_2, p_2)$ of $X$ are \emph{isomorphic}
@@ -273,5 +275,25 @@
   is a homeomorphism $U_\alpha \to \widetilde{U}$, so
   $\widetilde{U}$ is evenly covered.
 
-  We finish the proof of $(b)$ and $(c)$ from $(a)$ next time.
+  $(b)$ $(\Rightarrow)$ This is clear.
+  $(\Leftarrow)$ Let $\widetilde{p}_1 : \widetilde{X}_1 \to \widetilde{X}_2$
+  and $\widetilde{p}_2 : \widetilde{X}_2 \to \widetilde{X}_1$
+  be the lifts from part $(a)$. We have:
+  \begin{center}
+    \begin{tikzcd}
+      \widetilde{X}_2 \ar[r, "\widetilde{p}_2"] \ar[dr, swap, "p_2"] & \widetilde{X}_1 \ar[d, "p_1"] \ar[r, "\widetilde{p}_1"] & \widetilde{X}_2 \ar[dl, "p_2"] \\
+      & X
+    \end{tikzcd}
+  \end{center}
+  Note that $\widetilde{p}_1 \circ \widetilde{p}_2 : \widetilde{X}_2 \to \widetilde{X}_2$
+  takes $\widetilde{x}_2$ to $\widetilde{x}_2$ and is a
+  lift of $p_2$ to $\widetilde{X}_2$. But $\id_{\widetilde{X}_2}$
+  is also a lift of $p_2$ and agrees with $\widetilde{p}_1 \circ \widetilde{p}_2$ on $\widetilde{x}_2$,
+  so by Lemma \ref{lem:lemma-24}, $\widetilde{p}_1 \circ \widetilde{p}_2 = \id_{\widetilde{X}_2}$.
+  Similarly, we can show that $\widetilde{p}_2 \circ \widetilde{p}_1 = \id_{\widetilde{X}_1}$,
+  so $\widetilde{p_2}$ is a homeomorphism and
+  $\widetilde{X}_1, \widetilde{X}_2$ are isomorphic.
+
+  $(c)$ This follows from Lemma \ref{lem:lemma-22}
+  and part $(b)$.
 \end{proof}

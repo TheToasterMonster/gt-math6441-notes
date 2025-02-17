@@ -1,0 +1,179 @@
+\chapter{Feb.~17 --- Covering Spaces, Part 4}
+
+\section{Deck Transformations}
+
+\begin{definition}
+  Let $p : \widetilde{X} \to X$ be a covering
+  space. A \emph{deck transformation}, or
+  a \emph{covering transformation}, is a
+  covering space isomorphism, i.e. a
+  homemorphism $f : \widetilde{X} \to \widetilde{X}$
+  such that $p \circ f = p$. The set
+  $G(\widetilde{X})$ of deck transformations
+  is clearly a group under composition.
+\end{definition}
+
+\begin{example}
+  Consider the covering map $p_4 : S^1 \to S^1$
+  given by $\theta \mapsto 4\theta$.
+  Then each $\phi_k : S^1 \to S^1$ given by
+  $\theta \mapsto \theta + (2\pi k) / 4$ satisfies
+  $p_4 \circ \phi_k = p_4$, so the $\phi_k$ are deck
+  transformations. Now suppose $f : S^1 \to S^1$
+  is another deck transformation, so
+  $f(\widetilde{x}_1) = \widetilde{x}_i$ for some
+  $i$ (let the $\widetilde{x}_i$ be the four preimages
+  of $\widetilde{x}_1$ under $p_4$).
+  But there exists $k$ such that
+  $\phi_k(\widetilde{x}_1) = \widetilde{x}_i$,
+  and these are both lifts of $p$ which agree at
+  $\widetilde{x}_1$, so
+  $f = \phi_k$ by Lemma \ref{lem:lemma-24}.
+  Thus $G(S^1 \xrightarrow{p_4} S^1) = \{\phi_0, \phi_1, \phi_2, \phi_3\} \cong \Z / 4\Z$ (a generator is $\phi_1$).
+\end{example}
+
+\begin{example}
+  Let $p : \widetilde{X} \to X$ be as
+  in Example \ref{example:covering}(5).
+  Let $\widetilde{x}_1$ be the center intersection
+  point in
+  $\widetilde{X}$ and $\widetilde{x}_2, \widetilde{x}_3$
+  be the two intersection points at the sides.
+  Let $x_0$ be the intersection point in $X$. Note that
+  if we lift $a$ to $\widetilde{X}$ based at
+  $\widetilde{x}_1$, then we get a path,
+  but if we lift $a$ to $\widetilde{X}$
+  based at $\widetilde{x}_3$, then we get a loop.
+  So if $\phi : \widetilde{X} \to \widetilde{X}$
+  is a deck transformation, then it cannot take
+  $\widetilde{x}_1$ to $\widetilde{x}_3$, since
+  $\phi$ applied to a lift is a lift. Similarly, there
+  are no deck transformations taking $\widetilde{x}_1$
+  to $\widetilde{x}_2$. So any deck transformation
+  takes $\widetilde{x}_1$ to $\widetilde{x}_1$.
+  Thus Lemma \ref{lem:lemma-24} says that any deck
+  transformation is the identity, i.e.
+  $G(\widetilde{X}) = \{1\}$.
+\end{example}
+
+\begin{remark}
+  In the first example, a covering map of degree
+  $4$ gave a group of order $4$, whereas in
+  the second example, a covering map of degree $3$
+  gave a group of order $1$.
+\end{remark}
+
+\begin{definition}
+  A covering space $p : \widetilde{X} \to X$ is called
+  \emph{normal} if for every $x \in X$ and
+  $\widetilde{x}, \widetilde{x}' \in p^{-1}(x)$,
+  there exists $\phi \in G(\widetilde{X})$ such that
+  $\phi(\widetilde{x}) = \widetilde{x}'$.
+\end{definition}
+
+\begin{remark}
+  The first example is normal, while the second one is
+  not.
+\end{remark}
+
+\begin{theorem}
+  Let $p : (\widetilde{X}, \widetilde{x}_0) \to (X, x_0)$
+  be a path connected, locally path connected covering
+  space of $X$. Let
+  $H = p_*(\pi_1(\widetilde{X}, \widetilde{x}_0)) \le \pi_1(X, x_0)$. Then
+  \begin{enumerate}
+    \item $(\widetilde{X}, p)$ is normal if and only
+      if $H$ is a normal subgroup of $\pi_1(X, x_0)$;
+    \item $G(\widetilde{X}) \cong N(H) / H$, where
+      $N(H)$ is the normalizer of $H$, i.e.
+      the largest subgroup of $\pi_1(X, x_0)$
+      in which $H$ is normal.
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  $(1)$ $(\Rightarrow)$ Let
+  $[\gamma] \in \pi_1(X, x_0)$ and let
+  $\widetilde{\gamma}$ be a lift of $\gamma$
+  based at $\widetilde{x}_0$. Set
+  $\widetilde{x}_1 = \widetilde{\gamma}(1)$.
+  From the proof of Lemma \ref{lem:lemma-22},
+  we have
+  \[
+    [\gamma] p_*(\pi_1(\widetilde{X}, \widetilde{x}_0)) [\gamma]^{-1} = p_*(\pi_1(\widetilde{X}, \widetilde{x}_1)).
+  \]
+  Now $\widetilde{X}$ normal implies that there exists
+  $\phi \in G(\widetilde{X})$ such that
+  $\phi_1(\widetilde{x}_0) = \widetilde{x}_1$, so we
+  get an isomorphism
+  \[
+    \phi_* : \pi_1(\widetilde{X}, \widetilde{x}_1) \to \pi_1(\widetilde{X}, \widetilde{x}_0).
+  \]
+  Then since $p_* \circ \phi_*$ (as $\phi$ is a
+  deck transformation), we have
+  \[
+    p_*(\pi_1(\widetilde{X}, \widetilde{x}_0))
+    = p_* \circ \phi_* (\pi_1(\widetilde{X}, \widetilde{x}_1))
+    = p_*(\pi_1(\widetilde{X}, \widetilde{x}_1)),
+  \]
+  so that
+  $[\gamma] p_*(\pi_1(\widetilde{X}, \widetilde{x}_0)) [\gamma]^{-1} = p_*(\pi_1(\widetilde{X}, \widetilde{x}_0))$, i.e.
+  $p_*(\pi_1(\widetilde{X}, \widetilde{x}_0))$ is normal.
+
+  $(\Leftarrow)$ Let $\widetilde{x}_0, \widetilde{x}_1$
+  be two points in $p^{-1}(x_0)$, and
+  set $H_1 = p_*(\pi_1(\widetilde{X}, \widetilde{x}_1))$
+  Let $h$ be a path from $\widetilde{x}_0$ to
+  $\widetilde{x}_1$, and let $\gamma = p \circ h$.
+  By Lemma \ref{lem:lemma-22}, we have
+  $[\gamma] H_1 [\gamma]^{-1} = H$. Since $H$ is normal,
+  we have $H = H_1$, i.e.
+  \[
+    p_*(\pi_1(\widetilde{X}, \widetilde{x}_1)) = p_*(\pi_1(\widetilde{X}, \widetilde{x}_0)).
+  \]
+  Now by Theorem \ref{thm:theorem-23}, there are
+  lifts of $p$ to $\phi_1, \phi_2$ such that
+  \begin{center}
+    \begin{tikzcd}
+      (\widetilde{X}, \widetilde{x}_1) \ar[r, "\phi_1"] \ar[dr, "p"'] & (\widetilde{X}, \widetilde{x}_0) \ar[d, "p"] \ar[r, "\phi_2"] & (\widetilde{X}, \widetilde{x}_0) \ar[dl, "p"] \\
+      & (X, x_0)
+    \end{tikzcd}
+  \end{center}
+  so $\phi_1, \phi_2$ are deck transformations
+  taking $\widetilde{x}_0$ to $\widetilde{x}_1$
+  or the reverse.
+
+  $(2)$ From above, if $[\gamma] H [\gamma]^{-1} = H$,
+  there exists $\phi \in G(\widetilde{X})$ such that
+  $\phi(\widetilde{x}_0) = \widetilde{\gamma}(1)$,
+  where $\widetilde{\gamma}$ is the lift of $\gamma$
+  based at $\widetilde{x}_0$. So we get a map
+  $\Phi : N(H) \to G(\widetilde{X})$. First,
+  we claim that $\Phi$ is a homomorphism.
+  Suppose $\phi_i = \Phi([\gamma_i])$ for
+  $i = 1, 2$ and $[\gamma_i] \in N(H)$. Then
+  $\phi_i(\widetilde{x}_0) = \widetilde{x}_i$, so
+  $\widetilde{\phi}_i$ is a path from
+  $\widetilde{x}_0$ to $\widetilde{x}_i$. Note
+  $\phi_1(\widetilde{x}_2)$ is a lift
+  of $\gamma$ based at $\widetilde{x}_1$, and
+  $\widetilde{\gamma}_1 * \phi_{1}(\widetilde{\gamma}_2)$
+  is a path from $\widetilde{x}_0$ to $\phi_1(\widetilde{x}_2)$.
+  Then
+  \[
+    [p \circ (\widetilde{\gamma}_1 * (\phi_1 \circ \widetilde{\gamma}_2))]
+    = [\gamma_1 * \gamma_2]
+    = [\gamma_1] \cdot [\gamma_2],
+  \]
+  so $\phi_1 \circ \phi_2 = \Phi([\gamma_1] \cdot [\gamma_2])$, i.e.
+  $\Phi$ is a homomorphism.
+  We finish the proof next time.
+\end{proof}
+
+\begin{remark}
+  If $H$ is normal in $\pi_1(X, x_0)$, then
+  $G(\widetilde{X}) = \pi_1(X, x_0) / H$.
+  In particular, if $\widetilde{X}$ is the universal
+  cover (so $\pi_1(\widetilde{X})$ is trivial), then
+  $G(\widetilde{X}) = \pi_1(X, x_0)$.
+\end{remark}
