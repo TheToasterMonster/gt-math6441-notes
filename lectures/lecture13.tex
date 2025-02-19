@@ -1,0 +1,289 @@
+\chapter{Feb.~19 --- Singular Homology}
+
+\section{Covering Spaces and Group Actions}
+
+\begin{definition}
+  A \emph{group action} on a topological space $X$ is
+  a pair $(G, \rho)$ where $G$ is a group and
+  $\rho : G \to \Homeo(X)$ is a group homomorphism.\footnote{Here $\Homeo(X)$ is the group of homeomorphisms of $X$.}
+\end{definition}
+
+\begin{remark}
+  If $G$ acts on $X$, then we can form the quotient
+  space $X / G$ where two points $x_1, x_2 \in X$ are
+  identified if there exists $g \in G$ such that
+  $\rho(g)(x_1) = x_2$. Then $G / X$ is called the
+  \emph{orbit space} of the action.
+\end{remark}
+
+\begin{theorem}
+  Let $G$ be a group acting on $X$ such that $(*)$
+  for all $x \in X$, there is a neighborhood
+  $U$ such $x$ such that $g_1 U \cap g_2 U \ne \varnothing$
+  implies $g_1 = g_2$. Then:
+  \begin{enumerate}
+    \item $\rho : X \to X / G$ is a normal covering
+      space;
+    \item $G \cong G(X \to X / G)$ if $X$ is
+      path-connected ($G(X \to X / G)$ is
+      the group of deck transformations);
+    \item $G \cong \pi_1(X / G) / \rho_*(\pi_1(X))$
+      if $X$ is path connected and locally path
+      connected.
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  This is left as an exercise (or see Hatcher). Note
+  that the hypothesis implies each point in
+  $X / G$ has an evenly covered neighborhood, so
+  $(X, \rho)$ is a covering space. Also, any two
+  preimages of a point in $X / G$ are related by the
+  group action, i.e. is a deck transformation
+  of $X$, so $(X, \rho)$ is normal.
+\end{proof}
+
+\begin{exercise}
+  Show that if $G$ is a finite group acting freely on a
+  Hausdorff space $X$ (i.e. no element of $G$ has a
+  fixed point), then the action satisfies $(*)$.
+\end{exercise}
+
+\begin{example}
+  Let $X$ be the four-holed torus, arranged in a
+  triangular shape. Then rotation by $2\pi / 3$
+  is an action of $G = \Z / 3\Z$ on $X$ with no fixed
+  points. Then $X / G$ is a two-holed torus, and
+  by the above theorem
+  $X$ is a three-fold cover of $X / G$.
+\end{example}
+
+\begin{example}
+  The group $G = \Z / 2\Z$ acts on $S^n$ by sending
+  $x \mapsto -x$, so $S^n$ is a covering space
+  of $S^n / G = \R P^n$. Note that we have already
+  seen this before without appealing to the above
+  theorem.
+\end{example}
+
+\section{Introduction to Homology}
+
+\begin{remark}
+  There are many types of (ordinary) homology, i.e.
+  singular, simplicial, cubical, cellular, etc.
+  All of these are isomorphic on CW-complexes.
+  We will define the most general homology theory,
+  called \emph{singular homology}, and then derive
+  \emph{cellular homology}, which is easier to compute.
+  
+  There are also \emph{generalized homology} theories,
+  such as \emph{bordism theory}, \emph{$K$-theory}, etc.
+  These are in many ways similar to ordinary homology,
+  but they do not satisfy the dimension axiom, which
+  can give them wildly different behavior. We will
+  briefly mention bordism theory later on in the class.
+
+  Underlying these homology theories is
+  \emph{homological algebra}, which is the study of
+  \emph{chain complexes}. Such objects show up in
+  many places and they give rise to
+  more ``homology theories,'' such as
+  \emph{Floer homology}, \emph{Heegaard-Floer homology}.
+  These are \emph{not} ``real homology theories''
+  in the sense of algebraic topology.
+\end{remark}
+
+\section{Singular Homology}
+
+\begin{definition}
+  The \emph{standard $p$-simplex} is
+  \[
+    \Delta^p = \left\{
+      \sum_{i = 0}^p t_i e_i \in \R^{p + 1}
+      : \sum_{i = 0}^p t_i = 1, t_i \ge 0
+    \right\},
+  \]
+  where $\{e_0, \dots, e_p\}$ are the standard basis
+  vectors for $\R^{p + 1}$.
+\end{definition}
+
+\begin{example}
+  The following are examples of $p$-simplices:
+  \begin{enumerate}
+    \item For $p = 0$, we have
+      $\Delta^0 = \{t_1 e_1 \in \R : t_1 = 1, t_1 \ge 0\} = e_1$,
+      which is a point.
+    \item For $p = 1$, we have
+      $\Delta^1 = \{t_0 e_0 + t_1 e_1 \in \R^2 : t_0 + t_1, t_i \ge 0\}$
+      is the convex hull of the points $e_0$ and $e_1$
+      in $\R^2$, which is a line segment.
+    \item For $p = 2$, the standard $2$-simplex
+      $\Delta^2$ is
+      the convex hull of $e_0, e_1, e_2 \in \R^3$,
+      which is a triangle.
+  \end{enumerate}
+\end{example}
+
+\begin{definition}
+  Given any vectors $v_0, \dots, v_p \in \R^n$, by
+  $[v_0, \dots, v_p]$ we denote the map
+  \begin{align*}
+    \Delta^p &\longrightarrow \R^n \\
+    (t_0, \dots, t_p) &\longmapsto \sum_{i = 0}^p t_i v_i
+  \end{align*}
+\end{definition}
+
+\begin{example}
+  Consider the following examples:
+  \begin{enumerate}
+    \item $[e_0, \dots, e_p]$ parametrizes the
+      standard $p$-simplex.
+    \item $[e_0, \dots, \widehat{e}_i, \dots, e_p]$
+      (where the hat means to remove $e_i$)
+      is the $i$th \emph{face map}, which
+      parametrizes the $i$th \emph{face} of $\Delta^p$.
+      Denote this map by $F_i^p = [e_0, \dots, \widehat{e}_i, \dots, e_p]$.
+  \end{enumerate}
+\end{example}
+
+\begin{remark}
+  If $i > j$, then
+  \[
+    F_i^p \circ F_j^{p - 1} = [e_0, \dots, \widehat{e}_j, \dots, \widehat{e}_i, \dots, e_p],
+  \]
+  so $F_2^2 \circ F_1^1$ identifies $[e_0]$ with
+  $[e_0]$ in $\Delta^2$.
+  On the other hand, if $j \ge i$, then
+  \[
+    F_i^p \circ F_j^{p - 1} = [e_0, \dots, \widehat{e}_i, \dots, \widehat{e}_{j + 1}, \dots, e_p].
+  \]
+  For instance, $F_0^3 \circ F_1^2$ identifies
+  $[e_0, e_1]$ with $[e_1, e_3]$ in $\Delta^3$.
+\end{remark}
+
+\begin{definition}
+  A \emph{singular $p$-simplex} in a space $X$ is a
+  continuous map $\sigma : \Delta^p \to X$.
+  The \emph{singular group of $p$-chains} in $X$, denoted
+  $C_p(X)$, is the free abelian group generated by singular $p$-simplices.
+\end{definition}
+
+\begin{remark}
+  An element in $C_p(X)$ is a
+  finite formal sum $\sum_{i = 1}^k n_i \sigma_i$,
+  where $n_i \in \Z$ and $\sigma_i$ is a singular
+  $p$-simplex.
+  There is an obvious way to add elements in
+  $C(X)$, and this makes $C(X)$ into a group
+\end{remark}
+
+\begin{definition}
+  An element in $C_p(X)$ is called a \emph{singular $p$-chain}.
+  Given a singular $p$-simplex $\sigma$, the
+  $i$th \emph{face} of $\sigma$ is
+  $\sigma^{(i)} = \sigma \circ F_i^p$, and the
+  \emph{boundary} of $\sigma$ is
+  \[
+    \partial \sigma = \sum_{i = 0}^p (-1)^i \sigma^{(i)}.
+  \]
+\end{definition}
+
+\begin{remark}
+  If $\sigma$ is a singular $p$-simplex, then
+  $\partial \sigma \in C_{p - 1}(X)$.
+\end{remark}
+
+\begin{example}
+  Let $\Delta^2 = [e_0, e_1, e_2]$ and
+  $\sigma : \Delta^2 \to X$. Then
+  $\partial \sigma = \sigma^{(0)} - \sigma^{(1)} + \sigma^{(2)}$
+  traces the edges $[\sigma(e_0), \sigma(e_1)]$,
+  $[\sigma(e_1), \sigma(e_2)]$, and
+  $[\sigma(e_2), \sigma(e_0)]$, which forms the
+  boundary of
+  $\sigma(\Delta^2) \subseteq X$.
+\end{example}
+
+\begin{definition}
+  Define the $p$th \emph{boundary map} to be
+  \begin{align*}
+    \partial_p : C_p(X) &\longrightarrow C_{p - 1}(X) \\
+    \sum_{i = 1}^k n_i \sigma_i &\longmapsto \sum_{i = 1}^k n_i (\partial \sigma_i).
+  \end{align*}
+\end{definition}
+
+\begin{lemma}
+  We have $\partial_{p - 1} \circ \partial_p = 0$,
+  i.e. $\partial^2 = 0$.
+\end{lemma}
+
+\begin{proof}
+  We can calculate
+  \begin{align*}
+    \partial_{p - 1} \circ \partial_p \sigma
+    &= \partial_{p - 1} \left( \sum_{i = 0}^p (-1)^i (-1)^i \sigma \circ F_i^p \right) \\
+    &= \sum_{i = 0}^p (-1)^i \left( \sum_{j = 0}^{p - 1} (-1)^j \sigma \circ F_i^p \circ F_j^{p - 1} \right) \\
+    &= \sum_{0 \le j < i \le p} (-1)^{i + j} \sigma \circ F_i^p \circ F_j^{p - 1}
+    + \sum_{0 \le i \le j \le p - 1} (-1)^{i + j} \sigma \circ F_i^p \circ F_j^{p - 1} \\
+    &= \sum_{0 \le j < i \le p} (-1)^{i + j} \sigma \circ [e_0, \dots, \widehat{e}_j, \dots, \widehat{e}_i, \dots, e_p] \\
+    &\quad \quad+ \sum_{0 \le i \le j \le p - 1} (-1)^{i + j} \sigma \circ [e_0, \dots, \widehat{e}_i, \dots, \widehat{e}_{j + 1}, \dots, e_p].
+  \end{align*}
+  Relabel $k = j + 1$ in the second sum, we find that
+  \begin{align*}
+    \partial_{p - 1} \circ \partial_p \sigma
+    &= \sum_{0 \le j < i \le p} (-1)^{i + j} \sigma \circ [e_0, \dots, \widehat{e}_j, \dots, \widehat{e}_i, \dots, e_p] \\
+    &\quad \quad + \sum_{0 \le i < k \le p - 1} (-1)^{i + k + 1} \sigma \circ [e_0, \dots, \widehat{e}_i, \dots, \widehat{e}_{k}, \dots, e_p] = 0
+  \end{align*}
+  since these are the same but with an extra $-1$ on
+  the second sum, so they cancel out to $0$.
+\end{proof}
+
+\begin{remark}
+  The lemma implies that $\im \partial_{p + 1} \subseteq \ker \partial_p$.
+\end{remark}
+
+\begin{definition}
+  We define the \emph{$p$th (singular) homology group} of $X$ to be
+  \[
+    H_p(X) = \frac{\ker \partial_p}{\im \partial_{p + 1}}.
+  \]
+  An element of $\ker \partial_p$ is called a
+  \emph{$p$-cycle}, and an element of $\im \partial_{p + 1}$
+  is called a \emph{$p$-boundary}. We say that
+  two chains $c_1, c_2 \in C(X)$ are \emph{homologous}
+  if there exists some $d \in C_{p + 1}(X)$ such that
+  $c_1 - c_2 = \partial d$.
+
+\end{definition}
+
+\begin{remark}
+  Writing $c_1 \sim c_2$ if $c_1, c_2$ are homologous
+  and
+  letting the equivalence classes be denoted
+  by $[c]$,
+  we can also write $H_p$ as
+  \[
+    H_p(X) = \{[c] : \text{$c$ is a $p$-cycle}\}.
+  \]
+\end{remark}
+
+\begin{remark}
+  There are no singular $p$-simplices for $p < 0$,
+  so $C_p(X) = \{0\}$ for $p < 0$.
+\end{remark}
+
+\begin{lemma}
+  If $X$ is a one-point space, then we have
+  \[
+    H_p(X) =
+    \begin{cases}
+      \Z & \text{if $p = 0$}, \\
+      0 & \text{otherwise}.
+    \end{cases}
+  \]
+\end{lemma}
+
+\begin{lemma}
+  We have $H_0(X) \cong \bigoplus_n \Z$,
+  where $X$ has $n$ path components.
+\end{lemma}
