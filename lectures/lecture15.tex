@@ -1,0 +1,281 @@
+\chapter{Mar.~3 --- Homological Algebra}
+
+\section{Introduction to Homological Algebra}
+
+\begin{definition}
+  A sequence of abelian groups $C_*$ and group
+  homomorphisms
+  $\partial_n : C_n \to C_{n - 1}$ is called a
+  \emph{chain complex} if $\partial_{n - 1} \circ \partial_n = 0$
+  for all $n$. The \emph{homology} of a chain
+  complex is
+  \[
+    H_n(C_*, \partial) = \frac{\ker \partial_n}{\im \partial_{n + 1}}.
+  \]
+\end{definition}
+
+\begin{example}
+  The singular chain groups and the boundary
+  map $\partial$ is a chain complex.
+\end{example}
+
+\begin{definition}
+  Given two chain complexes $(C_*, \partial)$ and
+  $(C_*', \partial')$, a \emph{chain map} is a
+  sequence of group homomorphisms $f_n : C_n \to C_n'$
+  such that $\partial_n' \circ f_n = f_{n - 1} \circ \partial_{n}$, i.e. we have
+  \begin{center}
+    \begin{tikzcd}
+      \cdots \ar[r] & C_n \ar[r, "\partial_n"] \ar[d, "f_n"] & C_{n - 1} \ar[r] \ar[d, "f_{n - 1}"] & \cdots \\
+      \cdots \ar[r] & C_n' \ar[r, "\partial_n'"] & C_{n - 1}' \ar[r] & \cdots
+    \end{tikzcd}
+  \end{center}
+\end{definition}
+
+\begin{lemma}\label{lemma:chain-map-induced}
+  A chain map $\{f_n\} : (C_*, \partial) \to (C_*', \partial')$
+  induces homomorphisms
+  \[(f_n)_* : H_n(C_*, \partial) \to H_n(C_*', \partial').\]
+\end{lemma}
+
+\begin{proof}
+  If $[h] \in H_n(C_*, \partial) = \ker \partial_n / {\im \partial_{n + 1}}$,
+  then $h \in C_n$ and $\partial_n h = 0$. Then
+  \[
+    \partial_n'(f_n(h)) = f_{n - 1}(\partial_n h) = f_{n - 1}(0) = 0,
+  \]
+  so we can define $(f_n)_*([h]) = [f_n(h)]$.
+  To see that this is well-defined, suppose
+  $[h] = [h'] \in H_n(C_*, \partial)$. Then
+  there exists $k \in C_{n + 1}$ such that
+  $h' = h + \partial_{n + 1} k$. We can write
+  \[
+    f_n(h')
+    = f_n(h + \partial_{n + 1} k)
+    = f_n(h) + f_n(\partial_{n + 1} k)
+    = f_n(h) + \partial_{n + 1}'(f_{n + 1}(k)),
+  \]
+  i.e. $[f_n(h')] = [f_n(h)]$. Finally,
+  check as an exercise that
+  the $(f_n)_*$ are homomorphisms.
+\end{proof}
+
+\section{Induced Homomorphisms in Homology}
+\begin{remark}
+  If $f : X \to Y$ is a continuous map, then we can
+  define maps
+  \begin{align*}
+    f_n : C_n(X) &\longrightarrow C_n(Y) \\
+    \sum n_i \sigma_i &\longmapsto \sum n_i (f \circ \sigma_i).
+  \end{align*}
+  Note that we have
+  \[
+    f_{n - 1}(\partial_n \sigma)
+    = f_{n - 1} \left(\sum_{i = 0}^n (-1)^i \sigma^{(i)}\right)
+    = \sum_{i = 0}^n (-1)^i (f \circ \sigma^{(i)})
+    = \sum_{i = 0}^n (-1)^i (f \circ \sigma)^{(i)}
+    = \partial_n(f_n(\sigma)),
+  \]
+  In particular, we see that $\{f_n\}$ is a chain map.
+  So by Lemma \ref{lemma:chain-map-induced}, we get
+  a map $f_* : H_n(X) \to H_n(Y)$
+  induced on singular homology for each $n$.
+\end{remark}
+
+\begin{exercise}
+  Check the following:
+  \begin{enumerate}
+    \item $(f \circ g)_* = f_* \circ g_*$;
+    \item $(\id_X)_* = \id_{H_n(X)}$.
+  \end{enumerate}
+\end{exercise}
+
+\begin{definition}
+  Given chain complexes
+  $(C_*, \partial)$ and $(C_*', \partial')$
+  and chain maps $\{f_n\}$ and $\{g_n\}$
+  from $C_*$ to $C_*'$, we say there is a
+  \emph{chain homotopy} between them if there is a
+  sequence of homomorphisms
+  \[
+    p_n : C_n \to C_{n + 1}' \quad \text{such that} \quad
+    \partial_{n + 1}' \circ p_n + p_{n - 1} \circ \partial_n = f_n - g_n.
+  \]
+  In other words, we have the diagram
+  \begin{center}
+    \begin{tikzcd}[sep=large]
+      \cdots \ar[r] & C_{n + 1} \ar[r, "\partial_{n + 1}"] \ar[d, "g_{n + 1}"] \ar[d, swap, bend right, "f_{n + 1}"] & \ar[dl, "p_n"] C_n \ar[r, "\partial_n"] \ar[d, swap, bend right=15, "f_{n}"] \ar[d, bend left=15, "g_n"] & \ar[dl, "p_n"] C_{n - 1} \ar[d, swap, "f_{n - 1}"] \ar[d, bend left, "g_{n - 1}"] \ar[r] & \cdots \\
+      \cdots \ar[r] & C_{n + 1}' \ar[r, swap, "\partial_{n + 1}'"] & C_n' \ar[r, swap, "\partial_n'"]& C_{n - 1}' \ar[r] & \cdots
+    \end{tikzcd}
+  \end{center}
+\end{definition}
+
+\begin{lemma}
+  If there is a chain homotopy between
+  $\{f_n\}$ and $\{g_n\}$, then
+  \[(f_n)_* = (g_n)_* : H_n(C_*, \partial) \to H_n(C_*', \partial').\]
+\end{lemma}
+
+\begin{proof}
+  Let $h \in C_n$ and $\partial_n h = 0$, so
+  $h$ represents an element of $H_n(C_*, \partial)$.
+  Then
+  \[
+    f_n(h) - g_n(h)
+    = \partial_{n + 1}'(p_n(h)) + p_{n - 1}(\partial_n (h))
+    = \partial_{n + 1}'(p_n(h)),
+  \]
+  so $[f_n(h)] = [g_n(h)]$ in $H_n(C_*', \partial')$.
+\end{proof}
+
+\begin{theorem}
+  Let $f, g : X \to Y$ be homotopic maps.
+  Then $\{f_n\}$ and $\{g_n\}$ are chain homotopic
+  maps $(C_*(X), \partial) \to (C_*(Y), \partial')$
+  and thus $f_* = g_* : H_n(X) \to H_n(Y)$.
+\end{theorem}
+
+\begin{proof}
+  Let $H : X \times [0, 1] \to Y$ be the homotopy, so
+  \[H(x, 0) = f(x) \quad \text{and} \quad H(x, 1) = g(x)\]
+  Given a simplex $\sigma^n \to X$, define
+  $p_n(\sigma)$ by
+  \begin{align*}
+    H \circ (\sigma \times \id_{[0, 1]})
+    : \Delta^n \times [0, 1]
+    &\longmapsto Y \\
+    (x, t) &\longmapsto H(\sigma(x), t).
+  \end{align*}
+  To make sense of this, we need to see how to write
+  $H \circ (\sigma \times \id_{[0, 1]})$ as a sum of
+  singular $(n + 1)$-simplices in $Y$.
+  For $n = 0$, note that the interval $\{e_0\} \times [e_0, e_1]$ is
+  already $\Delta^1$, so
+  \begin{align*}
+    p_0(\sigma)
+    &= H \circ (\sigma \times \id_{[0, 1]})
+    = H(e_0, t) \\
+    \partial_1 (p_0(\sigma))
+    &= \partial(H(e_0, t))
+    = (H(e_0, t))^{(0)} - (H(e_0, t))^{(1)} \\
+    &= H(e_0, 1) - H(e_0, 0)
+    = g(e_0) - f(e_0) = g \circ \sigma - f \circ \sigma.
+  \end{align*}
+  Letting $p_{-1} = 0$, we have
+  $g_0 - f_0 = \partial_1 \circ p_0 + p_{-1} \circ \partial_0$ as
+  desired.
+  For $n = 1$, note that $[e_0, f_0] \times [e_0, e_1]$
+  (the last corner is $f_1$) is a square, but we
+  can divide it into two $2$-simplices by
+  \[
+    \tau_1 = [e_0, e_1, f_1] \quad \text{and} \quad
+    \tau_0 = [e_0, f_0, f_1].
+  \]
+  Let $H_\sigma = H \circ (\sigma \times \id_{[0, 1]})$,
+  then we have
+  \begin{align*}
+    p_1(\sigma)
+    &= H_\sigma|_{\tau_0} - H_\sigma|_{\tau_1} \\
+    \partial_2 (p_1(\sigma))
+    &= (H_\sigma|_{[f_0, f_1]} - H_\sigma|_{[e_0, f_1]} + H_\sigma|_{[e_0, f_0]})
+    - (H_\sigma|_{[e_1, f_1]} - H_\sigma|_{[e_0, f_1]} + H_\sigma|_{[e_0, e_1]}) \\
+    &= H_\sigma|_{[f_0, f_1]}
+    - H_\sigma|_{[e_0, e_1]}
+    + H_\sigma|_{[e_0, f_0]}
+    - H_\sigma|_{[e_1, f_1]} \\
+    &= g(\sigma) - f(\sigma) - p_0(\partial \sigma)
+  \end{align*}
+  In general, let $e_0, \dots, e_n$ be the
+  vertices of $\Delta^n$ in $\R^{n + 1}$, where
+  we think of $\R^{n + 1} \subseteq \R^{n + 2}$
+  with $x_{n + 2} = 0$. Let $f_0, \dots, f_n$
+  be the points in $\R^{n + 2}$ above
+  $e_0, \dots, e_n$ with $x_{n + 2} = 1$.
+  So $[e_0, \dots, e_n]$ describes
+  $\Delta^n \times \{0\}$ and $[f_0, \dots, f_n]$
+  describes $\Delta^n \times \{1\}$.
+  Show as an exercise that $D^n \times [0, 1]$
+  is the union of $(n + 1)$-simplices
+  \[
+    [e_0, \dots, e_i, f_i, \dots, f_n].
+  \]
+  Now we can define $p_n : C_n(X) \to C_{n + 1}(Y)$
+  by
+  \begin{align*}
+    p_n(\sigma)
+    &= \sum_{i = 0}^n (-1)^i (H \circ (\sigma \times \id_{[0, 1]}))|_{[e_0, \dots, e_i, f_i, \dots, f_n]} \\
+    \partial_{n + 1}(p_n(\sigma))
+    &=
+    \sum_{j \le i} (-1)^i (-1)^j (H \circ (\sigma \times \id_{[0, 1]}))|_{[e_0, \dots, \widehat{e}_j, \dots, e_i, f_i, \dots, f_n]} \\
+    & \quad \quad + \sum_{i \le j} (-1)^i (-1)^{j + 1} (H \circ (\sigma \times \id_{[0, 1]}))|_{[e_0, \dots, e_i, f_i, \dots, \widehat{f}_j, \dots, f_n]}.
+  \end{align*}
+  The $i = j$ terms all cancel except for
+  \[
+    [\widehat{e}_0, f_0, \dots, f_n] = [f_0, \dots, f_n] \quad \text{and} \quad
+    [e_0, \dots, e_n, \widehat{f}_n] = [e_0, \dots, e_n],
+  \]
+  which give $g \circ \sigma$ and
+  $-(f \circ \sigma)$, respectively. Check
+  as an exercise that many other terms cancel,
+  and those which remain are precisely those
+  which give $p_{n - 1}(\partial_n \sigma)$.
+  This would prove the result.
+\end{proof}
+
+\begin{corollary}
+  If $f : X \to Y$ is a homotopy equivalence,
+  then
+  \[f_* : H_n(X) \to H_n(Y)\]
+  is an isomorphism for all $n$.
+\end{corollary}
+
+\begin{proof}
+  There is a homotopy inverse $g : Y \to X$
+  such that $(f \circ g) \simeq \id_Y$
+  and $(g \circ f) \simeq \id_X$. Then
+  \[
+    f_* \circ g_* = (f \circ g)_* = (\id_Y)_* = \id_{H_n(Y)}
+    \quad \text{and} \quad
+    g_* \circ f_* = (g \circ f)_* = (\id_{X})_* = \id_{H_n(X)}.
+  \]
+  The first says that $f_*$ is surjective and the
+  second says $f_*$ is injective, so $f_*$ is
+  an isomorphism.
+\end{proof}
+
+\begin{remark}
+  The corollary shows that if $X$ is contractible,
+  then
+  \[
+    H_n(X)
+    \cong
+    \begin{cases}
+      \Z & \text{if } n = 0, \\
+      0 & \text{if } n \ne 0.
+    \end{cases}
+  \]
+\end{remark}
+
+\section{Relative Homology}
+\begin{remark}
+  Let $A$ be a subspace of $X$. Then $C_n(A) \le C_n(X)$,
+  and note that $C_n(A)$ lies in the kernel of
+  \begin{center}
+    \begin{tikzcd}
+      C_n(X) \ar[r, "\partial_n"] & C_{n - 1}(X) \ar[r, "\text{quotient}"] & C_{n - 1}(X) / C_{n - 1}(A)
+    \end{tikzcd}
+  \end{center}
+  So $\partial_n$ induces a homomorphism
+  $\partial_n : C_n(X) / C_n(A) \to C_{n - 1}(X) / C_{n - 1}(A)$.
+\end{remark}
+
+\begin{definition}
+  Define $C_n(X, A) = C_n(X) / C_n(A)$ and
+  $\partial_n : C_n(X, A) \to C_{n - 1}(X, A)$
+  We still have $\partial_{n - 1} \circ \partial_n = 0$
+  for all $n$, so this is a chain complex.
+  The \emph{relative homology} of $(X, A)$ is
+  \[
+    H_n(X, A) = H_n(C_*(X, A), \partial).
+  \]
+\end{definition}
