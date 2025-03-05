@@ -1,0 +1,325 @@
+\chapter{Mar.~5 --- Relative Homology}
+
+\section{Relative Homology}
+\begin{remark}
+  Let $A$ be a subspace of $X$. Then $C_n(A) \le C_n(X)$,
+  and note that $C_n(A)$ lies in the kernel of
+  \begin{center}
+    \begin{tikzcd}
+      C_n(X) \ar[r, "\partial_n"] & C_{n - 1}(X) \ar[r, "\text{quotient}"] & C_{n - 1}(X) / C_{n - 1}(A)
+    \end{tikzcd}
+  \end{center}
+  So $\partial_n$ induces a homomorphism
+  $\partial_n : C_n(X) / C_n(A) \to C_{n - 1}(X) / C_{n - 1}(A)$.
+\end{remark}
+
+\begin{definition}
+  Define $C_n(X, A) = C_n(X) / C_n(A)$ and
+  $\partial_n : C_n(X, A) \to C_{n - 1}(X, A)$
+  We still have $\partial_{n - 1} \circ \partial_n = 0$
+  for all $n$, so this is a chain complex.
+  The \emph{relative homology} of $(X, A)$ is
+  \[
+    H_n(X, A)
+    = H_n(C_*(X, A), \partial)
+    = \frac{\ker(\partial_n : C_n(X, A) \to C_{n - 1}(X, A))}{\im(\partial_{n + 1} : C_{n + 1}(X, A) \to C_{n}(X, A))}.
+  \]
+  An element in $H_n(X, A)$ is represented by a
+  \emph{relative cycle}, i.e. $\alpha \in C_n(X)$
+  such that $\partial \alpha \in C_{n - 1}(A)$.
+  A relative cycle $\alpha \in C_n(X)$ trivial
+  in $H_n(X, A)$ if it is a \emph{relative boundary},
+  i.e. there exists $\beta \in C_{n + 1}(X)$
+  and $\gamma \in C_n(A)$ such that
+  $\alpha = \partial \beta + \gamma$.
+\end{definition}
+
+\begin{definition}
+  Recall that a sequence of homomorphisms
+  \begin{center}
+    \begin{tikzcd}
+      A \ar[r, "\phi"] & B \ar[r, "\psi"] & C
+    \end{tikzcd}
+  \end{center}
+  is called \emph{exact at $B$} if
+  $\im \phi = \ker \psi$. A longer sequence is called
+  \emph{exact} if it is exact at each term.
+  \footnote{Note that a sequence is exact precisely when it has trivial homology.}
+\end{definition}
+
+\begin{lemma}\label{lem:long-exact}
+  If $(A_n, \partial_A)$, $(B_n, \partial_B)$, $(C_n, \partial_C)$ are chain complexes and
+  \[
+    \{\phi_n\} : (A_*, \partial_A) \to (B_*, \partial_B)
+    \quad \text{and} \quad
+    \{\psi_n\} : (B_*, \partial_B) \to (C_*, \partial_C)
+  \]
+  are chain maps such that the sequence
+  \begin{center}
+    \begin{tikzcd}
+      0 \ar[r] & A_n \ar[r, "\phi"] & B_n \ar[r, "\psi"] & C_n \ar[r] & 0
+    \end{tikzcd}
+  \end{center}
+  is exact for all $n$, then there exists a
+  long exact sequence
+  \begin{center}
+    \begin{tikzcd}
+      \cdots \ar[r] & H_n(A_*, \partial_A) \ar[r, "(\phi_n)_*"] & H_n(B_*, \partial_B) \ar[r, "(\psi_n)_*"] & H_n(C_*, \partial_C) \ar[r, "\partial_n"] & H_{n - 1}(A_*, \partial_A) \ar[r] & \cdots
+    \end{tikzcd}
+  \end{center}
+\end{lemma}
+
+\begin{corollary}
+  Let $A$ be a subspace of $X$.
+  Let $i : A \to X$ be the inclusion and
+  $q_n : C_n(X) \to C_n(X, A)$ be the quotient map.
+  Then the sequence
+  \begin{center}
+    \begin{tikzcd}
+      0 \ar[r] & C_n(A) \ar[r, "i"] & C_n(X) \ar[r, "q_n"] & C_n(X, A) \ar[r] & 0
+    \end{tikzcd}
+  \end{center}
+  is exact, so there exists an exact sequence
+  \begin{center}
+    \begin{tikzcd}
+      \cdots \ar[r] & H_n(A) \ar[r, "i_*"] & H_n(X) \ar[r, "q_*"] & H_n(X, A) \ar[r, "\partial_*"] & H_{n - 1}(A) \ar[r] & \cdots
+    \end{tikzcd}
+  \end{center}
+  The above is called the \emph{long exact sequence of a pair $(X, A)$}.
+\end{corollary}
+
+\begin{proof}
+  The second part follows from
+  Lemma \ref{lem:long-exact}. For the first part,
+  note that $i : C_n(A) \to C_n(X)$ is clearly
+  injective and $q_n : C_n(X) \to C_n(X, A) = C_n(X) / C_n(A)$
+  is clearly surjective. Also, we have
+  \[
+    \im i = C_n(A) = \ker q_n,
+  \]
+  so the sequence is exact, as claimed.
+\end{proof}
+
+\begin{exercise}
+  Verify that $\partial_*$ in the
+  exact sequence is the following map:
+  For $h \in H_n(X, A)$, choose $\alpha \in C_n(X)$
+  such that $\partial_n \alpha \in C_{n - 1}(A)$
+  and $h = [\alpha]$, then define
+  $\partial_* h = [\partial_n \alpha] \in H_{n - 1}(A)$.
+\end{exercise}
+
+\begin{proof}[Proof of Lemma \ref{lem:long-exact}]
+  The main difficulty lies in defining $\partial_*$.
+
+  Consider the following diagram (which commutes since
+  the $\phi_n, \psi_n$ are chain maps):
+  \begin{center}
+    \begin{tikzcd}
+      0 \ar[d] & 0 \ar[d] & 0 \ar[d] \\
+      A \ar[r, "\partial_A"] \ar[d, "\phi_n"] & A_{n - 1} \ar[r, "\partial_A"] \ar[d, "\phi_{n - 1}"] & A_{n - 2} \ar[d, "\phi_{n - 2}"] \\
+      B \ar[r, "\partial_B"] \ar[d, "\psi_n"] & B_{n - 1} \ar[r, "\partial_B"] \ar[d, "\psi_{n - 1}"] & B_{n - 2} \ar[d, "\psi_{n - 2}"] \\
+      C \ar[r, "\partial_C"] \ar[d] & C_{n - 1} \ar[r, "\partial_C"] \ar[d] & A_{n - 2} \ar[d] \\
+      0 & 0 & 0
+    \end{tikzcd}
+  \end{center}
+  Given $[c] \in H_n(C_n, \partial_C)$, we know that
+  $\partial_C c = 0$. Since $\psi_n$ is surjective,
+  there exists some $b \in B_n$ such that
+  $\psi(b) = c$. Note that
+  \[
+    \psi_{n - 1}(\partial_B b)
+    = \partial_C(\psi_n(b))
+    = \partial_C c = 0,
+  \]
+  so $\partial_B b \in \ker \psi_{n - 1} = \im \phi_{n - 1}$.
+  So there is a unique $a \in A_{n - 1}$ such that
+  $\phi_{n - 1}(a) = \partial_B b$. Note that
+  \[
+    \phi_{n - 2}(\partial_A a)
+    = \partial_B (\psi_{n - 1} (a))
+    = \partial_B (\partial_B b) = 0.
+  \]
+  Since $\phi_{n - 2}$ is injective, we have
+  $\partial_{A} a = 0$ and $[a] \in H_{n - 1}(A)$.
+  So we can define $\partial_*[c] = [a]$.
+
+  To see that $\partial_*$ is well-defined, note
+  that we made two choices: the representative
+  of $[c]$ and the choice of $b$ such that $\psi_n(b) = c$.
+  We need to see that $\partial_*$ is independent
+  of these choices.
+  Let $c, c'$ represent $[c]$. Since
+  $c, c' \in [c]$, there exists $\overline{c}$
+  such that $\partial \overline{c} = c - c'$.
+  Choose $b, b' \in B_n$ such that $\phi_n(b) = c$
+  and $\phi(b') = c'$ (this will also show the
+  independence of $b$ by taking $c' = c$).
+  There exists $\overline{b}$ such that
+  $\psi_{n + 1}(\overline{b}) = \overline{c}$. Then
+  \[
+    \psi_n(\partial_B \overline{b} - b + b')
+    = \partial_C(\psi_{n + 1}(\overline{b})) - \psi_n(b) + \psi_n(b')
+    = (c - c') - c + c' = 0.
+  \]
+  Thus there exists $\overline{a} \in A_n$ such that
+  $\phi_n(\overline{a}) = \partial_B \overline{b} - b + b'$.
+  Let $a, a'$ be such that
+  $\phi_{n - 1}(a) = \partial_B b$ and
+  $\phi_{n - 1}(a') = \partial_B b'$, as we did above.
+  We can then see that
+  \begin{align*}
+    \phi_{n - 1}(\partial_A \overline{a} + a - a')
+    &= \partial_B (\phi_n(\overline{a})) + \phi_{n - 1}(a) - \phi_{n - 1}(a')
+    = \partial_B(\partial_B \overline{b} - b + b')
+    + \partial_B b - \partial_B b' \\
+    &= (0 -\partial_B b + \partial_B b') + \partial_B b - \partial_B b' = 0.
+  \end{align*}
+  Therefore, $a' = a + \partial_A \overline{a}$ and
+  $[a] = [a']$, so $\partial_*$ is well-defined.
+
+  Complete the remainder of the proof as an exercise
+  (i.e. check that $\partial_*$ is a homomorphism and
+  that the sequence is in fact exact at each term).
+\end{proof}
+
+\begin{example}
+  Consider $(X, x_0)$. The long exact sequence of
+  $(X, x_0)$ is (for $n \ge 2$)
+  \begin{center}
+    \begin{tikzcd}
+      \cdots \ar[r] & H_n(x_0) \ar[r] & H_n(X) \ar[r] & H_n(X, x_0) \ar[r] & H_{n - 1}(x_0) \ar[r] & \cdots \\
+                    & 0 \ar[u, equal] & & & 0 \ar[u, equal]
+    \end{tikzcd}
+  \end{center}
+  In particular, this means that
+  $H_n(X) \cong H_n(X, x_0)$. For $n = 0, 1$, we have
+  \begin{center}
+    \begin{tikzcd}[row sep=small]
+      H_1(x_0) \ar[r] & H_1(X) \ar[r] & H_1(X, x_0) \ar[r] & H_0(x_0) \ar[r, "i_*"] & H_0(X) \ar[r] & H_0(X, x_0) \ar[r] & 0 \\
+      0 \ar[u, equal] & & & \Z \ar[u, equal] & \bigoplus_n \Z \ar[u, equal]
+    \end{tikzcd}
+  \end{center}
+  Since $i_*$ is injective, we must have
+  $\im(H_1(X, x_0) \to H_0(x_0)) = 0$, and
+  so $H_1(X) \cong H_1(X, x_0)$. Now $i_*$ maps
+  $\Z$ to the $\Z$ factor of $\bigoplus_n \Z$
+  corresponding to the path component containing
+  $x_0$. Since the last map $H_0(X) \to H_0(X, x_0)$
+  is surjective, we have
+  \[
+    H_0(X, x_0)
+    \cong \frac{H_0(X)}{\ker(H_0(X) \to H_0(X, x_0))}
+    \cong \frac{H_0(X)}{\im i_*}
+    \cong \frac{\bigoplus_n \Z}{\Z}
+    \cong \bigoplus_{n - 1} \Z.
+  \]
+  Note that we are able to conclude the last step
+  since we know $i_*$ maps $\Z$ to an entire $\Z$
+  factor (in general, we may end up with a direct sum
+  of $\bigoplus_{n - 1} \Z$ with a finite group).
+  This shows that $H_n(X, x_0) = \widetilde{H}_n(X)$.
+\end{example}
+
+\begin{exercise}
+  Show the following:
+  \begin{enumerate}
+    \item If $f : (X, A) \to (Y, B)$ is continuous,
+      then $f_* : H_n(X, A) \to H_n(Y, B)$.
+    \item If $f, g : (X, A) \to (Y, B)$ are homotopic
+      as maps of pairs, then $f_* = g_*$.
+    \item If $A \subseteq B \subseteq X$, then one
+      gets a long exact sequence
+      \begin{center}
+        \begin{tikzcd}
+          \cdots \ar[r] & H_n(B, A) \ar[r] & H_n(X, A) \ar[r] & H_n(X, B) \ar[r] & H_{n - 1}(B, A) \ar[r] & \cdots
+        \end{tikzcd}
+      \end{center}
+  \end{enumerate}
+  Hint: For the last part, note that one can write
+  \[
+    C_n(X, A)
+    = \frac{C_n(X)}{C_n(A)}
+    \cong \frac{C_n(X) / C_n(B)}{C_n(B) / C_n(A)}
+    \cong \frac{C_n(X, B)}{C_n(B, A)}.
+  \]
+\end{exercise}
+
+\section{Excision}
+
+\begin{theorem}[Excision]
+  Let $Z \subseteq A \subseteq X$ and
+  $\overline{Z} \subseteq \Int A$. Then the
+  inclusion map
+  \[
+    i : (X \setminus Z, A \setminus Z) \to X, A
+  \]
+  induces an isomorphism
+  \[
+    i_* : H_n(X \setminus Z, A \setminus Z) \to H_n(X, A).
+  \]
+\end{theorem}
+
+\begin{remark}
+  We will prove this theorem in a later lecture.
+\end{remark}
+
+\begin{definition}
+  A pair $A \subseteq X$ is called
+  \emph{good} if $A$ is nonempty, closed, and has
+  a neighborhood $U$ such that
+  $A$ is a deformation retract of $U$, i.e.
+  there exists a homotopy $H : U \times [0, 1] \to U$
+  such that $H(x, 0) = x$ for all $x \in U$, and
+  $H(x, 1) \in A$,
+  $H(x, t) = x$ for all $x \in A$ and $t \in [0, 1]$.
+\end{definition}
+
+\begin{exercise}
+  If $A$ is a submanifold of a manifold $X$, then
+  show that $A \subseteq X$ is good.
+  If $X$ is obtained from $A$ by attaching a cell,
+  then show that $A \subseteq X$ is good.
+\end{exercise}
+
+\begin{theorem}
+  If $(X, A)$ is a good pair, then
+  the quotient map
+  \[q : (X, A) \to (X/A, A/A) \cong (X / A, \{\mathrm{pt}\})\]
+  induces an isomorphism
+  \[q_* : H_n(X, A) \to H_n(X/A, A/A) \cong \widetilde{H}_n(X / A).\]
+\end{theorem}
+
+\begin{proof}
+  Let $U$ be the neighborhood of $A$ that deformation
+  retracts to $A$ and let $H : U \times [0, 1] \to U$
+  be the deformation retraction. We have the
+  diagram:
+  \begin{center}
+    \begin{tikzcd}
+      H_n(X, A) \ar[r, "i"] \ar[d, "q_*"] & H_n(X, U), \ar[d, "q_*"] & \ar[l, swap, "\cong"] H_n(X - A, U - A) \ar[d, "q_*"] \\
+      H_n(X / A, A / A) \ar[r, "i"] & H_n(X / A, U / A) & H_n(X / A - A / A , U / A - A / A) \ar[l, swap, "\cong"]
+    \end{tikzcd}
+  \end{center}
+  The isomorphism arrows are by excision. Now note
+  that
+  \[
+    q : (X - A, U - A) \to (X / A - A / A, U / A - A / A)
+  \]
+  is a homeomorphism (actually the identity), so
+  the last quotient map on the right is an isomorphism.
+  Thus the middle quotient map is also an isomorphism
+  by excision.
+
+  Let $h_t(x) = H(x, t)$, and consider the composition
+  \begin{center}
+    \begin{tikzcd}
+      (A, A) \ar[r, "i"] & (U, A) \ar[r, "(h_1)_*"]& (A, A)
+    \end{tikzcd}
+  \end{center}
+  Note that $h_1 \circ i = \id_{(A, A)}$ and
+  $i \circ h_1 \simeq \id_{(U, A)}$ via $H$, so
+  $i_* : H_n(A, A) \to H_n(U, A)$ is an isomorphism.
+
+  We finish the rest of the proof next class.
+\end{proof}

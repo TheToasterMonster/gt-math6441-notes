@@ -255,29 +255,3 @@
     \end{cases}
   \]
 \end{remark}
-
-\section{Relative Homology}
-\begin{remark}
-  Let $A$ be a subspace of $X$. Then $C_n(A) \le C_n(X)$,
-  and note that $C_n(A)$ lies in the kernel of
-  \begin{center}
-    \begin{tikzcd}
-      C_n(X) \ar[r, "\partial_n"] & C_{n - 1}(X) \ar[r, "\text{quotient}"] & C_{n - 1}(X) / C_{n - 1}(A)
-    \end{tikzcd}
-  \end{center}
-  So $\partial_n$ induces a homomorphism
-  $\partial_n : C_n(X) / C_n(A) \to C_{n - 1}(X) / C_{n - 1}(A)$.
-\end{remark}
-
-\begin{definition}
-  Define $C_n(X, A) = C_n(X) / C_n(A)$ and
-  $\partial_n : C_n(X, A) \to C_{n - 1}(X, A)$
-  We still have $\partial_{n - 1} \circ \partial_n = 0$
-  for all $n$, so this is a chain complex.
-  The \emph{relative homology} of $(X, A)$ is
-  \[
-    H_n(X, A)
-    = H_n(C_*(X, A), \partial)
-    = \frac{\ker(\partial_n : C_n(X, A) \to C_{n - 1}(X, A))}{\im(\partial_{n + 1} : C_{n + 1}(X, A) \to C_{n}(X, A))}.
-  \]
-\end{definition}
