@@ -187,7 +187,7 @@
   Consider $(X, x_0)$. The long exact sequence of
   $(X, x_0)$ is (for $n \ge 2$)
   \begin{center}
-    \begin{tikzcd}
+    \begin{tikzcd}[row sep=small]
       \cdots \ar[r] & H_n(x_0) \ar[r] & H_n(X) \ar[r] & H_n(X, x_0) \ar[r] & H_{n - 1}(x_0) \ar[r] & \cdots \\
                     & 0 \ar[u, equal] & & & 0 \ar[u, equal]
     \end{tikzcd}
@@ -314,12 +314,23 @@
   Let $h_t(x) = H(x, t)$, and consider the composition
   \begin{center}
     \begin{tikzcd}
-      (A, A) \ar[r, "i"] & (U, A) \ar[r, "(h_1)_*"]& (A, A)
+      (A, A) \ar[r, "i"] & (U, A) \ar[r, "h_1"]& (A, A)
     \end{tikzcd}
   \end{center}
   Note that $h_1 \circ i = \id_{(A, A)}$ and
   $i \circ h_1 \simeq \id_{(U, A)}$ via $H$, so
   $i_* : H_n(A, A) \to H_n(U, A)$ is an isomorphism.
-
-  We finish the rest of the proof next class.
+  Now consider the long exact sequence of
+  $A \subseteq U \subseteq X$:
+  \begin{center}
+    \begin{tikzcd}[row sep=small]
+      H_n(U, A) \ar[r] & H_n(X, A) \ar[r, "i_*"] & H_n(X, U) \ar[r, "\partial"] & H_{n - 1}(U, A) \\
+      H_n(A, A) = 0 \ar[u, equal] & & & H_{n - 1}(A, A) = 0 \ar[u, equal]
+    \end{tikzcd}
+  \end{center}
+  This tells us that $i_* : H_n(X, A) \to H_n(X, U)$
+  is an isomorphism, and a similar argument shows that
+  $i_* : H_n(X / A, A / A) \to H_n(X / A, U / A)$
+  is as well, so $q_* : H_n(X, A) \to H_n(X / A, A / A)$
+  also is.
 \end{proof}

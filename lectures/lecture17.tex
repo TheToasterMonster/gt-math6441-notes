@@ -1,0 +1,303 @@
+\chapter{Mar.~10 --- Applications of Excision}
+
+\section{Homology Computations Using Excision}
+
+\begin{prop}
+  We have
+  \[
+    H_k(S^n) =
+    \begin{cases}
+      \Z & \text{if } k = 0, n, \\
+      0 & \text{if $k \ne 0, n$},
+    \end{cases}
+    \quad \text{and} \quad
+    H_k(D, \partial D^n) =
+    \begin{cases}
+      \Z & \text{if } k = n, \\
+      0 & \text{if $k \ne n$}.
+    \end{cases}
+  \]
+\end{prop}
+
+\begin{proof}
+  First note that (interpret $k = n = 0$ as
+  two copies of $\Z$)
+  \[
+    H_k(S^0) =
+    \begin{cases}
+      \Z \oplus \Z & \text{if } k = 0, \\
+    \end{cases}
+    \quad \text{and} \quad
+    H_k(D^n) =
+    \begin{cases}
+      \Z & \text{if } k = 0, \\
+      0 & \text{if $k \ne 0$}.
+    \end{cases}
+  \]
+  For $n = 1$, consider the long exact sequence of
+  $(D^1, S^0)$:
+  \begin{center}
+    \begin{tikzcd}[row sep=small]
+      H_k(S^0) \ar[r] & H_k(D^1) \ar[r, "\cong"] & H_k(D^1, S^0) \ar[r] & H_{k-1}(S^0) \\
+      0 \ar[u, equal] & 0 \ar[u, equal] & & 0 \ar[u, equal]
+    \end{tikzcd}
+  \end{center}
+  so $H_k(D^1, S^0) = 0$ for $k \ge 2$ (note that
+  $D^1 / S^0 \cong S^1$, thus $H_k(S^1) = 0$ also
+  for $k \ge 2$). Now consider
+  \begin{center}
+    \begin{tikzcd}[row sep=small]
+      H_1(S^0) \ar[r] & H_1(D^1) \ar[r] & H_1(D^1, S^0) \ar[r, "\partial"] & H_0(S^0) \ar[r, "i_*"]& H_0(D^1) \ar[r] &
+      H_0(D^1, S^0) \ar[r] & 0 \\
+      0 \ar[u, equal] & 0 \ar[u, equal] & H_1(S^1) \ar[u, equal] & \Z \oplus \Z \ar[u, equal] & \Z \ar[u, equal] & \widetilde{H}_0(S^1) = 0 \ar[u, equal]
+    \end{tikzcd}
+  \end{center}
+  By the exactness of the above sequence at $H_0(S^0)$,
+  we have
+  \[
+    \Z \cong \frac{\Z \oplus \Z}{\ker i_*}
+    \cong \frac{\Z \oplus \Z}{\im \partial}
+    \cong \frac{\Z \oplus \Z}{H_1(S^1)},
+  \]
+  so we must have $H_1(S^1) \cong \Z$.
+  Now by induction, assume the proposition is
+  true for $S^{n - 1}$ (with $n \ge 1$). Consider
+  the long exact sequence of $(D^n, S^{n - 1})$:
+  If $n \ge 2$,
+  \begin{center}
+    \begin{tikzcd}[row sep=small]
+      H_n(D^n) & H_n(D^n, S^{n - 1}) & H_{n - 1}(S^{n - 1}) & H_{n - 1}(D^n) \\
+      0 \ar[u, equal] & & \Z \ar[u, equal] & 0 \ar[u, equal]
+    \end{tikzcd}
+  \end{center}
+  so we have
+  $H_n(S^n) \cong H_{n}(D^n, S^{n - 1}) \cong \Z$.
+  Now notice that
+  \begin{center}
+    \begin{tikzcd}[row sep=small]
+      H_1(D^n) \ar[r] & H_1(D^n, S^{n - 1}) \ar[r, "\phi"] & H_0(S^{n - 1}) \ar[r, "i_*"] & H_0(D^n) \\
+      0 \ar[u, equal] & & \Z \ar[u, equal] & \Z \ar[u, equal]
+    \end{tikzcd}
+  \end{center}
+  where $H_0(D^n) \cong \Z$ since $i_*$ maps a
+  generator of $H_0(S^{n - 1})$ to a generator of
+  $H_0(D^n)$. Thus $\im \phi = \ker i_* = 0$, so we have
+  $H_1(S^n) \cong H_1(D^n, S^{n - 1}) \cong 0$.
+  Finally, for $k \ne n, 1, 0$, we get
+  \begin{center}[row sep=small]
+    \begin{tikzcd}
+      H_k(D^n) \ar[r] & H_k(D^n, S^{n - 1}) \ar[r] & H_{k - 1}(S^{n - 1}) \ar[r] & H_{k - 1}(D^n) \\
+      0 \ar[u, equal] & & 0 \ar[u, equal] & 0 \ar[u, equal]
+    \end{tikzcd}
+  \end{center}
+  so we have $H_k(S^n) \cong H_k(D^n, S^{n - 1}) \cong 0$.
+\end{proof}
+
+\begin{corollary}
+  $\partial D^n$ is not a retract of $D^n$, and
+  any map $f : D^n \to D^n$ has a fixed point.
+\end{corollary}
+
+\begin{proof}
+  If $r : D^n \to \partial D^n$ is a retract, then
+  $r \circ i = \id_{\partial D^n}$, so
+  \[
+    r_* \circ i_* : H_{n - 1}(\partial D^n) \to H_{n - 1}(D^n)
+  \]
+  is the identity map. In particular, $r_* \circ i_*$
+  is an isomorphism, but
+  \[
+    r_* : H_{n - 1}(D^n) \to H_{n - 1}(S^{n - 1})
+  \]
+  is the zero map
+  (since $H_{n - 1}(D^n) = 0$ and
+  $H_{n - 1}(S^{n - 1}) = \Z$), a contradiction.
+
+  The second statement follows from the first as
+  in the $n = 2$ case we have already seen.
+\end{proof}
+
+\begin{corollary}[Invariance of domain]
+  Let $U \subseteq \R^n$ and $V \subseteq \R^m$.
+  If $U$ is homeomorphic to $V$, then we have $n = m$.
+\end{corollary}
+
+\begin{proof}
+  For any $x \in U$, we have
+  $\R^n - U \subseteq \R^n - \{x\} \subseteq \R^n$, so
+  excision says
+  \[
+    H_k(\R^n, \R^n - \{x\}) \cong
+    H_k(\R^n - (\R^n - U), (\R^n - \{x\}) - (\R^n - U))
+    \cong H_k(U, U - \{x\}).
+  \]
+  Consider the long exact sequence of $(\R^n, \R^n - \{x\})$:
+  \begin{center}
+    \begin{tikzcd}[row sep=small]
+      H_k(\R^n) \ar[r] & H_k(\R^n, \R^n - \{x\}) \ar[r] & H_{k - 1}(\R^{n - 1}) \ar[r] & H_{k - 1}(\R^n) \\
+      0 \ar[u, equal] & & & 0 \ar[u, equal]
+    \end{tikzcd}
+  \end{center}
+  so
+  \[
+    H_k(U, U - \{x\})
+    \cong H_k(\R^n, \R^n - \{x\})
+    \cong H_k(\R^n - \{x\})
+    \cong H_{k - 1}(S^{n - 1})
+    \cong
+    \begin{cases}
+      \Z & \text{if } k = n, 0, \\
+      0 & \text{if } k \ne n, 0
+    \end{cases}
+  \]
+  since $\R^n - \{x\} \simeq S^{n - 1}$. By the
+  same argument, we can also get
+  \[
+    H_k(V, V - \{y\}) \cong
+    \begin{cases}
+      \Z & \text{if } k = m, 0, \\
+      0 & \text{if } k \ne m, 0.
+    \end{cases}
+  \]
+  Now if $\phi : U \to V$ is a homeomorphism,
+  then $\phi$ induces a homeomorphism of pairs
+  \[
+    \phi : (U, U - \{x\}) \to (V, V - \{\phi(x)\}).
+  \]
+  Then $\phi$ induces an isomorphism on homology,
+  so $H_k$ must be $\Z$ at the
+  same place, i.e. $m = n$.
+\end{proof}
+
+\begin{remark}
+  The above says that if $M \ne \varnothing$
+  is an $n$-manifold, then it is not an $m$-manifold
+  for any $m \ne n$.
+\end{remark}
+
+\begin{prop}
+  We have the following:
+  \begin{enumerate}
+    \item We can identify $(D^n, \partial D^n)$
+      with $(\Delta^n, \partial D^n)$, and under this
+      identification, $H_n(D^n, \partial D^n) \cong \Z$
+      is generated by the identity map
+      $\Delta^n \to \Delta^n$.
+    \item We can identify $S^n$ with
+      $\Delta_1^n \cup \Delta_2^n$, where
+      $\partial \Delta_1^n$ is glued to
+      $\partial \Delta_2^n$ by the identity map.
+      Then $H_n(S^n) \cong \Z$ is generated by
+      $f_1 - f_2$, where $f_i : \Delta_i^n \to S^n$
+      is the inclusion.
+  \end{enumerate}
+\end{prop}
+
+\begin{proof}
+  See \url{https://etnyre.math.gatech.edu/class/6441Spring21/Section%20IIA-C.pdf}.
+\end{proof}
+
+\begin{remark}
+  When making computations, it is sometimes useful
+  to know that the long exact sequences we are working
+  with ``respect'' maps between spaces. This is
+  called \emph{naturality}.
+\end{remark}
+
+\section{Naturality}
+
+\begin{lemma}\label{lem:naturality-lemma}
+  If we have chain complex and chain maps such that
+  the following diagram:
+  \begin{center}
+    \begin{tikzcd}
+      0 \ar[r] & A_* \ar[r, "i"] \ar[d, "\alpha"] & B_* \ar[r, "j"] \ar[d, "\beta"] & C_* \ar[r] \ar[d, "\gamma"] & 0 \\
+      0 \ar[r] & A_*' \ar[r, "i'"] & B_*' \ar[r, "j'"] & C_*' \ar[r] & 0
+    \end{tikzcd}
+  \end{center}
+  commutes, then the maps induced on the long exact
+  sequence also commute.
+\end{lemma}
+
+\begin{proof}
+  Since $\beta \circ i = i' \circ \alpha$,
+  we have $\beta_* \circ i_* = i'_* \circ \alpha_*$, and
+  similarly for
+  $\gamma_* \circ j_* = j'_* \circ \beta_*$. Now
+  recall that we defined $\partial [c] = [a]$, where
+  $a \in A_{n - 1}$ such that $i(a) = \partial b$
+  for some $b \in B_n$ such that $j(b) = c$. Now
+  note that $\partial(\gamma(c)) = [\alpha(a)]$
+  because $\gamma(c) = \gamma(j(b)) = j(\beta(b))$
+  and
+  \[
+    i'(\alpha(a)) = \beta(i(a)) = \beta(\partial b)
+    = \partial(\beta(b))
+  \]
+  as $\beta$ is a chain map. This proves the claim.
+\end{proof}
+
+\begin{theorem}[Naturality]
+  If $f : (X, A) \to (Y, B)$ is a map of pairs, then
+  this diagram commutes:
+  \begin{center}
+    \begin{tikzcd}
+      \cdots \ar[r] & H_k(A) \ar[r, "i_*"] \ar[d, "f_*"] & H_k(X) \ar[r, "j_*"] \ar[d, "f_*"] & H_k(X, A) \ar[r, "\partial"] \ar[d, "f_*"] & H_{k - 1}(A) \ar[r] \ar[d, "f_*"]& \cdots \\
+      \cdots \ar[r] & H_k(B) \ar[r, "i_*"] & H_k(Y) \ar[r, "j_*"] & H_k(Y, A) \ar[r, "\partial"] & H_{k - 1}(B) \ar[r] & \cdots
+    \end{tikzcd}
+  \end{center}
+  and similarly for the long exact sequence of a
+  triple.
+\end{theorem}
+
+\begin{proof}
+  Note that the following diagram:
+  \begin{center}
+    \begin{tikzcd}
+      0 \ar[r] & C_k(A) \ar[r] \ar[d, "f_*"] & C_k(X) \ar[r] \ar[d, "f_*"] & C_k(X, A) \ar[r] \ar[d, "f_*"] & 0 \\
+      0 \ar[r] & C_k(B) \ar[r] & C_k(Y) \ar[r] & C_k(Y, B) \ar[r] & 0
+    \end{tikzcd}
+  \end{center}
+  clearly commutes, so the result follows from
+  Lemma \ref{lem:naturality-lemma}.
+\end{proof}
+
+\section{Mayer-Vietoris}
+
+\begin{theorem}[Mayer-Vietoris]
+  Let $A, B \subseteq X$ be subspaces such that
+  $X = (\Int A) \cup (\Int B)$, and let
+  \begin{center}
+    \begin{tikzcd}
+      A \cap B \ar[r, "i_A"] \ar[dr, swap, "i_B"] & A \ar[dr, "j_A"] \\
+      & B \ar[r, swap, "j_B"] & X
+    \end{tikzcd}
+  \end{center}
+  be the inclusions. Then the sequence
+  \begin{center}
+    \begin{tikzcd}
+      \cdots \ar[r] & H_n(A \cap B) \ar[r, "\phi"] & H_n(A) \oplus H_n(B) \ar[r, "\psi"] & H_n(X) \ar[r, "\partial"] & H_{n - 1}(A \cap B) \ar[r] & \cdots
+    \end{tikzcd}
+  \end{center}
+  is exact, where $\phi = (i_A)_* \oplus (i_B)_*$,
+  $\psi([a], [b]) = (j_A)_*([a]) - (j_B)_*([b])$, and
+  \[
+    \partial [z] = [\partial a]
+    \quad \text{where } z = a + b \text{ for } a \in C_*(A), b \in C_*(B).
+  \]
+\end{theorem}
+
+\begin{remark}
+  This is like an analogue of the Seifert-van Kampen
+  theorem for homology.
+\end{remark}
+
+\begin{example}
+  Consider $T^2 = S^1 \times S^1$. Let $c$ be a
+  circle around the center of the torus. Let
+  $A$ be a small neighborhood of $c$ and
+  $B = T^2 - c \cong S^1 \times I$. Note that
+  $A \cap B$ is the union of two annuli.
+  Compute the homology of $T^2$ using Mayer-Vietoris
+  as an exercise.
+\end{example}
