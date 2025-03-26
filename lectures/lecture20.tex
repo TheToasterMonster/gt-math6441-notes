@@ -260,9 +260,9 @@
       \ar[r, "d_{n + 1}"] & H_n(X^{(n)}, X^{(n - 1)}) \ar[r] & \dots
     \end{tikzcd}
   \end{center}
-  We claim that $\partial_n^\CW = d_{n + 1}$, which
+  We claim that $\partial_n^\CW = d_{n}$, which
   we will check later. We first see that the
-  Theorem follows from this: consider the
+  theorem follows from this claim: Consider the
   long exact sequence of $(X^{(n + 1)}, X^{(n)})$
   and $(X^{(n)}, X^{(n - 1)})$:
   \begin{center}
@@ -307,7 +307,7 @@
     = \ker d_n.
   \]
   Then by the claim that
-  $\partial_n^\CW = d_{n + 1}$, we have
+  $\partial_n^\CW = d_{n}$, we have
   \[
     H_n(X) \cong \frac{H_n(X^{(n)})}{\im \partial_{n + 1}}
     \cong \frac{\ker d_n}{\im d_{n + 1}}
