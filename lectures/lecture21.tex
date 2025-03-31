@@ -1,0 +1,425 @@
+\chapter{Mar.~31 --- Cohomology}
+
+\section{Homology with Coefficients}
+
+\begin{definition}
+  Given any abelian group $G$ and a space $X$,
+  let
+  \[
+    C_n(X; G) = \left\{
+      \sum_{i = 1}^k g_i \sigma_i :
+      g_i \in G, \text{$\sigma_i$ are singular $n$-simplices}
+    \right\}
+  \]
+  and define
+  \[
+    \partial_n\left(\sum_{i = 1}^k g_i \sigma_i\right)
+    = \sum_{i = 1}^k g_i \partial_n \sigma_i
+    = \sum_{i = 1}^k \sum_{j = 0}^n g_i (-1)^j \sigma_i^{(j)}.
+  \]
+  Just like before, $\partial_n \circ \partial_{n + 1} = 0$, so we
+  can define the \emph{homology of $X$ with
+  coefficients in $G$} to be
+  \[
+    H_n(X; G) = \frac{\ker \partial_n}{\im \partial_{n + 1}}.
+  \]
+  If $G = \Z$, then this is the usual singular homology.
+\end{definition}
+
+\begin{remark}
+  All theorems about the original definition of
+  singular homology work in this setting as well.
+  We can also define the \emph{cellular homology with coefficients in $G$}
+  in a similar way.
+\end{remark}
+
+\begin{example}
+  Consider $\R P^2$. Using $\Z$-coefficients,
+  we get
+  \begin{center}
+    \begin{tikzcd}[row sep=small]
+      0 \ar[r] & C_2^\CW(\R P^2, \Z) \ar[r] & C_1^\CW(\R P^2, \Z) \ar[r] & C_0^\CW(\R P^2, \Z) \ar[r] & 0 \\
+               & \Z \ar[u, equal] \ar[r, "\times 2"] & \Z \ar[u, equal] \ar[r, "0"] & \Z \ar[u, equal]
+    \end{tikzcd}
+  \end{center}
+  so we find that
+  \[
+    H_k(\R P^2; \Z) \cong
+    \begin{cases}
+      \Z & \text{if $k = 0$}, \\
+      \Z / 2\Z & \text{if $k = 1$}, \\
+      0 & \text{otherwise}.
+    \end{cases}
+  \]
+  Using $\Z / 2\Z$-coefficients, however, we get
+  \begin{center}
+    \begin{tikzcd}[row sep=small]
+      0 \ar[r] & C_2^\CW(\R P^2, \Z / 2\Z) \ar[r] & C_1^\CW(\R P^2, \Z / 2\Z) \ar[r] & C_0^\CW(\R P^2, \Z / 2\Z) \ar[r] & 0 \\
+               & \Z / 2\Z \ar[u, equal] \ar[r, "0"] & \Z / 2 \Z \ar[u, equal] \ar[r, "0"] & \Z / 2\Z \ar[u, equal]
+    \end{tikzcd}
+  \end{center}
+  since multiplication by $2$ in $\Z / 2\Z$ is
+  the zero map. Thus we have
+  \[
+    H_k(\R P^2; \Z / 2\Z)
+    \cong
+    \begin{cases}
+      \Z / 2\Z & \text{if $k = 0, 1, 2$}, \\
+      0 & \text{otherwise}.
+    \end{cases}
+  \]
+\end{example}
+
+\begin{remark}
+  We will see later that $H_k(X; \Z)$ determines
+  $H_k(X; G)$ for any other abelian group $G$.
+  However, $H_k(X; G)$ may be sufficient for
+  some purposes and may be easier to work
+  with.
+\end{remark}
+
+\section{Cohomology}
+
+\begin{definition}
+  A sequence of abelian groups $C^*$ and maps
+  $\delta_n : C^n \to C^{n + 1}$ is called a
+  \emph{cochain complex} if $\delta_{n + 1} \circ \delta_n = 0$.
+  for all $n$. The ``homology'' of this complex
+  is called the \emph{cohomology} of
+  $(C^*, \delta)$:
+  \[
+    H^n(C^*, \delta) = \frac{\ker \delta_n}{\im \delta_{n - 1}}.
+  \]
+\end{definition}
+
+\begin{definition}
+  If $(C_*, \partial)$ is a chain complex and
+  $G$ is any abelian group, then let
+  \[
+    C^n = \Hom(C_n, G) =
+    \{\text{homomorphisms } C_n \to G\}
+  \]
+  and set $\delta_n = \partial_{n + 1}^* : C^n \to C^{n + 1}$,
+  i.e. $\delta_n(\tau) = \tau \circ \partial_{n + 1}$ (this is the same dual map from linear algebra).
+\end{definition}
+
+\begin{remark}
+  Note that we have
+  \[
+    (\partial_{n + 1} \circ \delta_n(\tau))(\sigma)
+    = (\delta_n(\tau))(\partial_{n + 1} \sigma)
+    = \tau(\partial_{n + 1} \circ \partial_{n + 1} (\sigma))
+    = 0,
+  \]
+  so $\delta_{n + 1} \circ \delta_n = 0$
+  and $(C^*, \delta)$ is a cochain complex.
+\end{remark}
+
+\begin{definition}
+  Call $H^n(C_*; G) = \ker \delta_n / {\im \delta_{n - 1}}$
+  the \emph{cohomology of $(C_*, \partial)$ with coefficients in $G$}. In the case that $G = \Z$,
+  we usually abbreviate this via
+  $H^n(C_*) = H^n(C_*; \Z)$.
+\end{definition}
+
+\begin{remark}
+  As groups, $H^n(C_*; G)$ is
+  determined by (and also determines)
+  $H_n(C_*; G)$. However, we will see that we can
+  put a ring structure on $\bigoplus_{n = 0}^\infty H^n(C_*; G)$,
+  which is a stronger invariant.
+\end{remark}
+
+\begin{definition}
+  If $(A_*, \partial)$, $(B_*, \partial')$ are
+  two chain complexes and
+  $\alpha : (A_*, \partial) \to (B_*, \partial')$
+  is a chain map, then $\alpha^* : B^* \to A^*$
+  given by $\beta \to \beta \circ \alpha$ is a
+  \emph{cochain map}, i.e.
+  $\delta \circ \alpha^* = \alpha^* \circ \delta'$.
+  Hence, the map $\alpha$ induces a homomorphism
+  $\alpha^* : H^n(B_*; G) \to H^n(A_*; G)$.
+\end{definition}
+
+\begin{exercise}
+  Show the following:
+  \begin{enumerate}
+    \item If $\alpha : (A_*, \partial) \to (B_*, \partial')$
+      and $\beta : (B_*, \partial') \to (C_*, \partial'')$
+      are chain maps, then
+      $(\beta \circ \alpha)^* = \alpha^* \circ \beta^*$.
+    \item $\id^* = \id$ and
+      $0^* = 0$, where $\id$ is the identity map
+      and $0$ is the zero map.
+  \end{enumerate}
+\end{exercise}
+
+\begin{remark}
+  As mentioned above, $H_n(C_*; \partial)$
+  determines $H^n(C_*, \partial)$, but this is not
+  obvious.
+\end{remark}
+
+\begin{example}
+  Consider the chain complex $(C_*, \partial)$:
+  \begin{center}
+    \begin{tikzcd}[row sep=small]
+      0 \ar[r] & \Z \ar[r, "0"] & \Z \ar[r, "\times 2"] & \Z \ar[r, "0"] & \Z \ar[r] & 0 \\
+               & C_3 \ar[u, equal] & C_2 \ar[u, equal] & C_1 \ar[u, equal] & C_0 \ar[u, equal]
+    \end{tikzcd}
+  \end{center}
+  so we have $H_3(C_*) \cong H_0(C_*) \cong \Z$,
+  $H_2(C_*) \cong 0$ and $H_1(C_*) \cong \Z / 2\Z$.
+  After dualizing, we have
+  \begin{center}
+    \begin{tikzcd}[row sep=small]
+               & C_3 \ar[d, equal] & C_2 \ar[d, equal] & C_1 \ar[d, equal] & C_0 \ar[d, equal] \\
+      0 & \ar[l] \Z & \ar[l, "0"] \Z & \ar[l, "\times 2"] \Z & \ar[l, "0"] \Z & \ar[l] 0
+    \end{tikzcd}
+  \end{center}
+  so we get
+  $H^3(C_*) \cong H^0(C_*) \cong \Z$,
+  $H_2(C_*) \cong \Z / 2\Z$ and $H_1(C_*) \cong 0$.
+  In particular, we see that
+  $H^n$ is not something simple
+  like $\Hom(H_n, \Z)$ in general.
+\end{example}
+
+\begin{remark}
+  There is a natural map from the cohomology and
+  homology groups to $G$:
+  \begin{align*}
+    H^n(C_*; G) \times H_n(C_*; G) &\longrightarrow G, \\
+    ([\alpha], [\beta]) &\longmapsto \alpha(\beta).
+  \end{align*}
+  (Check that this is well-defined.)
+  So there is a ``natural'' map $\Phi : H^n(C_*; G) \to \Hom(H_n(C_*, \partial), G)$ by
+  \begin{align*}
+    [\alpha] \longmapsto (\phi_{[\alpha]} : H_n(C_*, \partial) &\longrightarrow G), \\
+    [\beta] &\longmapsto \alpha(\beta).
+  \end{align*}
+  We want to understand $\Phi$ better: If
+  $A$ is an abelian group, then there exist free
+  abelian groups $F, R$ and homomorphisms such that
+  the following sequence:
+  \begin{center}
+    \begin{tikzcd}
+      0 \ar[r] & R \ar[r, "f"] & F \ar[r, "g"] & A \ar[r] & 0
+    \end{tikzcd}
+  \end{center}
+  is exact (this follows by the first isomorphism
+  theorem, since a subgroup of a free group is
+  free).
+\end{remark}
+
+\begin{exercise}
+  Show that functor
+  $\Hom(\cdot, G)$ is \emph{left exact},
+  i.e. given an exact sequence of the form
+  \begin{center}
+    \begin{tikzcd}
+      G_1 \ar[r, "\alpha"] & G_2 \ar[r, "\beta"] & G_3 \ar[r] & 0
+    \end{tikzcd}
+  \end{center}
+  then the following sequence:
+  \begin{center}
+    \begin{tikzcd}
+      0 \ar[r] & \Hom(G_3, G) \ar[r, "\beta^*"] & \Hom(G_2, G) \ar[r, "\alpha^*"] & \Hom(G_1, G)
+    \end{tikzcd}
+  \end{center}
+  is also exact, but given an exact sequence of
+  the form
+  \begin{center}
+    \begin{tikzcd}
+      0 \ar[r] & G_1 \ar[r, "\alpha"] & G_2
+    \end{tikzcd}
+  \end{center}
+  then it is not always true that $\alpha^*$ is
+  surjective, i.e. we can lose exactness on the
+  right.
+\end{exercise}
+
+\begin{definition}
+  Define the functor
+  $\Ext(A, G) = \Hom(R, G) / {\im f^*}$.\footnote{The name ``$\Ext$'' comes from ``extension''.}
+\end{definition}
+
+\begin{remark}
+  Note that the sequence
+  \begin{center}
+    \begin{tikzcd}
+      0 \ar[r] & \Hom(A, G) \ar[r, "g^*"] & \Hom(F, G) \ar[r, "f^*"] & \Hom(R, G)
+      \ar[r] & \Ext(A, G) \ar[r] & 0
+    \end{tikzcd}
+  \end{center}
+  is exact, so $\Ext(A, G)$ is exactly the
+  obstruction to $f^*$ being surjective.
+\end{remark}
+
+\begin{example}
+  If $A = \Z$, then we have
+  \begin{center}
+    \begin{tikzcd}[row sep=small]
+      & R \ar[d, equal] & F \ar[d, equal] & G \ar[d, equal] \\
+      0 \ar[r] & 0 \ar[r] & \Z \ar[r, "\id"] & \Z \ar[r] & 0
+    \end{tikzcd}
+  \end{center}
+  so $\Ext(\Z, G) = \Hom(R, G) / {\im f^*} = 0 / {\im f^*} = 0$.
+  For $\Z / n\Z$, This is
+  \begin{center}
+    \begin{tikzcd}[row sep=small]
+      & R \ar[d, equal] & F \ar[d, equal] & G \ar[d, equal] \\
+      0 \ar[r] & \Z \ar[r, swap, "f"] \ar[r, "\times n"] & \Z \ar[r, swap, "g"] & \Z / n\Z \ar[r] & 0
+    \end{tikzcd}
+  \end{center}
+  so we have $\Ext(\Z / n\Z, G) = \Hom(\Z, G) / {\im f^*} \cong G / n G$.
+\end{example}
+
+\begin{exercise}
+  Show that $\Ext(\Z / n\Z, \Z / m\Z)$ =
+  $\Z / d \Z$, where $d = \gcd(m, n)$.
+\end{exercise}
+
+\begin{exercise}
+  Show the following:
+  \begin{enumerate}
+    \item $\Ext(A, G)$ is independent of $F, R, f, g$.
+    \item $\Ext(H \oplus H', G) \cong \Ext(H, G) \oplus \Ext(H', G)$.
+    \item $\Ext(H, G) = 0$ if $H$ is free.
+    \item $\Ext(Z / n\Z, G) = G / nG$
+    \item From above, we can compute
+      $\Ext(H, G)$ for any finitely generated
+      abelian groups $H, G$.
+    \item $\Ext(G, \Q) = 0$ for any $G$.
+  \end{enumerate}
+\end{exercise}
+
+\section{Universal Coefficient Theorem}
+
+\begin{theorem}[Universal coefficient theorem]
+  The following sequence:
+  \begin{center}
+    \begin{tikzcd}
+      0 \ar[r] & \Ext(H_{n - 1}(C_*), G) \ar[r] & H^n(C_*; G) \ar[r, "\Phi"] & \Hom(H_n(C_*), G) \ar[r] & 0
+    \end{tikzcd}
+  \end{center}
+  is exact, splits (i.e.
+  $H^n(C_*; G) = \Ext(H_{n - 1}(C_*), G) \oplus \Hom(H_n(C_*), G)$ but not in a natural way), and is
+  natural with respect
+  to chain maps. In particular, the
+  cohomology groups are determined by homology.
+\end{theorem}
+
+\begin{proof}
+  This is purely a fact of algebra, see Hatcher.
+\end{proof}
+
+\begin{corollary}
+  If $F_n$ is the free part of $H_n(C_*)$ and
+  $T_n$ is the torsion part of $H_n(C_*)$, then
+  \[H^n(C_*; \Z) \cong F_n \oplus T_{n - 1}.\]
+\end{corollary}
+
+\begin{proof}
+  This follows from the universal coefficient theorem
+  and the exercises.
+\end{proof}
+
+\begin{example}
+  Suppose that we have
+  \[
+    H_n(C_n, \partial) =
+    \begin{cases}
+      \Z & \text{if $n = 0$}, \\
+      \Z / 2\Z & \text{if $n$ is odd}, \\
+      0 & \text{otherwise}.
+    \end{cases}
+  \]
+  Then we can compute that
+  \[
+    H^n(C_*; \Z) =
+    \begin{cases}
+      \Z & \text{if $n = 0$}, \\
+      0 & \text{if $n$ is odd}, \\
+      \Z / 2\Z & \text{otherwise}.
+    \end{cases}
+  \]
+  This follows directly from the corollary.
+
+  For $\Z / 2\Z$-coefficients however, we need to
+  use the universal coefficient theorem:
+  \begin{align*}
+    H^n(C_*; \Z / 2\Z)
+    &=
+    \begin{cases}
+      \Hom(\Z; \Z / 2\Z) & \text{if $n = 0$}, \\
+      \Hom(\Z / 2\Z; \Z / 2\Z) \oplus \Ext(0; \Z / 2\Z) & \text{if $n$ is odd}, \\
+      \Hom(0; \Z / 2\Z) \oplus \Ext(\Z / 2\Z; \Z / 2\Z) & \text{otherwise}
+    \end{cases} \\
+    &= \Z / 2\Z \quad \text{for all $n \ge 0$}
+  \end{align*}
+  since $\Ext(0; \Z / 2\Z) = \Hom(0; \Z / 2\Z) = 0$.
+\end{example}
+
+\begin{corollary}\label{cor:iso-cohom}
+  If a chain map induces an isomorphism on
+  all homology groups, then it induces an
+  isomorphism on all cohomology groups.
+\end{corollary}
+
+\begin{proof}
+  If $\alpha : (C_*, \partial) \to (C_*', \partial')$
+  induces isomorphisms on all homology groups,
+  then
+  \begin{center}
+    \begin{tikzcd}
+      0 \ar[r] & \Ext(H_{n - 1}(C_*), G) \ar[r] & H^n(C_*; G) \ar[r] & \Hom(H_n(C_*), G) \ar[r] & 0 \\
+      0 \ar[r] & \Ext(H_{n - 1}(C_*'), G) \ar[u, swap, "\alpha_*"] \ar[r] & H^n(C_*'; G) \ar[r] \ar[u, swap, "\alpha_*"] & \Hom(H_n(C_*'), G) \ar[u, swap, "\alpha_*"] \ar[r] & 0
+    \end{tikzcd}
+  \end{center}
+  The $\alpha^*$ on the ends are isomorphisms, so
+  the $\alpha^*$ in the middle is also an
+  isomorphism.
+\end{proof}
+
+\section{Cohomology of Spaces}
+
+\begin{definition}
+  Let $X$ be a topological space and
+  $(C_n(X), \partial)$ be the singular chain groups
+  of $X$. The cohomology of this complex, denoted
+  $H^n(X; G)$, is
+  called the \emph{cohomology of $X$ (with coefficients in $G$)}.
+  Similarly for a pair $(X, A)$, we get $H^n(X, A; G)$
+  from the chain complex $(C_n(X, A), \partial)$.
+\end{definition}
+
+\begin{remark}
+  From Corollary \ref{cor:iso-cohom}, we know that
+  if $X$ is a CW complex, then we get the same
+  cohomology groups if we use
+  $(C_*^\CW(X), \partial^\CW)$ in place of
+  $(C_*(X), \partial)$.
+\end{remark}
+
+\begin{remark}
+  We state the following facts that carry over from
+  homology:
+  \begin{enumerate}
+    \item If $f : X \to Y$ is a map, then
+      we get a chain map $f_* : C_n(X) \to C_n(Y)$,
+      and thus a homomorphism
+      \[
+        f^* : H^n(Y; G) \to H^n(X; G).
+      \]
+    \item If $f, g : X \to Y$ are homotopic, then
+      $f_*, g_*$ are chain homotopic, i.e. there
+      exists a map $p_n : C_n(X) \to C_{n + 1}(Y)$
+      such that $\partial_{n + 1} \circ p_n + p_{n - 1} \circ \partial_n = f_n - g_n$.
+      Dualizing, this becomes
+      \[p^* \circ \delta + \delta \circ p^* = f^* - g^*.\]
+      This implies that if $f \simeq g$, then
+      $f^* = g^*$ on $H^n(Y; G)$.
+  \end{enumerate}
+\end{remark}
