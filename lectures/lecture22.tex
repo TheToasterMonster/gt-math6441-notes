@@ -1,0 +1,445 @@
+\chapter{Apr.~2 --- Cohomology, Part 2}
+
+\section{Cohomology of Spaces}
+
+\begin{definition}
+  Let $X$ be a topological space and
+  $(C_n(X), \partial)$ be the singular chain groups
+  of $X$. The cohomology of this complex, denoted
+  $H^n(X; G)$, is
+  called the \emph{cohomology of $X$ (with coefficients in $G$)}.
+  Similarly for a pair $(X, A)$, we get $H^n(X, A; G)$
+  from the chain complex $(C_n(X, A), \partial)$.
+\end{definition}
+
+\begin{remark}
+  From Corollary \ref{cor:iso-cohom}, we know that
+  if $X$ is a CW complex, then we get the same
+  cohomology groups if we use
+  $(C_*^\CW(X), \partial^\CW)$ in place of
+  $(C_*(X), \partial)$.
+\end{remark}
+
+\begin{remark}
+  We state the following facts that carry over from
+  homology:
+  \begin{enumerate}
+    \item If $f : X \to Y$ is a map, then
+      we get a chain map $f_* : C_n(X) \to C_n(Y)$,
+      and thus a homomorphism
+      \[
+        f^* : H^n(Y; G) \to H^n(X; G).
+      \]
+    \item If $f, g : X \to Y$ are homotopic, then
+      $f_*, g_*$ are chain homotopic, i.e. there
+      exists a map $p_n : C_n(X) \to C_{n + 1}(Y)$
+      such that $\partial_{n + 1} \circ p_n + p_{n - 1} \circ \partial_n = f_n - g_n$.
+      Dualizing, this becomes
+      \[p^* \circ \delta + \delta \circ p^* = f^* - g^*.\]
+      This implies that if $f \simeq g$, then
+      $f^* = g^*$ on $H^n(Y; G)$.
+  \end{enumerate}
+\end{remark}
+
+\begin{remark}
+  Exactly as we did for homology, we can also prove:
+  \begin{enumerate}
+    \item \emph{Exact sequence of a pair:}
+      We have the long exact sequence
+      \begin{center}
+        \begin{tikzcd}
+          \cdots \ar[r] & H^n(X, A) \ar[r, "j^*"] & H^n(X) \ar[r, "i^*"] & H^n(A) \ar[r, "\delta"] & H^{n + 1}(X, A) \ar[r] & \cdots
+        \end{tikzcd}
+      \end{center}
+      and if $f : (X, A) \to (Y, B)$, then
+      the following diagram commutes:
+      \begin{center}
+        \begin{tikzcd}
+          H^n(A) \ar[r, "\delta"] & H^{n + 1}(X, A) \\
+          H^n(B) \ar[u, "f^*"] \ar[r, "\delta"] & H^{N + 1}(Y, B) \ar[u, "f^*"]
+        \end{tikzcd}
+      \end{center}
+    \item \emph{Excision}: If
+      $Z \subseteq \overline{Z} \subseteq \Int A \subseteq A \subseteq X$, then
+      the inclusion map
+      \[
+        (X - Z, A - Z) \longrightarrow (X, A)
+      \]
+      induces an isomorphism
+      \[
+        H^n(X, A) \longrightarrow H^n(X - Z, A - Z).
+      \]
+    \item For a point, we have
+      \[
+        H^n(\{\mathrm{pt}\}; G)
+        \cong
+        \begin{cases}
+          G & \text{if } n = 0, \\
+          0 & \text{otherwise}.
+        \end{cases}
+      \]
+    \item \emph{Mayer-Vietoris}: If
+      $X = A \cup B$ with $A, B$ open, then
+      \begin{center}
+        \begin{tikzcd}
+          \cdots \ar[r] & H^n(X) \ar[r] & H^n(A) \oplus H^n(B) \ar[r] & H^n(A \cap B) \ar[r] & H^{n + 1}(X) \ar[r] & \cdots
+        \end{tikzcd}
+      \end{center}
+  \end{enumerate}
+\end{remark}
+
+\begin{exercise}
+  Show directly (i.e. without appealing to the
+  universal coefficient theorem) that
+  \[
+    H^k(D^n; G) =
+    \begin{cases}
+      G & \text{if } k = 0, \\
+      0 & \text{otherwise}
+    \end{cases}
+    \quad \text{and} \quad
+    H^k(S^n; G)
+    \cong H^k(D^n, \partial D^n; G)
+    \cong
+    \begin{cases}
+      G & \text{if } k = 0, n, \\
+      0 & \text{otherwise}.
+    \end{cases}
+  \]
+\end{exercise}
+
+\section{Products}
+
+\begin{remark}
+  We will define two products on cohomology:
+  The first is the \emph{cross product}
+  \begin{align*}
+    H^p(X) \times H^q(Y)
+    &\longrightarrow H^{p + q}(X \times Y) \\
+    (\alpha, \beta)
+    &\longmapsto \alpha \times \beta,
+  \end{align*}
+  which satisfies the following properties:
+  It is \emph{bilinear}:
+  \begin{align*}
+    (\alpha_1 + \alpha_2) \times \beta
+    = (\alpha_1 \times \beta) + (\alpha_2 \times \beta), \\
+    \alpha \times (\beta_1 + \beta_2)
+    = (\alpha \times \beta_1) + (\alpha \times \beta_2),
+  \end{align*}
+  and \emph{natural}: If $f : X' \to X$ and $g : Y' \to Y$,
+  then
+  \[
+    (f^* \alpha) \times (g^* \beta)
+    = (f \times g)^*(\alpha \times \beta).
+  \]
+  The second is the \emph{cup product}:
+  \begin{align*}
+    H^p(X) \times H^q(X)
+    &\longrightarrow H^{p + q}(X) \\
+    (\alpha, \beta)
+    &\longmapsto \alpha \cup \beta,
+  \end{align*}
+  which is also \emph{bilinear}:
+  \begin{align*}
+    (\alpha_1 + \alpha_2) \cup \beta
+    = (\alpha_1 \cup \beta) + (\alpha_2 \cup \beta), \\
+    \alpha \cup (\beta_1 + \beta_2)
+    = (\alpha \cup \beta_1) + (\alpha \cup \beta_2),
+  \end{align*}
+  and \emph{natural}: If $f : X' \to X$, then
+  \[
+    f^*(\alpha \cup \beta)
+    = (f^* \alpha) \cup (f^* \beta).
+  \]
+\end{remark}
+
+\begin{remark}
+  We will see that the cup product is more
+  useful, but the cross product is usually easier
+  to compute. However, they are \emph{logically equivalent}.
+  To see this, let
+  $p_1 : X \times Y \to X$ and $p_2 : X \times Y \to Y$
+  be the projection maps and
+  $\Delta : X \to X \times X : p \mapsto (p, p)$
+  be the diagonal map. Suppose we have a
+  cup product $\cup$, then we can define
+  a cross product via
+  \begin{align*}
+    \times_{\cup} : H^p(X) \times H^q(Y)
+    &\longrightarrow H^{p + q}(X \times Y) \\
+    (\alpha, \beta)
+    &\longmapsto (p_1^* \alpha) \cup (p_2^* \beta).
+  \end{align*}
+  Check as an exercise that
+  $x_{\times}$ is bilinear and natural.
+  Conversely, given a cross product $\times$,
+  we can define
+  \begin{align*}
+    \cup_\times : H^p(X) \times H^q(X)
+    &\longrightarrow H^{p + q}(X) \\
+    (\alpha, \beta)
+    &\longmapsto \Delta^*(\alpha \times \beta),
+  \end{align*}
+  which one can check is a cup product.
+  Note that $\Delta^* : H^*(X \times X) \to H^*(X)$
+  is the reason we need to work with
+  cohomology for this construction.
+\end{remark}
+
+\begin{remark}
+  Note that given $\cup$, we have
+  $\cup_{X_{\cup}} = \cup$. Indeed, we have
+  \begin{align*}
+    \alpha \cup_{\times_{\cup}} \beta
+    = \Delta^*(\alpha \times_{\cup} \beta)
+    &= \Delta^*(p_1^*(\alpha) \cup p_2^*(\beta))
+    = (\Delta^* \circ p_1^*)(\alpha) \cup (\Delta^* \circ p_2^*)(\beta) \\
+    &= (p_1 \circ \Delta)^*(\alpha) \cup (p_2 \circ \Delta)^*(\beta)
+    = \alpha \cup \beta.
+  \end{align*}
+  Similarly, one can verify that
+  given $\times$, we have $\times_{\cup_{\times}} = \times$.
+\end{remark}
+
+\section{Tensor Products}
+\begin{definition}
+  Let $G, H$ be two abelian groups, and let
+  $F(G \times H)$ be the free abelian group
+  generated by $G \times H$, i.e.
+  finite formal sums $\sum_i n_i (g_i, h_i)$
+  with $n_i, \Z$, $g_i \in G$, and $h_i \in H$.
+  Let
+  \begin{align*}
+  S = \text{subgroup of $F(G \times H)$ generated by }
+  &(g + g', h) - (g, h) - (g', h), \\
+  &(g, h + h') - (g, h) - (g, h'), \\
+  &(ng, h) - n(g, h), \\
+  &(g, nh) - n(g, h), \\
+  &\hspace{-3em} \text{for all $g, g' \in G$, $h, h', \in H$, and $n \in \Z$}.
+  \end{align*}
+  The \emph{tensor product} of $G$ and $H$ is
+  the group $G \otimes H = F(G \times H) / S$.
+  Denote the coset of $(g, h)$ by $g \otimes h$,
+  so that elements of $G \otimes H$
+  are of the form $\sum_{i = 1}^k n_i (g_i \otimes h_i)$.
+\end{definition}
+
+\begin{remark}
+  In $G \otimes H$, we have the following
+  properties:
+  \begin{align*}
+    (g + g') \otimes h &= g \otimes h + g' \otimes h, \\
+    g \otimes (h + h') &= g \otimes h + g \otimes h', \\
+    (ng) \otimes h &= n(g \otimes h) = g \otimes (nh).
+  \end{align*}
+\end{remark}
+
+\begin{exercise}
+  Verify the following properties of
+  the tensor product:
+  \begin{enumerate}
+    \item $G \otimes H \cong H \otimes G$.
+    \item $(\bigoplus_i G_i) \otimes H \cong \bigoplus_i (G_i \otimes H)$.
+    \item $(G \otimes H) \otimes K \cong G \otimes (H \otimes K)$.
+    \item $\Z \otimes G \cong G$.
+    \item $\Z / n \otimes G \cong G / nG$.
+    \item Given homomorphisms
+      $f : G \to G'$ and $g : H \to H'$, the map
+      \begin{align*}
+        f \otimes g : G \otimes H
+        &\longrightarrow G' \otimes H' \\
+        x \otimes y
+        &\longmapsto f(x) \otimes g(y)
+      \end{align*}
+      is a well-defined homomorphism.
+    \item A bilinear map $\phi : G \times H \to K$
+      induces a homomorphism
+      $G \otimes H \to K$ by $g \otimes h \mapsto \phi(g, h)$.
+  \end{enumerate}
+\end{exercise}
+
+\begin{remark}
+  Part $(7)$ of the previous exercise is
+  part of the reason why we define the tensor
+  product: It turns a bilinear map into a linear
+  map, which is easier to work with.
+\end{remark}
+
+\begin{remark}
+  We can define tensor products more generally
+  for $R$-modules, where $R$ is a
+  commutative ring with unit. We will not
+  need this, however.
+\end{remark}
+
+\section{Cross and Cup Products}
+\begin{definition}
+  Define the \emph{tensor product} of
+  chain complexes $(C_*, \partial)$ and
+  $(C_*', \delta)$ to be the chain complex
+  $C \otimes C'$ with
+  \[
+    (C \otimes C')_n = \bigoplus_{i + j = n} (C_i \otimes C_j)
+  \]
+  and boundary map $\partial^\otimes : C \otimes C' \to C \otimes C'$
+  given by
+  \[
+    \partial^\otimes(a \otimes b)
+    = (\partial a) \otimes b + (-1)^i a \otimes (\partial' b).
+  \]
+\end{definition}
+
+\begin{exercise}
+  Verify that $(\partial^\otimes)^2 = 0$.
+\end{exercise}
+
+\begin{definition}
+  Define the \emph{algebraic cross product} by
+  \begin{align*}
+    \times_{\mathrm{alg}} : H_p(C) \times H_q(C')
+    &\longrightarrow H_{p + q}(C \otimes C') \\
+    [z] \otimes [w] &\longmapsto [z \otimes w].
+  \end{align*}
+\end{definition}
+
+\begin{remark}
+  This is well-defined, e.g. if
+  $z = \overline{z} + \partial \tau$ (i.e.
+  $z, \overline{z} \in [z]$), then
+  \[
+    z \oplus w = (\overline{z} + \partial \tau) \otimes w
+    = \overline{z} \otimes w + \partial(\tau \otimes w)
+    = \overline{z} \otimes w \otimes \partial^\otimes(\tau \otimes w)
+  \]
+  since $\partial' w = 0$, so
+  $[z \otimes w] = [\overline{z} \otimes w]$.
+  One can also check $z \otimes w$ is
+  independent of the choice of
+  $w \in [w]$.
+\end{remark}
+
+\begin{exercise}
+  Show that $\times_{\mathrm{alg}}$ is natural
+  with respect to chain maps.
+\end{exercise}
+
+\begin{theorem}[$1 / 2$ K\"unneth Sequence]
+  The following sequence is exact:
+  \begin{center}
+    \begin{tikzcd}
+      0 \ar[r] & \bigoplus_{p + q = n}(H_p(C) \otimes H_q(C')) \ar[r, "\times_{\mathrm{alg}}"] & H_n(C \otimes C')
+    \end{tikzcd}
+  \end{center}
+\end{theorem}
+
+\begin{proof}
+  This is purely a fact of algebra (we will
+  also not need it), see Hatcher.
+\end{proof}
+
+\begin{remark}
+  If $X, Y$ are CW complexes, we get a CW structure
+  on $X \times Y$ by taking products of cells: If
+  $e^i_j$ is an $i$-cell of $X$ and
+  $\widehat{e}_{j'}^{i'}$ is an $i'$-cell of $Y$,
+  then $e^i_j \times \widehat{e}^{i'}_{j'}$
+  is an $(i + i')$-cell of $X \times Y$.
+  \[
+    \alpha^i_j : \partial e^i_j \to X^{i - 1}
+    \quad \text{and} \quad
+    \widehat{\alpha}^{i'}_{j'} : \partial \widehat{e}^{i'}_{j'} \to Y^{i' - 1}
+  \]
+  are the attaching maps for
+  $e^i_j$ and $\widehat{e}^{i'}_{j'}$,
+  then the attaching map of $e^i_j \times \widehat{e}^{i'}_{j'}$
+  is
+  \begin{align*}
+    \partial(e^i_j \times \widehat{e}^{i'}_{j'})
+    = [\partial e^i_j \times \widehat{e}^{i'}_{j'}] \cup [e^i_j \times \partial \widehat{e}^{i'}_{j'}]
+    &\longrightarrow
+    (X^{i - 1} \times Y^i) \cup (X^i \times Y^{i - 1})
+    \subseteq (X \times Y)^{i + i' - 1} \\
+    [\partial e^i_j \times \widehat{e}^{i'}_{j'}] \ni (x, y)
+    &\longmapsto (\alpha^i_j(x), y) \\
+    [e^i_j \times \partial \widehat{e}^{i'}_{j'}] \ni (x, y)
+    &\longmapsto (x, \widehat{\alpha}^{i'}_{j'}(y)).
+  \end{align*}
+\end{remark}
+
+\begin{remark}
+  For $a = \sum \alpha^k e^i_k \in C^\CW_i(X)$ and
+  $b = \sum \beta^\ell \widehat{e}^{i'}_{\ell} \in C^\CW_{i'}(Y)$ (with $\alpha^k, \beta^\ell \in \Z$),
+  define
+  \[
+    a \otimes b = \sum \alpha^k \beta^\ell (e^i_k \otimes \widehat{e}^{i'}_{\ell}).
+  \]
+  From above, the boundary map
+  is given by
+  \begin{align*}
+    \partial^\CW(a \times b)
+    &= \sum \alpha^k \beta^\ell (\partial^\CW e^i_k \times \widehat{e}^{i'}_{\ell} + (-1)^i e^i_k \times \partial^\CW \widehat{e}^{i'}_{\ell}) \\
+    &= \partial^\CW a \times b + (-1)^i a \times \partial^\CW b.
+  \end{align*}
+  Thus we get chain maps
+  \begin{align*}
+    \bigoplus_{p + q = n} (C^\CW_p(X) \otimes C^\CW_q(Y))
+    &\overset{B}{\longrightarrow} C^\CW_n(X \times Y) \\
+    C^\CW(X \times Y)
+    &\overset{A}{\longrightarrow} \bigoplus_{p + q = n} (C^\CW_p(X) \otimes C^\CW_q(Y)),
+  \end{align*}
+  where $A$ is given by
+  \[
+    A\Bigg(\sum_{p_i + q_j = n} a^{ij} (e_i^{p_i} \times e_j^{q_j})\Bigg)
+    = \sum_{p_i + q_j = n} a^{ij} (e_i^{p_i} \otimes e_j^{q_j}).
+  \]
+  One can easily check $A \circ B(a \otimes b) = a \otimes b$ and
+  $B \circ A(a) = a$, so we get an isomorphism
+  on homology:
+  \[
+    H_n^\CW(X \times Y) \overset{\cong}{\longrightarrow}
+    H_n(C^\CW(X) \otimes C^\CW(Y))
+  \]
+\end{remark}
+
+\begin{remark}
+  In singular homology, do the following:
+  \begin{align*}
+    B : C_p(X) \otimes C_q(Y)
+    &\longrightarrow C_{p + q}(X \times Y) \\
+    (\sigma : \Delta^p \to X, \tau : \Delta^q \to Y)
+    &\longmapsto (\sigma \times \tau : \Delta^{p} \times \Delta^q \to X \times Y),
+  \end{align*}
+  where we can break $\Delta^p \times \Delta^q$ into
+  several $(p + q)$-simplices.
+  Now given $\sigma : \Delta^n \to X$, set
+  \begin{align*}
+    {}_p\sigma : \Delta^p \to X : (t_0, \dots, t_p)
+    &\longmapsto \sigma(t_0, \dots, t_p, 0, \dots, 0) \\
+    \sigma_q : \Delta^q \to X : (t_0, \dots, t_q)
+    &\longmapsto \sigma(0, \dots, 0, t_0, \dots, t_q).
+  \end{align*}
+  We can then define
+  \begin{align*}
+    A : C_n(X \times Y)
+    &\longrightarrow \bigoplus_{p + q = n} (C_p(X) \otimes C_q(Y)) \\
+    \sigma
+    &\longmapsto \sum_{p + q = n} {}_p(p_X \circ \sigma) \otimes (p_Y \circ \sigma)_q,
+  \end{align*}
+  where $p_X : X \times Y \to X$ and $p_Y : X \times Y \to Y$ are the projection maps.
+\end{remark}
+
+\begin{theorem}[Eilenberg-Zilber]
+  The maps $A, B$ induce isomorphisms on
+  singular homology.
+\end{theorem}
+
+\begin{definition}
+  The \emph{homological cross product}
+  $\times$ is given by the composition
+  \begin{center}
+    \begin{tikzcd}
+      H_p(X) \otimes H_q(Y) \ar[r, "\times_{\mathrm{alg}}"] & H_{p + q}(C(X) \otimes C(Y))\ar[r, "B"] & H_{p + q}(X \times Y)
+    \end{tikzcd}
+  \end{center}
+\end{definition}
