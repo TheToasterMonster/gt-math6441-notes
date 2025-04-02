@@ -297,7 +297,7 @@
 \begin{definition}
   Define the \emph{algebraic cross product} by
   \begin{align*}
-    \times_{\mathrm{alg}} : H_p(C) \times H_q(C')
+    \times_{\mathrm{alg}} : H_p(C) \otimes H_q(C')
     &\longrightarrow H_{p + q}(C \otimes C') \\
     [z] \otimes [w] &\longmapsto [z \otimes w].
   \end{align*}
@@ -437,6 +437,7 @@
 \begin{definition}
   The \emph{homological cross product}
   $\times$ is given by the composition
+  $\times = B \circ \times_{\mathrm{alg}}$:
   \begin{center}
     \begin{tikzcd}
       H_p(X) \otimes H_q(Y) \ar[r, "\times_{\mathrm{alg}}"] & H_{p + q}(C(X) \otimes C(Y))\ar[r, "B"] & H_{p + q}(X \times Y)
