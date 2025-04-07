@@ -1,0 +1,381 @@
+\chapter{Apr.~7 --- Cohomology Ring}
+
+\section{Ring Structure on Cohomology}
+
+\begin{definition}
+  Given chain complexes $C_*, C_*'$, define
+  the \emph{algebraic cross product} on
+  cohomology by
+  \begin{align*}
+    \times_{\mathrm{alg}} : C^p(C_*(X); G_1)
+    \otimes C^q(C_*'; G_2)
+    \longrightarrow C^{p + q}(C_* \otimes C_*', G_1 \otimes G_2) \\
+    \alpha \otimes \beta
+    &\longmapsto
+    \alpha \times \beta,
+  \end{align*}
+  where $\alpha \times \beta : C_p \otimes C_q' \to G_1 \otimes G_2$ is defined by
+  $\sum (z_i \otimes w_i) \mapsto \sum (\alpha(z_i) \otimes \beta(w_i))$.
+\end{definition}
+
+\begin{remark}
+  If $G_1 = G_2 = R$ for some ring $R$, then
+  $G_1 \otimes_R G_2 \cong R$. In particular,
+  if $G_1 = G_2 = \Z$, then all of the groups
+  have the same coefficients.
+\end{remark}
+
+\begin{exercise}
+  Show that $\times_{\mathrm{alg}}$ is
+  well-defined on cohomology.
+\end{exercise}
+
+\begin{definition}
+  The \emph{cohomological cross product}
+  $\times$ is given by the composition
+  $\times = A^* \circ \times_{\mathrm{alg}}$,
+  i.e.
+  \begin{center}
+    \begin{tikzcd}
+      H^p(X; G_1) \otimes H^q(Y; G_2)
+      \ar[r, "\times_{\mathrm{alg}}"]
+      & H^{p+q}(C_*(X) \otimes C_*(Y); G_1 \otimes G_2)
+      \ar[r, "A^*"]
+      & H^{p+q}(X \times Y; G_1 \otimes G_2)
+    \end{tikzcd}
+  \end{center}
+  Define the \emph{cup product}
+  $\cup : H^p(X) \times H^q(X) \to H^{p+q}(X)$
+  on cohomology by
+  $\alpha \cup \beta = \Delta^*(\alpha \times \beta)$.
+\end{definition}
+
+\begin{remark}
+  Recalling what the map $A$ is, we can see
+  that for $\alpha \in C^p(X; R)$ and
+  $\beta \in C^q(X; R)$, their cup product
+  $\alpha \cup \beta : C_{p + q}(X; R) \to R$
+  is given by $\alpha \cup \beta(\sigma) = \alpha({}_p \sigma) \beta(\sigma_q)$.
+\end{remark}
+
+\begin{theorem}
+  We have the following:
+  \begin{enumerate}
+    \item Let $\mathbbm{1} \in H^0(X; R)$ be the element
+      represented by the cocycle
+      \begin{align*}
+        1 : C_0(X) &\longrightarrow R \\
+        \sigma &\longmapsto 1
+      \end{align*}
+      Then $\mathbbm{1} \cup \alpha = \alpha \cup \mathbbm{1} = \alpha$ for any $\alpha$.
+    \item $\cup$ makes $C^*(X; R) = \bigoplus_i C^i(X; R)$ and
+      $H^*(X; R) = \bigoplus_i H^i(X; R)$ into
+      a ring with unit that is natural with
+      respect to pullbacks, i.e. for
+      $f : X \to Y$, we have
+      \[
+        f^*(\alpha \cup \beta) = (f^*\alpha) \cup (f^*\beta).
+      \]
+    \item On cohomology, $\alpha \cup \beta = (-1)^{pq} \beta \cup \alpha$
+      for any $\alpha \in H^p(X; R)$ and $\beta \in H^q(X; R)$.
+  \end{enumerate}
+  In particular, $H^*(X)$ is a \emph{skew-commutative}
+  ring with unit.
+\end{theorem}
+
+\begin{proof}
+  See \url{https://etnyre.math.gatech.edu/class/6441Spring21/SectionIII.pdf}.
+\end{proof}
+
+\section{Computations of Cohomology}
+
+\begin{example}
+  Recall that
+  \[
+    H_k(S^n) \cong H^k(S^n) \cong
+    \begin{cases}
+      \Z & \text{if } k = 0, n, \\
+      0 & \text{otherwise},
+    \end{cases}
+  \]
+  and so
+  \[
+    H_k(S^n \times S^m) \cong
+    H^k(S^n \times S^m) \cong
+    \begin{cases}
+      \Z & \text{if } k = 0, n, m, n + m, \\
+      0 & \text{otherwise},
+    \end{cases}
+  \]
+  where $H_n = \Z \oplus \Z$ if $n = m$.
+  One can compute this using the product
+  CW structure on $S^n \times S^m$: Let
+  $e^0, e^n$ be the cells for $S^n$ and
+  $f^0, f^m$ be the cells for $S^m$, so
+  that the cells for $S^n \times S^m$ are
+  \[
+    e^0 \times f^0, \quad e^n \times f^0,
+    \quad e^0 \times f^m, \quad e^n \times f^m.
+  \]
+  Recall that the following sequence is exact:
+  \begin{center}
+    \begin{tikzcd}[row sep=small]
+      0 \ar[r] & H_n(S^n) \otimes H_m(S^m) \ar[r]
+      & H_{n + m}(S^n \times S^m) \\
+      & \Z \otimes \Z = \langle [e^n] \rangle \otimes \langle [f^m] = \langle a \rangle \otimes \angle b \rangle \rangle \ar[u, equal] & \Z \ar[u, equal]
+    \end{tikzcd}
+  \end{center}
+  where the generator $a \otimes b$ in $H_n(S^n) \otimes H_m(S^m)$ maps to
+  $a \times b = [e^n \times f^m]$ in $H_{n + m}(S^n \times S^m)$.
+  Let $\overline{\alpha}$ and $\overline{\beta}$ be the dual of $a$ and $b$ in
+  $\Hom(H^n(S^n); \Z) \cong H^n(S^n)$ and
+  $\Hom(H^m(S^m); \Z) \cong H^m(S^m)$. Then
+  \[
+    \overline{\alpha} \times \overline{\beta}(a \times b) = \overline{\alpha}(a) \overline{\beta}(b) = 1,
+  \]
+  so $\overline{\alpha} \times \overline{\beta}$
+  generates $H^{n + m}(S^n \times S^m)$.
+  Let $p_1 : S^n \times S^m \to S^n$
+  and $p_2 : S^n \times S^m \to S^m$ be
+  the projections, and set
+  $\alpha = p_1^* \overline{\alpha}$,
+  $\beta = p_2^* \overline{\beta}$.
+  We claim that $\alpha$ generates
+  $H^n(S^n \times S^m)$ and $\beta$ generates
+  $H^m(S^n \times S^m)$.
+
+  To see this, consider the inclusion $i_1 : S^n \to S^n \times S^m$
+  by $x \mapsto (x, p_0)$ for some fixed
+  $p_0 \in S^m$. Then
+  \[
+    i_1^* \circ p_1^* (\overline{\alpha})
+    = (p_1 \circ i_1)^* \overline{\alpha}
+    = (\id_{S^n})^* \overline{\alpha}
+    = \overline{\alpha},
+  \]
+  so $p_1^*(\overline{\alpha})$ must
+  generate $H^n(S^n \times S^m)$. A similar
+  argument works for $\beta$.
+
+  Now by the relation between $\cup$ and
+  $\times$, we have
+  \[
+    \alpha \cup \beta = (p_1^* \overline{\alpha}) \cup (p_2^* \overline{\beta})
+    = \overline{\alpha} \times \overline{\beta},
+  \]
+  so $\alpha$ generates $H^n(S^n \times S^m)$,
+  $\beta$ generates $H^m(S^n \times S^m)$, and
+  $\alpha \cup \beta$ generates
+  $H^{n+m}(S^n \times S^m)$ with
+  \[\mathbbm{1} \cup g = g \quad
+  \text{for all } g \in H^*(S^n \times S^m).\]
+  So we know all of the nontrivial cup products
+  in this setting.
+\end{example}
+
+\begin{example}
+  Let $X = S^2 \times S^3$ and
+  $Y = S^2 \lor S^3 \lor S^5$. We know
+  $H^*(X), H_*(X)$ from above, and
+  \[
+    H^k(Y) \cong H_k(Y) \cong
+    \begin{cases}
+      \Z & \text{if } k = 0, 2, 3, 5, \\
+      0 & \text{otherwise}.
+    \end{cases}
+  \]
+  Also $\pi_1(X) \cong \pi_1(Y) = \{e\}$, so
+  the fundamental group, homology, and
+  cohomology of $X, Y$ all match.
+
+  But let $\alpha, \beta$ be generators of
+  $H^k(X)$ in dimensions $2, 3$, so
+  $\alpha \cup \beta \ne 0$. Consider the
+  composition
+  \begin{center}
+    \begin{tikzcd}
+      S^5 \ar[r, "i"] & Y \ar[r, "p"] & S^5
+    \end{tikzcd}
+  \end{center}
+  where $p \circ i = \id_{S^5}$, so
+  $(\id_{S^5})^* = p^* \circ i^*$.
+  So $i_* : H^5(Y) \to H^5(S^5)$ is surjective,
+  which implies that $i_*$ is an isomorphism
+  since any surjective homomorphism
+  $\Z \to \Z$ is an isomorphism.
+  For any $x \in H^2(Y)$ and $y \in H^3(Y)$,
+  we can compute
+  \[
+    i^*(x \cup y) = i^*(x) \cup i^*(y) = 0 \cup 0 = 0,
+  \]
+  so $x \cup y = 0$. So there is no
+  nontrivial cup products between
+  $H^2(Y)$ and $H^3(Y)$. In particular,
+  we see that
+  $X$ and $Y$ do not have the same
+  cohomology \emph{rings}.
+\end{example}
+
+\section{Cup Products and Relative Cohomology}
+
+\begin{definition}
+  Recall that if $A \subseteq X$, then
+  $C_n(X, A) = C_n(X) / C_n(A)$. So we can
+  define
+  \[
+    C^n(X, A; R) = \Hom(C_n(X) / C_n(A), R).
+  \]
+\end{definition}
+
+\begin{remark}
+  Note that the following sequence is exact:
+  \begin{center}
+    \begin{tikzcd}
+      C_n(A) \ar[r] & C_n(X) \ar[r] & C_n(X, A) \ar[r] & 0
+    \end{tikzcd}
+  \end{center}
+  so by left-exactness of the
+  Hom functor, the sequence
+  \begin{center}
+    \begin{tikzcd}
+      0 \ar[r] & C^n(X, A; R) \ar[r, "q^*"]
+               & C^n(X; R) \ar[r, "i^*"]
+               & C^n(A; R)
+    \end{tikzcd}
+  \end{center}
+  is also exact. Thus
+  $C^n(X, A; R) \cong \im q^* \cong \ker i^*$.
+  Now if $\eta \in C^n(X; R)$, then
+  $i_*(\eta)$ is just the restriction
+  of $\eta$ to $C_n(A)$, so we see that
+  $C^n(X, A; R)$ is the elements of
+  $C^n(X)$ that vanish on $C_n(A)$.
+
+  With this, $(a \cup b)(\sigma) = a(
+  {}_p \sigma) b(\sigma_q)$ for
+  all $a \in H^p(X; R)$, $b \in H^q(X; R)$
+  implies that $\cup$ induces products
+  \begin{align*}
+    H^p(X, A; R) \times H^q(X; R)
+    &\longrightarrow
+    H^{p+q}(X, A; R) \\
+    H^p(X; R) \times H^q(X, A; R)
+    &\longrightarrow
+    H^{p+q}(X, A; R) \\
+    H^p(X, A; R) \times H^q(X, A; R)
+    &\longrightarrow
+    H^{p+q}(X, A; R)
+  \end{align*}
+  With some more work, we can also obtain an
+  induced product
+  \[
+    H^p(X, A; R) \times H^q(X, B; R)
+    \longrightarrow H^{p+q}(X, A \cup B; R)
+  \]
+  For this, note that $\cup$
+  maps $C^p(X, A; R) \times C^q(X, B; R) \to C^{p + q}(X, A + B; R)$,
+  where $C^{p + q}(X, A + B; R)$ is the set
+  of cochains that vanish on elements of
+  the form $\alpha + \beta$ with
+  $\alpha \in C_{p + q}(A)$, $\beta \in C_{p + q}(B)$, so
+  \[
+    \cup : C^p(X, A; R) \times C^q(X, B; R) \longrightarrow C^{p + q}(X, A + B; R)
+    = \Hom\left(\frac{C_{p + q}(X)}{C_{p + q}(A) + C_{p + q}(B)}, R\right).
+  \]
+  There is an inclusion $C_{p + q}(X, A + B) \to C_{p + q}(X, A \cup B)$, so
+  arguing as we did in the proof of excision,
+  we can see that this map induces an
+  isomorphism on homology, so we also
+  get
+  \[
+    H^{p + q}(X, A + B; R) \cong
+    H^{p + q}(X, A \cup B; R).
+  \]
+  on cohomology. Thus we get the desired
+  induced product.
+\end{remark}
+
+\begin{lemma}
+  Suppose $X = U \cup V$ with $U, V$ open
+  and $\widetilde{H}_*(U) = \widetilde{H}_*(V) = 0$.
+  Then $\alpha \cup \beta = 0$ for all
+  $\alpha, \beta \in H^*(X)$ with positive
+  degree.
+\end{lemma}
+
+\begin{proof}
+  In the long exact sequence of a pair, for $p > 0$ we have
+  \begin{center}
+    \begin{tikzcd}[row sep=small]
+      H^p(X, U) \ar[r, "j^*"] & H^p(X)
+      \ar[r, "i^*"] & H^p(U) \\
+      & & 0 \ar[u, equal]
+    \end{tikzcd}
+  \end{center}
+  so we have $i^*(\alpha) = 0$ for all
+  $\alpha \in H^p(X)$. Thus there exists
+  $\overline{\alpha} \in H^p(X, U)$ such that
+  $j^* \overline{\alpha} = \alpha$.
+  Similarly, we can find $\overline{\beta} \in H^q(X, V)$
+  such that $j^* \overline{\beta} = \beta$.
+  Now $\overline{\alpha} \cup \overline{\beta} \in H^{p+q}(X, U \cup V) = H^{p + q}(X, X) = 0$,
+  but we have the commutative diagram
+  (check this, since the $j^*$ are technically
+  different maps)
+  \begin{center}
+    \begin{tikzcd}
+      H^p(X) \times H^q(X) \ar[r, "\cup"] & H^{p + q}(X) \\
+      H^p(X, U) \times H^q(X, V) \ar[u, "j^* \times j^*"] \ar[r, "\cup"] & H^{p + q}(X, U \cup V) \ar[u, "j^*"]
+    \end{tikzcd}
+  \end{center}
+  so we get $\alpha \cup \beta = (j^* \overline{\alpha}) \cup (j^* \overline{\beta}) = j^*(\overline{\alpha} \cup \overline{\beta}) = j^*(0) = 0$.
+\end{proof}
+
+\begin{example}
+  We have the following applications
+  of the lemma:
+  \begin{enumerate}
+    \item $S^n \times S^m$ is not the union of
+      two acyclic sets.\footnote{A set $X$ is \emph{acyclic} if $\widetilde{H}_*(X) = 0$.}
+    \item A suspension $\Sigma X = (X \times [0, 1]) / (X \times \{0\}, X \times \{1\})$
+      has no nontrivial cup products.
+    \item $S^n \times S^m$ is not a suspension.
+  \end{enumerate}
+\end{example}
+
+\begin{exercise}
+  If $X$ is the union of $n$
+  contractible
+  open sets, then all $n$-fold
+  cup products are trivial.
+\end{exercise}
+
+\section{More Products}
+
+\begin{remark}
+  Recall that we have a map
+  $C_p(X) \times C^p(X; R) \to R$ by
+  $(\beta, \alpha) \mapsto \alpha(\beta)$.
+  Write $\alpha(\beta) = \langle \alpha, \beta)$.
+\end{remark}
+
+\begin{exercise}
+  Show that the pairing $\langle \cdot, \cdot \rangle$
+  is \emph{non-degenerate}, i.e.
+  if $\alpha \in C^p(X; R)$ and
+  $\langle \alpha, \beta \rangle = 0$
+  for all $\beta \in C_p(X)$, then
+  $\alpha = 0$, and similarly,
+  if $\beta \in C_p(X)$ and
+  $\langle \alpha, \beta \rangle = 0$
+  for all $\alpha \in C^p(X; R)$, then
+  $\beta = 0$.
+\end{exercise}
+
+\begin{definition}
+  Given a non-degenerate pairing, we can
+  look at the \emph{adjoint} of $U$
+  with respect to this pairing.
+  Define this adjoint to be the
+  \emph{cap product}, denoted $\cap$.
+\end{definition}
