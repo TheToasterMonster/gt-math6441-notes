@@ -1,0 +1,326 @@
+\chapter{Apr.~9 --- Poincar\'e Duality}
+
+\section{More Products}
+
+\begin{remark}
+  Recall that we have a map
+  $C_p(X) \times C^p(X; R) \to R$ by
+  $(\beta, \alpha) \mapsto \alpha(\beta)$.
+  Write $\alpha(\beta) = \langle \alpha, \beta)$.
+\end{remark}
+
+\begin{exercise}
+  Show that the pairing $\langle \cdot, \cdot \rangle$
+  is \emph{non-degenerate}, i.e.
+  if $\alpha \in C^p(X; R)$ and
+  $\langle \alpha, \beta \rangle = 0$
+  for all $\beta \in C_p(X)$, then
+  $\alpha = 0$, and similarly,
+  if $\beta \in C_p(X)$ and
+  $\langle \alpha, \beta \rangle = 0$
+  for all $\alpha \in C^p(X; R)$, then
+  $\beta = 0$.
+\end{exercise}
+
+\begin{definition}
+  Given a non-degenerate pairing, we can
+  look at the \emph{adjoint} of $U$
+  with respect to this pairing, i.e. the
+  map $\cap : C_{p + q}(X; R) \times C^p(X; R) \to C_q(X; R)$
+  such that for $\alpha \in C^p(X; R)$ and
+  $\beta \in C_{p + q}(X; R)$, the element
+  $\beta \cap \alpha$ is the unique element
+  in $C_q(X; R)$ such that
+  \[
+    \langle \beta \cap \alpha, \gamma \rangle
+    = \langle \beta, \alpha \cup \gamma \rangle
+    \quad \text{for all $\gamma \in C^q(X; R)$}
+  \]
+
+  Call this adjoint $\cap$ to be the
+  \emph{cap product}.
+\end{definition}
+
+\begin{remark}
+  If we think of $\alpha \cup \cdot$ as
+  a map $C^q(X; R) \to C^{p + q}(X; R)$,
+  then $\cdot \cap \alpha$ is the adjoint
+  of this map with respect to the pairing.
+  In this perspective, we can define $\cap$ as
+  follows:
+  \[
+    \beta \cap \alpha = \alpha({}_p \beta) \beta_q.
+  \]
+\end{remark}
+
+\begin{exercise}
+  Check that $\cdot \cap \alpha$ is the
+  adjoint of $\alpha \cup \cdot$.
+\end{exercise}
+
+\begin{exercise}
+  Show that $\delta : C^{n - 1}(X) \to C^n(X)$
+  is the adjoint of $\partial : C_n(X) \to C_{n - 1}(X)$, i.e.
+  \[
+    \langle \beta, \delta \alpha \rangle
+    = \langle \partial \beta, \alpha \rangle.
+  \]
+\end{exercise}
+
+\begin{lemma}
+  $C_*(X; R)$ is a unitary $C^*(X; R)$-module
+  using $\cap$.
+\end{lemma}
+
+\begin{proof}
+  We need to see that $\beta \cap (\alpha \cup \gamma) = (\beta \cap \alpha) \cap \gamma$.
+  We have ($\beta \in C_{p + q + r}(X)$)
+  \[
+    \beta \cap (\alpha \cup \gamma)
+    = (\alpha \cup \gamma) ({}_{p + q} \beta) \beta_r
+    = \alpha ({}_p \beta) \gamma(({}_{p + q} \beta)_q) \beta_r.
+  \]
+  We also have
+  \[
+    (\beta \cap \alpha) \cap \gamma
+    = (\alpha ({}_p) \beta_{q + r}) \cap \gamma
+    = \alpha({}_p \beta) \gamma({}_q(\beta_{q + r})) \beta_r,
+  \]
+  which are the same since
+  $({}_{p + q} \beta)_q = {}_q(\beta_{q + r})$.
+  Check the rest (module axioms) as an exercise.
+\end{proof}
+
+\begin{lemma}
+  If $\beta \in C_{p + q}(X; R)$ and
+  $\alpha \in C^p(X; R)$, then
+  \[\partial(\beta \cap \alpha)
+    = (-1)^p (\partial \beta \cap \alpha - \beta \cap \delta \alpha).\]
+\end{lemma}
+
+\begin{proof}
+  By non-degenerateness, it suffices to see
+  that the equality
+  holds when we pair with all possible
+  elements in $C^{q - 1}(X; R)$. For the
+  right-hand side, we have
+  \begin{align*}
+    (-1)^p \langle \partial \beta \cap \alpha - \beta \cap \delta \alpha, \gamma \rangle
+    &= (-1)^p(\langle \partial \beta \cap \alpha, \gamma) \rangle - \langle \beta \cap \delta \alpha, \gamma \rangle) \\
+    &= (-1)^p(\langle\partial \beta, \alpha \cup \gamma \rangle - \langle \beta, \delta \alpha \cup \gamma \rangle) \\
+    &= (-1)^p(\langle \beta, \delta(\alpha \cup \gamma) \rangle - \langle \beta, \delta \alpha \cup \gamma) \\
+    &= (-1)^p (\langle \beta, \delta \alpha \cup \gamma \rangle + (-1)^p \langle \beta, \alpha \cup \delta \gamma \rangle - \langle \beta, \delta \alpha \cup \gamma) \\
+    &= \langle \beta, \alpha \cup \delta \gamma \rangle
+    = \langle \beta \cap \alpha, \delta \gamma \rangle
+    = \langle \partial(\beta \cap \alpha), \gamma \rangle,
+  \end{align*}
+  where we used that $\cap$ is the
+  adjoint of $\cup$ and $\delta$ is the adjoint
+  of $\partial$. This proves the result.
+\end{proof}
+
+\begin{exercise}
+  Use the lemma to show that $\cap$ is
+  well-defined on cohomology and homology.
+\end{exercise}
+
+\begin{lemma}
+  Let $f : X \to Y$. Then for
+  any $\beta \in H_{p + q}(X; R)$ and
+  $\alpha \in H^p(Y; R)$,
+  \[
+    f_*(\beta \cap f^* (\alpha))
+    = f_*(\beta) \cap \alpha
+  \]
+\end{lemma}
+
+\begin{proof}
+  Check this as an exercise.
+\end{proof}
+
+\begin{remark}
+  We can also get a relative cap product
+  \begin{align*}
+    H_{p + q}(X, A; R) \times H^p(X, A; R)
+    &\longrightarrow H_q(X; R) \\
+    H_{p + q}(X, A; R) \times H^p(X; R)
+    &\longrightarrow H_q(X, A; R)
+  \end{align*}
+  We will check that the first map is
+  well-defined, the second is similar.
+
+  To check this, let
+  $[\beta] \in H_{p + q}(X, A; R)$
+  and $[\alpha] \in H^p(X, A; R)$, so
+  $\beta \in C_{p + q}(X, A; R)$ and
+  $\alpha \in C^p(X; R)$, where
+  $\alpha$ vanishes on $C_p(A)$.
+  We need to see that $\partial (\beta \cap \alpha)$
+  is zero in $C^{q - 1}(X)$ and not just
+  in $C_{q - 1}(X, A)$.
+  Write $\partial(\beta \cap \alpha) = (-1)^p (\partial \beta \cap \alpha - \beta \cap \delta \alpha)$, and note that
+  \begin{enumerate}
+    \item $\langle \partial \beta \cap \alpha, \gamma \rangle = \langle \partial \beta, \alpha \cup \gamma \rangle = 0$
+      since $\partial \beta \in C_{p + q - 1}(A)$,
+      so $\partial \beta \cap \alpha = 0$.
+    \item $\langle \beta \cap \delta \alpha, \gamma \rangle = \langle \beta, \delta \alpha \cup \gamma \rangle = (\delta \alpha \cup \gamma)(\beta) = \delta \alpha({}_{p + 1}(\beta)) \cdot \gamma(\beta_{q - 1}) = \alpha(\partial_{p + 1} \beta) \cdot \gamma(\beta_{q - 1}) = 0$
+      since we have
+      $\partial_{p + 1} \beta \in C_{p + 1}(A)$
+      and
+      $\delta \alpha$ vanishes on elements
+      of $C_{p + 1}(A; R)$
+  \end{enumerate}
+  This shows that $\partial(\beta \cap \alpha) = 0$
+  in $C_{q - 1}(X)$.
+\end{remark}
+
+\section{Poincar\'e Duality}
+
+\begin{definition}
+  A \emph{manifold of dimension $n$} is a
+  topological space $M$ that is Hausdorff
+  and \emph{locally Euclidean}, i.e. every
+  point in $M$ has an open neighborhood
+  $U$ which is homeomorphic to
+  $\R^n$ (we call such an open neighborhood $U$ a \emph{coordinate chart}).
+\end{definition}
+
+\begin{remark}
+  Many definitions ask for $M$ to be second
+  countable, but we do not need that.
+\end{remark}
+
+\begin{definition}
+  A \emph{manifold with boundary of dimension $n$}
+  is a topological space $M$ that is Hausdorff
+  and such that each point in $M$ has an
+  open neighborhoods homeomorphic
+  to $\R^n$ or
+  \[
+    \R^n_{\ge 0} = \{ (x_1, \ldots, x_n) \in \R^n : x_n \ge 0 \}.
+  \]
+  Define $\partial M$ to be the points in
+  $M$ that do not have a neighborhood
+  homeomorphic to $\R^n$, and define $\Int M$
+  to be those points which do
+  have a neighborhood homeomorphic to $\R^n$.
+\end{definition}
+
+\begin{exercise}
+  Check the following properties:
+  \begin{enumerate}
+    \item $\partial (\partial M) = \varnothing$;
+    \item $\partial(\Int M) = \partial M$;
+    \item $\partial(\Int M) = \varnothing$;
+    \item $\partial M$ is an $(n - 1)$-manifold.
+  \end{enumerate}
+\end{exercise}
+
+\begin{definition}
+  A manifold $M$ is \emph{closed} if
+  $M$ is compact and $\partial M = \varnothing$.
+\end{definition}
+
+\begin{example}
+  The following are examples of manifolds:
+  \begin{enumerate}
+    \item Surfaces are $2$-manifolds.
+    \item $S^n \subseteq \R^{n + 1}$.
+    \item Products of manifolds are manifolds,
+      e.g. $S^n \times S^m$ is a manifold.
+    \item $\R P^n$ is an $n$-manifold, and
+      $\C P^n$ is a $2n$-manifold.\footnote{Recall that $\R P^n = (\R^{n + 1} - \{0\}) / (\R - \{0\})$ and $\C P^n = (\C^{n + 1} - \{0\}) / (\C - \{0\})$.}
+  \end{enumerate}
+\end{example}
+
+\begin{theorem}
+  Let $R$ be a ring. Then:
+  \begin{enumerate}
+    \item Let $M$ be a closed connected
+      manifold of dimension $n$. Then
+      $M$ is $R$-orientable if and only if
+      $H_n(M; R) \cong R$.
+    \item Let $M$ be a compact connected
+      manifold with boundary of dimension $n$.
+      Then $M$ is $R$-orientable if and only
+      if $H_n(M, \partial M; R) \cong R$.
+  \end{enumerate}
+\end{theorem}
+
+\begin{remark}
+  We will define $R$-orientability later,
+  but for now, here are some facts:
+  \begin{enumerate}
+    \item Any manifold is $\Z / 2\Z$-orientable.
+    \item The ``standard'' definition of
+      orientable (e.g. in differential
+      topology) is equivalent to
+      $\Z$-orientability.
+    \item A choice of generator for $H_n(M; R)$
+      is called a \emph{fundamental class}
+      of $M$, denoted by $[M]$, and $[M]$
+      ``determines'' an $R$-orientation on
+      $M$ (similarly for $[M, \partial M]$
+      and
+      a generator for $H_n(M, \partial M; R)$.
+  \end{enumerate}
+\end{remark}
+
+\begin{theorem}
+  We have the following:
+  \begin{enumerate}
+    \item \emph{(Poincar\'e duality)}
+      If $M$ is a closed connected
+      $R$-orientable $n$-manifold with
+      fundamental class $[M]$, then the
+      map $[M] \cap \cdot : H^p(M; R) \to H_{n - p}(M; R)$
+      is an isomorphism.
+    \item \emph{(Poincar\'e-Lefschetz duality)}
+      If $M$ is a compact connected
+      $R$-orientable $n$-manifold with boundary
+      and $[M, \partial M]$ is a fundamental class,
+      then $\partial[M, \partial M] = [\partial M]$, where
+      \[
+        \partial : H_n(M, \partial M; R) \to H_{n - 1}(\partial M; R)
+      \]
+      is the map in the long exact sequence of
+      the pair $(M, \partial M)$. Moreover,
+      \begin{center}
+        \hspace{-1em}
+        \begin{tikzcd}
+          \cdots \ar[r] & H^{p - 1}(M) \ar[r] \ar[d, "{[M, \partial M] \cap \cdot}"] & H^{p - 1}(\partial M) \ar[d, "{[\partial M] \cap \cdot}"] \ar[d, swap, "\cong"]
+          \ar[r] & H^p(M, \partial M) \ar[d, "{[M, \partial M] \cap \cdot}"]
+          \ar[r] & H^p(M) \ar[r] \ar[d, "{[M, \partial M] \cap \cdot}"]& \cdots \\
+          \cdots \ar[r] & H_{n - p - 1}(M, \partial M)
+          \ar[r] & H_{n - p}(\partial M)
+          \ar[r] & H_{n - p}(M)
+          \ar[r] & H_{n - p}(M, \partial M) \ar[r] & \cdots
+        \end{tikzcd}
+      \end{center}
+  \end{enumerate}
+  where all vertical arrows are isomorphisms
+  and the diagram commutes up to sign.
+\end{theorem}
+
+\begin{remark}
+  We will prove these theorems, but we
+  look at some applications of Poincar\'e duality
+  for now.
+\end{remark}
+
+\begin{corollary}
+  Let $M$ be a closed oriented $n$-fold.
+  Then the cup product pairing
+  \begin{align*}
+    \frac{H^p(M)}{\mathrm{tors}}
+    \times \frac{H^{n - p}(M)}{\mathrm{tors}}
+    &\longrightarrow \Z \\
+    (\alpha, \beta)
+    &\longmapsto \alpha \cup \beta([M])
+  \end{align*}
+  is non-degenerate, and if $\alpha$ is a
+  generator of  $H^p(M) / \mathrm{tors}$, then there
+  exists $\beta \in H^{n - p}(M) / \mathrm{tors}$ such that
+  $\alpha \cup \beta$ is a generator of
+  $\Z \cong H^n(M)$.
+\end{corollary}
