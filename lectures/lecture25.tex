@@ -1,0 +1,302 @@
+\chapter{Apr.~14 --- Poincar\'e Duality, Part 2}
+
+\section{Applications of Poincar\'e Duality}
+
+\begin{corollary}\label{cor:cup-product-pairing}
+  Let $M$ be a closed oriented $n$-fold.
+  Then the cup product pairing
+  \begin{align*}
+    \frac{H^p(M)}{\mathrm{tors}}
+    \times \frac{H^{n - p}(M)}{\mathrm{tors}}
+    &\longrightarrow \Z \\
+    (\alpha, \beta)
+    &\longmapsto \alpha \cup \beta([M])
+  \end{align*}
+  is non-degenerate, and if $\alpha$ is a
+  generator of  $H^p(M) / \mathrm{tors}$, then there
+  exists $\beta \in H^{n - p}(M) / \mathrm{tors}$ such that
+  $\alpha \cup \beta$ is a generator of
+  $\Z \cong H^n(M)$.
+\end{corollary}
+
+\begin{proof}
+  Recall that the universal coefficient
+  theorem says we have a short exact sequence:
+  \begin{center}
+    \begin{tikzcd}
+      0 \ar[r] & \Tor(H_{p - 1}(M); \Z) \ar[r] & H^p(M; \Z) \ar[r, "\phi"] & \Hom(H_p(M); \Z) \ar[r] & 0
+    \end{tikzcd}
+  \end{center}
+  where $\phi$ maps $\alpha \mapsto \phi(\alpha)$,
+  where $\phi(\alpha) : H_p(M) \to \Z$ is
+  given by $\sigma \mapsto \alpha(\sigma)$.
+  Thus
+  \[
+    \frac{H^p(M)}{\mathrm{tors}} \cong
+    \Hom(H_p(M); \Z)
+    = \Hom(H_p(M) / \mathrm{tors}; \Z)
+  \]
+  since every homomorphism must send torsion
+  elements to $0 \in \Z$. Poincar\'e
+  duality says
+  \[
+    \frac{H^{n - p}(M)}{\mathrm{tors}} \cong
+    \frac{H_p(M)}{\mathrm{tors}}
+  \]
+  by the map $\alpha \mapsto [M] \cap \alpha$,
+  so we get a map $\Phi : H^p(M) / \mathrm{tors} \to \Hom(H_{n - p}(M) / \mathrm{tors}; \Z)$,
+  where
+  \begin{align*}
+    \Phi(\alpha) : H^{n - p}(M) / \mathrm{tors}
+    &\longrightarrow \Z \\
+    \beta &\longmapsto \phi(\alpha)([M] \cap \beta)
+    = \alpha([M] \cap \beta)
+    = \alpha \cup \beta([M])
+  \end{align*}
+  This map is an isomorphism since it
+  is the composition of two
+  isomorphisms. So if
+  $(\beta \cup \alpha)([M]) = 0$ for all
+  $\beta$, then $\Phi(\alpha) = 0$, which
+  implies $\alpha = 0$. Similarly, one can
+  see that if
+  $\beta \cup \alpha = 0$ for all $\alpha$, then
+  $\beta = 0$. This shows that the pairing
+  is non-degenerate.
+
+  Now if $\alpha \in H^p(M) / \mathrm{tors}$
+  is a generator, then there is a homomorphism
+  $\psi : H^p(M) / \mathrm{tors} \to \Z$
+  sending $\alpha$ to $1$ (since
+  $H^p(M) / \mathrm{tors}$ is a free group), so
+  from above, there exists an element
+  $\beta \in H^{n - p}(M) / \mathrm{tors}$ such
+  that $\Phi(\beta) = \psi$, i.e. $\psi(\gamma) = (\beta \cup \gamma)([M])$ for any $\gamma \in H^p(M) / \mathrm{tors}$. Then we get
+  \[
+    1 = \psi(\alpha) = (\beta \cup \alpha)([M]),
+  \]
+  so $\beta \cup \alpha$ must generate
+  $H^n(M; \Z)$.
+\end{proof}
+
+\begin{corollary}
+  The cohomology ring of $\C P^n$ is
+  $H^*(\C P^n; \Z) \cong \Z[x] / \langle x^{n + 1} \rangle$,
+  with $\deg x = 2$.
+\end{corollary}
+
+\begin{proof}
+  Recall that $\C P^n$ has a CW structure with
+  a single $0$-cell, $2$-cell, $4$-cell, \dots,
+  $2n$-cell, so
+  \[
+    H^k(\C P^n; \Z) =
+    \begin{cases}
+      \Z & \text{if $k = 0, 2, 4, \dots, 2n$}, \\
+      0 & \text{otherwise}.
+    \end{cases}
+  \]
+  Note we have an inclusion map
+  $i : \C P^{n - 1} \to \C P^n$. The
+  long exact sequence of the pair
+  $(\C P^n, \C P^{n - 1})$ is
+  \begin{center}
+    \begin{tikzcd}
+      \cdots \ar[r] &
+      H^k(\C P^n, \C P^{n - 1}) \ar[r] & H^k(\C P^n) \ar[r, "i^*"] & H^k(\C P^{n - 1}) \ar[r] & H^{k + 1}(\C P^n, \C P^{n - 1}) \ar[r] & \cdots
+    \end{tikzcd}
+  \end{center}
+  Note that $\C P^n / \C P^{n - 1} \cong S^{2n}$.
+  If $k < 2n - 1$, then we have
+  \begin{center}
+    \begin{tikzcd}
+      0 \ar[r] & H^k(\C P^n) \ar[r, "i^*"] & H^k(\C P^{n - 1}) \ar[r] & 0
+    \end{tikzcd}
+  \end{center}
+  so $i^* : H^k(\C P^n) \to H^k(\C P^{n - 1})$
+  is an isomorphism for $k \le 2n - 1$ (when
+  $k = 2n - 1$, both are $0$).
+
+  Note that the corollary is clearly
+  true for $\C P^1$, where
+  $H^*(\C P^1; \Z) \cong \Z \oplus \Z$, where
+  the first $\Z$ corresponds to $1$ with
+  degree $0$ and the second $\Z$ corresponds
+  to $x$ with degree $2$.
+
+  Now we proceed by induction. Assume
+  that the statement is true for $\C P^{n - 1}$,
+  so we can find a generator $x \in H^2(\C P^{n - 1})$,
+  and $x^k$ generates $H^{2k}(\C P^{n - 1}$)
+  for $k \le n - 1$. We know
+  $i^*$ induces an isomorphism from
+  $H^2(\C P^n) \to H^2(\C P^{n - 1})$,
+  so there exists a $y \in H^2(\C P^n)$ with
+  $i^*(y) = x$. Therefore, $y^k$ must
+  generate $H^{2k}(\C P^n)$ for $k \le n - 1$,
+  since $i^*(y^k) = (i^*(y))^k = x^k$
+  generates $H^{2k}(\C P^{n - 1})$.
+
+  For $k = 2n$,
+  Corollary \ref{cor:cup-product-pairing}
+  says that there is a generator in
+  $H^{2n - 2}(\C P^n)$ which cups with
+  $y \in H^2(\C P^n)$ to be a generator of
+  $H^{2n}(\C P^n)$, so $y \cup y^{n - 1}$
+  generates $H^{2n}(\C P^n)$, which
+  finishes the induction.
+\end{proof}
+
+\begin{corollary}
+  Any homotopy equivalence $\C P^{2n} \to \C P^{2n}$
+  preserves orientation.
+\end{corollary}
+
+\begin{proof}
+  If $f : \C P^{2n} \to \C P^{2n}$ is a
+  homotopy equivalence, then let
+  $x$ generate $H^2(\C P^{2n})$ and we see
+  \[
+    f^*(x) = \pm x.
+  \]
+  Note that $x^{2n}$ generates $H^{4n}(\C P^{2n})$
+  and $f^*(x^{2n}) = (f^*(x))^{2n} = (\pm x)^{2n} = x^{2n}$,
+  so $f^*$ fixes the generator of $H^{4n}(\C P^{2n})$.
+  Thus by the universal coefficient theorem,
+  $f_*$ fixes the generator of $H_{4n}(\C P^{2n})$, i.e.
+  it fixes a fundamental class, and hence
+  an orientation.
+\end{proof}
+
+\begin{corollary}\label{cor:even}
+  Let $M$ be a closed oriented $n$-manifold.
+  Then
+  \[
+    \Free H_{n - k}(M) \cong \Free H_k(M) \quad
+    \text{and} \quad \Tor H_{n - k}(M) \cong \Tor H_{k - 1}(M).
+  \]
+  If $n$ is odd, then $\chi(M) = 0$, and
+  if $n = 4k + 2$, then $\chi(M)$ is even.
+\end{corollary}
+
+\begin{proof}
+  The first part follows by the universal
+  coefficient theorem and Poincar\'e duality.
+
+  For the second part, recall the Euler
+  characteristic is given by
+  \[
+    \chi(M)
+    = \sum_{i = 0}^{n} (-1)^i
+    = \sum_{i = 0}^{n} (-1)^i b_i,
+  \]
+  where the $b_i$ are called the \emph{Betti numbers}.
+  If $n = 2m + 1$ is odd, we can write
+  \begin{align*}
+    \chi(M)
+    = \sum_{i = 0}^m (-1)^i b_i
+    + \sum_{i = m + 1}^{2m + 1} (-1)^i b_i
+    &= \sum_{i = 0}^m (-1)^i b_i
+    + \sum_{i = 0}^m (-1)^{2m + 1 - i} b_{2m + 1 - i} \\
+    &= \sum_{i = 0}^m (-1)^i b_i
+    + \sum_{i = 0}^m (-1)^{i + 1} b_i
+    = 0.
+  \end{align*}
+  Now if $M$ is even-dimensional, then
+  the above computation gives $\chi(M) = b_{n / 2} + \text{even number}$.
+  So if $\dim M = 4m + 2$, then
+  $\chi(M)$ is even if and only if
+  $b_{2m + 1}$ is even. Corollary \ref{cor:cup-product-pairing}
+  implies that
+  \[
+    \frac{H^{2m + 1}(M)}{\mathrm{tors}} \times
+    \frac{H^{2m + 1}(M)}{\mathrm{tors}} \longrightarrow
+    \Z
+  \]
+  is non-degenerate and skew-symmetric. It
+  is now an exercise in linear algebra to
+  show that if
+  $V$ is a $k$-dimensional vector space
+  and $q : V \times V \to \R$ is a
+  non-degenerate
+  skew-symmetric pairing, then $k$ is even.
+  (Hint: If $W$ is a subspace of $V$ and
+  $W^\perp = \{v \in V : q(v, w) = 0 \text{ for all } w \in W\}$, then
+  $(W^\perp)^\perp = W$ and
+  $\dim V = \dim W + \dim W^\perp$. Now given
+  $v \in V$, there is some $v'$ such that
+  $q(v, v') = 1$. Let $w = \Span\{v, v'\}$, and
+  consider $W \oplus W^\perp$.)
+  The corollary then follows.
+\end{proof}
+
+\begin{corollary}\label{cor:rank-even}
+  Let $M^{2n} = \partial V^{2n + 1}$ with
+  $V$ compact, orientable and $M$ connected.
+  Then $\rank H^n(M)$ is even and we have
+  the relation
+  \[
+    \dim (\ker (i_* : H_n(M) \to H_n(V)))
+    = \dim (\im (i^* : H^n(V) \to H^n(M)))
+    = \frac{1}{2} \dim H^n(M).
+  \]
+  Moreover, any two classes in
+  $\im i^*$ cup to be zero.
+\end{corollary}
+
+\begin{proof}
+  Consider the long exact sequence (by
+  Poincar\'e-Lefschetz duality)
+  \begin{center}
+    \begin{tikzcd}
+      H^n(V) \ar[r, "i^*"] & H^n(M) \ar[d, swap, "\cong"] \ar[d, "{[M] \cap \cdot}"] \ar[r, "\delta^*"] & H^{n + 1}(V, M) \ar[d, swap, "\cong"] \ar[d, "{[V, \partial V] \cap \cdot}"] \\
+      & H_n(M) \ar[r, "i_*"] & H_n(V)
+    \end{tikzcd}
+  \end{center}
+  So $[M] \cap (\im i^*) = [M] \cap (\ker \delta^*) = \ker i_*$, and we have
+  \[
+    \rank i^* = \dim \im i^*
+    = \dim \ker i_*
+    = \dim H_n(M) - \dim \im i_*
+    = \dim H_n(M) - \dim \im i^*,
+  \]
+  where the second-to-last equality
+  is by the rank-nullity theorem
+  for modules. The last equality is by
+  \[
+    \langle i^* \alpha, c \rangle
+    = (i^* \alpha)(c)
+    = \alpha(i_* c)
+    = \langle \alpha, i_* c \rangle,
+  \]
+  i.e. $i^*$ and $i_*$ are adjoints, and
+  adjoints have the same rank. So
+  $\dim H_n(M) = 2 \dim \im i^*$.
+\end{proof}
+
+\begin{corollary}
+  If $M = \partial V$ is connected and
+  $V$ is compact, orientable, then
+  $\chi(M)$ is even.
+\end{corollary}
+
+\begin{proof}
+  If $\dim M$ is odd or $\dim M = 4n + 2$, we have already
+  seen that $\chi(M)$ is even by Corollary
+  \ref{cor:even}.
+  Now if $\dim M = 4m$, then the proof of
+  Corollary \ref{cor:even} says that
+  $\chi(M)$ is even if and only if
+  $b_{2n}$ is even, which Corollary
+  \ref{cor:rank-even} says that it is.
+\end{proof}
+
+\begin{corollary}
+  $\C P^{2n}$ is not the boundary of a
+  compact, oriented $(4n + 1)$-manifold.
+\end{corollary}
+
+\begin{proof}
+  We have $\chi(\C P^{4n}) = 2n + 1$, which is
+  not even.
+\end{proof}
