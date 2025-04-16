@@ -1,0 +1,420 @@
+\chapter{Apr.~16 --- Fundamental Class and Algebra}
+
+\section{Fundamental Class of a Manifold}
+
+\begin{definition}
+  Let $M$ be a manifold of dimension $n$, and
+  let $R$ be a ring with identity (usually
+  $\Z$ or $\Z / 2\Z$). If $x \in M$, let
+  $U$ be an open set containing $x$ and
+  homeomorphic to $\R^n$, then by excision,
+  \[
+    H_n(M, M - \{x\}; R)
+    \cong H_n(U, U - \{x\}; R)
+    \cong H_n(\R^n, \R^n - \{0\}; R).
+  \]
+  Using the long exact sequence of the pair
+  $(\R^n, \R^n - \{0\})$, we have (note that
+  $\R^n - \{0\} \simeq S^{n - 1}$)
+  \begin{center}
+    \begin{tikzcd}[row sep=small]
+      H_n(\R^n; R) \ar[r] & H_n(\R^n, \R^n - \{0\}; R)
+      \ar[r, "\cong"]
+      & H_{n - 1}(\R^n - \{0\}; R)
+      \ar[r] & H_{n - 1}(\R^n; R) \\
+      0 \ar[u, equal] & & R \ar[u, equal] & 0 \ar[u, equal]
+    \end{tikzcd}
+  \end{center}
+  so $H_n(M, M - \{x\}; R) \cong R$ for
+  all $x \in M$. Call a generator of
+  $H_n(M, M - \{x\}; R)$ a \emph{local $R$-orientation}
+  on $M$ at $x$, and denote it by $\mu_x$.
+\end{definition}
+
+\begin{remark}
+  If $R = \Z / 2\Z$, then there is a unique
+  choice for $\mu_x$, and if $R = \Z$, then
+  there are two choices.
+\end{remark}
+
+\begin{exercise}
+  Show that the usual definition of
+  orientability (e.g. from differential topology) at a point $x \in M$ is
+  equivalent to $\Z$-orientability at $x$.
+\end{exercise}
+
+\begin{definition}
+  If $B$ is an open ball in a coordinate
+  chart $U$, then the above argument says that
+  \[
+    H_n(M, M - B; R)
+    \cong R.
+  \]
+  Moreover, the inclusion map
+  $i : (M, M - B) \to (M, M - \{x\})$
+  induces an isomorphism
+  \begin{center}
+    \begin{tikzcd}
+      H_n(M, M - B; R)
+      \ar[r, "i_*"]
+      \ar[r, swap, "\cong"]
+      & H_n(M, M - \{x\}; R)
+    \end{tikzcd}
+  \end{center}
+  so a choice of generator for one group
+  determines a generator for the other. Thus if
+  $x, y \in B$, then
+  \[
+    H_n(M, M - \{y\}; R)
+    \cong H_n(M, M - B; R)
+    \cong H_n(M, M - \{x\}; R),
+  \]
+  where both isomorphisms are induced by
+  inclusions. So a local orientation at $x$
+  induces one for $y$ for all $y \in B$.
+  An \emph{$R$-orientation} on $M$ is a choice
+  of local $R$-orientation $\mu_x$ for
+  each $x \in M$ such that for all open balls
+  $B \subseteq M$ contained in a coordinate
+  chart, there exists a generator $\mu_B$ for
+  $H_n(M, M - B; R)$ such that
+  $i_*(\mu_B) = \mu_x$ for all $x \in B$.
+  If $M$ has an $R$-orientation, then we
+  say that $M$ is \emph{$R$-orientable}.
+  If $R = \Z$, we just say that $M$ is
+  \emph{orientable}.
+\end{definition}
+
+\begin{remark}
+  One can think of the $i_*(\mu_B) = \mu_x$
+  condition as saying that the choices
+  at each $x$ must be compatible with each
+  other.
+\end{remark}
+
+\begin{lemma}
+  All manifolds are $\Z / 2\Z$-orientable.
+\end{lemma}
+
+\begin{proof}
+  This follows since
+  $\Z / 2\Z$ has a unique generator.
+\end{proof}
+
+\begin{lemma}
+  If $M$ is $R$-orientable and connected,
+  then any two $R$-orientations that
+  agree at a point are the same, i.e. an
+  $R$-orientation is determined by a local
+  $R$-orientation at any point.
+\end{lemma}
+
+\begin{proof}
+  We argue using connectedness.
+  Suppose $\{\mu_x\}_{x \in M}, \{\widetilde{\mu}_x\}_{x \in M}$
+  are two $R$-orientations, and let
+  \[
+    S = \{x \in M : \mu_x = \widetilde{\mu}_x\}.
+  \]
+  By assumption, $S \ne \varnothing$.
+  Show as an exercise that $S$ is open and
+  closed, which implies $S = M$.
+\end{proof}
+
+\begin{corollary}
+  If $M$ is connected and orientable,
+  then $M$ has exactly two orientations.
+\end{corollary}
+
+\begin{proof}
+  There are exactly two choices for a
+  local $\Z$-orientation.
+\end{proof}
+
+\begin{theorem}\label{thm:orientation-map}
+  Let $M$ be a closed, connected
+  $n$-manifold. Then
+  \begin{enumerate}
+    \item If $M$ is $R$-orientable, then the
+      map $i : (M, \varnothing) \to (M, M - \{x\})$
+      induces an isomorphism
+      \[
+        i_* : H_n(M; R) \longrightarrow
+        H_n(M, M - \{x\}; R) \cong R
+      \]
+      for every $x \in M$.
+    \item If $M$ is not $R$-orientable, then
+      the inclusion map is injective with
+      image
+      $\{r \in R : 2r = 0\}$.
+    \item $H_i(M; R) = 0$ for all $i > n$.
+  \end{enumerate}
+\end{theorem}
+
+\begin{definition}
+  An element $[M] \in H_n(M; R)$ that maps
+  to a generator of $H_n(M, M - \{x\}; R) \cong R$
+  for all $x$ is called a \emph{fundamental class}
+  of $M$.
+\end{definition}
+
+\begin{corollary}
+  We have the following:
+  \begin{enumerate}
+    \item If $M$ is a closed, oriented, connected
+      $n$-manifold, then
+        $H_n(M; \Z) \cong \Z$
+        and
+        $H_n(M; \Z / 2\Z) \cong \Z / 2\Z$.
+    \item If $M$ is not orientable, then
+      $H_n(M; \Z) = 0$ and $H_n(M; \Z / 2\Z) \cong \Z / 2\Z$.
+  \end{enumerate}
+\end{corollary}
+
+\begin{proof}
+  This is clear from Theorem \ref{thm:orientation-map}
+  (note that $\Z$ has no $2$-torsion).
+\end{proof}
+
+\begin{definition}
+  Let
+  \[
+    M_R = \{\alpha_x : x \in M, \alpha_x \in H_n(M, M - \{x\}; R)\}.
+  \]
+  We can put a topology on $M_R$ as follows:
+  For each open ball $B$ contained in a
+  coordinate chart and each $\alpha \in H_n(M, M - B; R)$,
+  let $U(\alpha, B) = \{i^x_*(\alpha)\}_{x \in B}$,
+  where $i^x : (M, M - B) \to (M, M - \{x\})$.
+\end{definition}
+
+\begin{exercise}
+  Check the following:
+  \begin{enumerate}
+    \item The sets $U(\alpha, B)$ form a
+      basis for a topology on $M_R$.
+    \item The map $\pi : M_R \to M$ given by
+      $\alpha_x \mapsto x$ is a covering map.
+    \item If $\sigma : M \to M_R$ is
+      continuous such that $\pi \circ \sigma = \id_M$
+      (such a map $\sigma$ is called a
+      \emph{section} of $M_R \overset{\pi}{\to} M$)
+      and $\sigma(x)$ is a generator of
+      $H_n(M, M - \{x\}; R)$ for all
+      $x$, then $\sigma$ defines an $R$-orientation.
+  \end{enumerate}
+\end{exercise}
+
+\begin{lemma}\label{lem:section}
+  Let $M$ be an $n$-manifold and $A \subseteq M$
+  a compact subset. Then
+  \begin{enumerate}
+    \item If $\sigma : M \to M_R$ is a
+      section of $M_R$, then there exists a
+      unique class $\alpha_A \in H_n(M, M - A; R)$
+      whose image in $H_n(M, M - \{x\}; R)$ is $\sigma(x)$
+      for all $x \in A$.
+    \item $H_n(M, M - A; R) = 0$ for all
+      $i > n$.
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  The lemma is proved through the following
+  sequence of claims:
+  \begin{enumerate}
+    \item If the lemma is true for $A, B, A \cap B$, then
+      it is true for $A \cup B$.
+    \item If the lemma is true for $M = \R^n$,
+      then it is true for all $M$.
+    \item The lemma is true for $M = \R^n$.
+  \end{enumerate}
+  The first two claims are exercises with
+  Mayer-Vietoris, but the third is
+  difficult.
+  See the \href{https://etnyre.math.gatech.edu/class/6441Spring21/SectionIV.pdf}{course notes}.
+\end{proof}
+
+\begin{proof}[Proof of Theorem \ref{thm:orientation-map}]
+  This follows from Lemma \ref{lem:section},
+  see the \href{https://etnyre.math.gatech.edu/class/6441Spring21/SectionIV.pdf}{course notes}.
+\end{proof}
+
+\section{Algebraic Limits}
+
+\begin{definition}
+  A set $I$ is a \emph{directed set}
+  if there exists a partial order
+  $i \le i'$ defined on certain pairs in
+  $I$ such that for all $i, i' \in I$, there
+  exists $i'' \in I$ such that
+  $i \le i''$ and $i' \le i''$.
+\end{definition}
+
+\begin{example}
+  The following are examples of directed sets:
+  \begin{enumerate}
+    \item $I = \Z$ with the usual order $\le$.
+    \item $I = \text{all subsets of a set $X$}$,
+      where $\le$ is given by inclusion.
+  \end{enumerate}
+\end{example}
+
+\begin{definition}
+  Suppose $\{M_i\}_{i \in I}$ is a family of
+  $R$-modules indexed by a directed set $I$,
+  such that:
+  \begin{enumerate}
+    \item For all $i \le i'$, there is a
+      homomorphism $\phi_{i' i} : M_i \to M_{i'}$.
+    \item If $i \le i' \le i''$, then
+      $\phi_{i'' i} = \phi_{i'' i'} \circ \phi_{i' i}$.
+    \item $\phi_{ii} = \id_{M_i}$.
+  \end{enumerate}
+  Such a family is called a \emph{directed system of modules}.
+  The \emph{direct limit} of a system
+  $\{M_i\}_{i \in I}$
+  is a module
+  \[
+    M = \varinjlim M_i
+  \]
+  together with
+  homomorphisms $\phi_i : M_i \to M$
+  such that
+  $\phi_{i'} \circ \phi_{i' i} = \phi_i$
+  and for any module $N$ with maps $\psi_i : M_i \to N$
+  satisfying $\psi_{i'} \circ \phi_{i' i} = \psi_i$,
+  there is a unique homomorphism
+  $\psi : M \to N$ with
+  $\psi_i = \psi \circ \phi_i$.
+\end{definition}
+
+\begin{exercise}
+  Show that direct limits are unique up to
+  isomorphism.
+\end{exercise}
+
+\begin{lemma}
+  Direct limits exist.
+\end{lemma}
+
+\begin{proof}
+  Let $M^+ = \bigoplus M_i$ and
+  $\phi_i^+ : M_i \to M^+$ send
+  $x$ to the $I$-tuple with $x$ in the
+  $i$th component and $0$ elsewhere. Let
+  $J$ be the submodule of $M^+$ generated by
+  \[\{\phi_{i'}^+ \circ \phi_{i' i}(x) - \phi_i^+(x)\}_{x \in M}\]
+  for all $i, i' \in I$. Set
+  $M = M^+ / J$ and
+  $\phi_i = \pi \circ \phi_i^+$, where
+  $\pi : M^+ \to M$ is the quotient map.
+  Check as an exercise that $(M, \phi_i)$ is
+  indeed the direct limit.
+\end{proof}
+
+\begin{exercise}
+  Show the following:
+  \begin{enumerate}
+    \item If the $M_i$ are all submodules of $M$
+      and for all $i \le i'$, the map
+      $\phi_{i' i} : M_i \to M_{i'}$ is
+      just the inclusion map, then
+      $\varinjlim M_i = \bigcup M_i$.
+    \item If there exists $m \in I$ such that
+      $i \le m$ for all $i \in I$, then
+      $\phi_m : M_m \to \varinjlim M_i$ is an
+      isomorphism.
+    \item Suppose that for all $i \in I$,
+      we have $M_i = N_i \oplus P_i$ and
+      $\phi_{i' i} = \psi_{i' i} \oplus \rho_{i' i}$
+      for all $i \le i'$.
+      Let $N = \varinjlim N_i$,
+      $P = \varinjlim P_i$, and $M = \varinjlim M_i$.
+      Then there are maps
+      $\psi : N \to M$ and $\rho : P \to M$
+      which satisfy $\psi \circ \psi_i = \phi_I|_N$,
+      $\rho \circ \rho_i = \phi_i|_P$, and
+      $\psi \oplus \rho : N \oplus P \to M$
+      is an isomorphism.
+    \item A subset $J \subseteq I$ is called
+      \emph{final} if for all $i \in I$,
+      there exists $j \in J$ with
+      $i \le j$. Applying the definition of
+      a direct limit to $\phi_j : M_j \to M$,
+      we get a homomorphism
+      \[
+        \lambda : \varinjlim_J M_j \longrightarrow \varinjlim_I M_i.
+      \]
+      Show that $\lambda$ is an isomorphism.
+    \item Let $\{A_i\}_{i \in I}, \{B_i\}_{i \in I}, \{C_i\}_{i \in I}$ be directed systems
+      and suppose that for all $i \in I$, we have $(*)$
+      \begin{center}
+        \begin{tikzcd}
+          A_i \ar[r, "\lambda_i"]
+          & B \ar[r, "\rho_i"]
+          & C_i
+        \end{tikzcd}
+      \end{center}
+      such that for all $i \le i'$, the
+      following diagram
+      \begin{center}
+        \begin{tikzcd}
+          A_i \ar[r, "\lambda_i"]
+          \ar[d, swap, "\phi^A_{i' i}"]
+          & B \ar[r, "\rho_i"]
+          \ar[d, "\phi^B_{i' i}"]
+          & C_i
+          \ar[d, "\phi^C_{i' i}"] \\
+          A_{i'} \ar[r, swap, "\lambda_{i'}"]
+          & B \ar[r, swap, "\rho_{i'}"]
+          & C_{i'}
+        \end{tikzcd}
+      \end{center}
+      commutes. Then we get homomorphisms ($**$)
+      \begin{center}
+        \begin{tikzcd}
+          \varinjlim A_i \ar[r, "\lambda"]
+          & \varinjlim B \ar[r, "\rho"]
+          & \varinjlim C_i
+        \end{tikzcd}
+      \end{center}
+      Show that if $(*)$ is exact, then
+      $(**)$ is also exact.
+  \end{enumerate}
+\end{exercise}
+
+\begin{lemma}
+  Let $\{U_\alpha\}$ be a directed system
+  of subsets of $X$ such that any compact
+  set $K \subseteq X$ is contained in some
+  $U_\alpha$. Then
+  \[
+    \varinjlim H_i(U_\alpha; R)
+    \cong H_i(X; R).
+  \]
+\end{lemma}
+
+\begin{proof}
+  Clearly we have inclusion maps
+  $H_i(U_\alpha; R) \to H_i(X; R)$ for all
+  $\alpha$, so we get a homomorphism
+  \[
+    \varinjlim H_i(U_\alpha; R)
+    \longrightarrow H_i(X; R).
+  \]
+  If $[\sigma] \in H_i(X; R)$, then
+  $\im \sigma \subseteq U_{\alpha'}$ for
+  some $\alpha'$, so
+  $H_i(U_{\alpha'}; R) \to H_i(X; R)$
+  hits $[\sigma]$. But we have
+  \begin{center}
+    \begin{tikzcd}
+      H_i(U_{\alpha}; R) \ar[d] \ar[r] & H_i(X; R) \\
+      \varinjlim H_i(U_\alpha; R) \ar[ur]
+    \end{tikzcd}
+  \end{center}
+  so the map $\varinjlim H_i(U_\alpha; R) \to H_i(X; R)$
+  is onto.
+  A similar argument shows injectivity.
+\end{proof}
