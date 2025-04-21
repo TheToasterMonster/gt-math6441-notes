@@ -1,0 +1,367 @@
+\chapter{Apr.~21 --- Poincar\'e Duality, Part 3}
+
+\section{Cohomology with Compact Support}
+
+\begin{definition}
+  If $M$ is an $n$-manifold, then let
+  $I$ be the set of all compact subsets of
+  $M$, directed by inclusion. Note that
+  $K \le K'$ implies that we have
+  an inclusion $i : (M, M - K') \to (M, M - K)$, so
+  \[
+    i^* : H^q(M, M - K; R)
+    \longrightarrow H^q(M, M - K'; R).
+  \]
+  The collection $\{H^q(M, M - K; R)\}_{K \in I}$
+  is a directed system of $R$-modules.
+  Define
+  \[
+    H^q_c(M; R) = \varinjlim_{K \in I} H^q(M, M - K; R),
+  \]
+  which is called the
+  \emph{cohomology with compact support}.
+\end{definition}
+
+\begin{remark}
+  Note the following:
+  \begin{enumerate}
+    \item If $M$ is compact, then
+      $M$ is final in $I$, so
+      $H^q(M; R) \cong H^q_c(M; R)$.
+    \item One can think of elements
+      in $H^q_c(M; R)$ as cochains
+      that vanish off of some compact
+      subset of $M$.
+  \end{enumerate}
+\end{remark}
+
+\section{Poincar\'e Duality, Revisited}
+\begin{remark}
+  Fix an $R$-orientation on $M$ (recall
+  this means that we have a section
+  $\sigma : M \to M_R$ such that $\sigma(x)$
+  generates $H_n(M, M - \{x\})$ for all
+  $x$), and let $K$ be a compact
+  set in $M$.
+
+  Then Lemma \ref{lem:direct-limit}
+  gives a class $\alpha_K \in H_n(M, M - K; R)$
+  such that $i^x_*(\alpha_K) = \sigma(x)$,
+  where $i^x : (M, M - K) \to (M, M - \{x\})$. The cap product gives
+  a map
+  \[
+    H_n(M, M - K; R) \times H^p(M, M - K; R)
+    \longrightarrow
+    H_{n - p}(M; R).
+  \]
+  So $\alpha_K \cap \cdot$ gives a map
+  $H^p(M, M - K; R) \to H_{n - p}(M; R)$,
+  and if $K \subseteq K'$, then
+  \begin{center}
+    \begin{tikzcd}
+      H^n(M, M - K; R) \ar[d] \ar[r, "\alpha_K \cap \cdot"] & H_{n - p}(M; R) \\
+      H^p(M, M - K'; R) \ar[ur, swap, "\alpha_{K'} \cap \cdot"]
+    \end{tikzcd}
+  \end{center}
+  commutes.
+  Thus we get a map $H^p_c(M; R) \overset{D_M}{\longrightarrow} H_{n - p}(M; R)$.
+\end{remark}
+
+\begin{theorem}[Poincar\'e duality, revised]\label{thm:poincare-duality-revised}
+  If $M$ is an $R$-oriented $n$-manifold,
+  then
+  \[D_M : H^p_c(M; R) \to H_{n - p}(M; R)\]
+  is an isomorphism.
+\end{theorem}
+
+\begin{remark}
+  If $M$ is compact, then this
+  proves Theorem \ref{thm:poincare-duality}
+  since $H^p_c(M; R) \cong H^p(M; R)$.
+\end{remark}
+
+\begin{proof}[Proof of Theorem \ref{thm:poincare-duality-revised}]
+  We prove the theorem in three steps:
+  \begin{enumerate}[(i)]
+    \item If the theorem is true for
+      open sets $U$, $V$, and $U \cap V$
+      in $M$, then it is true for $U \cup V$.
+    \item Let $\{U_i\}$ be a collection
+      of open sets which is
+      totally ordered by inclusion. If
+      the theorem is true for each $U_i$,
+      then it is true for $U = \bigcup_i U_i$.
+    \item The theorem is true for any
+      open set $U$ contained in a coordinate
+      chart of $M$.
+  \end{enumerate}
+  Once we know (i)-(iii), the we can
+  finish the proof as follows: Recall
+  \emph{Zorn's lemma}, which says that
+  if $P$ is a partially ordered set
+  such that every chain (i.e. a totally
+  ordered subset) has an upper bound,
+  then $P$ has a maximal element.
+  By step (ii) and Zorn's lemma, there is
+  a maximal element $U \subseteq M$
+  for which the theorem is true. If
+  $U \ne M$, then let $x \in M - U$.
+  There exists an open set $V$ such that
+  $x \in V$ and $V$ is in a coordinate
+  chart of $M$, so the theorem is
+  true for $V$ and $U \cap V$ by (iii).
+  So by (i), the theorem is true for
+  $U \cup V$, which contradicts the
+  assumption that $U$ was maximal.
+  Therefore, $U = M$.
+
+  (iii) It suffices to prove the statement
+  for open sets in $\R^n$. We consider
+  the following steps:
+  \begin{enumerate}[(a)]
+    \item Let $U$ be a convex open set in
+      $\R^n$.
+
+      Check as an exercise that $U$ is
+      homeomorphic to $\R^n$. Therefore,
+      in this case,
+      we just need to prove the result
+      for $\R^n$. Let $K_r$ be the closed
+      (hence compact) ball of radius $r$
+      in $\R^n$, centered at the origin.
+      The collection $\{K_r\}_{r \in (0, \infty)}$
+      is final in the directed set of
+      all compact sets. So
+      \[
+        H^p_c(\R^n; R)
+        = \varinjlim_{K} H^p(\R^n, \R^n - K)
+        = \varinjlim_{K_r} H^p(\R^n, \R^n - K_r).
+      \]
+      Note that $H^p(\R^n, \R^n - K_r) = 0$
+      unless $p = n$ (since
+      $\R^n / (\R^n - K_r) \cong S^n$),
+      so $H^p_c(\R^n) = 0$ for $p \ne n$.
+      Also, $H_{n - p}(\R^n) = 0$
+      for all $p \ne n$, so the theorem
+      holds for $p \ne n$.
+
+      If $p = n$, then
+      $H^n(\R^n, \R^n - K_r) \cong R$ for
+      all $r$. Thus the inclusions are
+      isomorphisms, so
+      \[H^n_c(\R^n; R) \cong R \quad \text{and} \quad
+      H_0(\R^n) \cong R.\]
+      Now consider $\alpha_{K_r} \cap \cdot : H^n(\R^n, \R^n - K_r) \to H_0(\R^n)$.
+      Recall the formula
+      \begin{align*}
+        H^n(\R^n, \R^n - K_r) \times
+        H^n(\R^n, \R^n - K_r)
+        &\longrightarrow H_0(\R^n) \\
+        (\alpha, \beta)
+        &\longmapsto \beta({}_n\alpha) \alpha_0 = \beta(\alpha)
+      \end{align*}
+      where ${}_n\alpha$ denotes the the
+      front $n$-face of $\alpha$. So
+      the map $\alpha_{K_r} \cap \cdot$
+      is given by $\beta \mapsto \beta(\alpha_{K_r})$.
+      We know $\alpha_{K_r}$ is a generator
+      of $H_n(\R^n, \R^n - K_r)$ (else it
+      could not map to generators of
+      $H_n(\R^n, \R^n - \{x\})$ for all
+      $x \in K_r$). Let
+      $\beta \in \Hom(H^n(\R^n, \R^n - K_r), R) \cong H^n(\R, \R^n - K_r)$
+      that evaluates to $1$ on $\alpha_{K_r}$,
+      so $\beta$ generates $H^n(\R^n, \R^n - K_r)$
+      and $\alpha_{K_r} \cap \beta = \beta(\alpha_{K_r}) = 1 \in R$.
+
+      Thus $\alpha_{K_r} \cap \cdot$ is an
+      isomorphism, so the
+      theorem is true for convex open sets
+      in $\R^n$.
+    \item Let $U$ be a general open set
+      in $\R^n$.
+
+      Let $\{b_i\}$ be a countable dense
+      set in $U$. For each $i$, let $U_i \subseteq U$ be an
+      open ball centered at $b_i$, so
+      $U = \bigcup_i U_i$.
+      Set $V_1 = U_1$ and
+      $V_i = V_{i - 1} \cup U_i$ for
+      $i > 1$. The theorem is true for the
+      $V_i$ by the following claim, (from
+      which the theorem will follow for $U$
+      by (ii)):
+      \begin{quote}
+        \textbf{Claim.} The theorem is
+        true for finite unions of convex
+        open sets in $\R^n$.
+      \end{quote}
+      To prove the claim, we induct on the
+      number of convex sets. The claim is
+      true for only one convex set by (a).
+      Now assume the claim is true
+      for unions of $i$ convex sets, with
+      $i < k$. Let $A_1, \dots, A_k$
+      be $k$ convex open sets in $\R^n$.
+      The result is true for each $A_i$
+      by (a), and the result is true
+      for
+      \[
+        (A_1 \cup \dots \cup A_{k - 1})
+        \quad \text{and} \quad
+        A_k \cap (A_1 \cup \dots \cup A_{k - 1})
+        = (A_k \cap A_1) \cup \dots \cup (A_k \cap A_{k - 1})
+      \]
+      by induction, since
+      $A_k \cap A_i$ is convex.
+      So the theorem holds for
+      $A_1 \cup \dots \cup A_k$ by (i).
+  \end{enumerate}
+
+  (ii) From Lemma \ref{lem:direct-limit},
+  we have $\varinjlim H_{n - p}(U_i) \cong H_{n - p}(U)$, induced by inclusion.
+  Now if $U_i \subseteq U_j$ and
+  $K \subseteq U_i$ is compact, then
+  excision gives an isomorphism
+  \[H^p(U_j, U_j - K) \longrightarrow H^p(U_i, U_i - K).\]
+  The inverse of this isomorphism
+  gives the composition
+  \[
+    H^p(U_i, U_i - K) \longrightarrow H^p(U_j, U_j - K) \longrightarrow H^p_c(U_j).
+  \]
+  Taking direct limits, we obtain a map
+  $H^p_c(U_i) \to H^p_c(U_j)$. We claim
+  the following:
+  \begin{quote}
+    \textbf{Claim.}
+      $\varinjlim_i H^p_c(U_i) = H^p_c(U)$
+      and $D_U = \varinjlim_i D_{U_i}$.
+  \end{quote}
+  Given the claim, note that
+  $D_{U_i} : H^p_c(U_i) \to H_{n - p}(U_i)$
+  is an isomorphism by hypothesis. Since
+  the direct limit of isomorphisms is
+  an isomorphism, $D_U : H^p_c(U) \to H_{n - p}(U)$
+  is an isomorphism.
+
+  Now we prove the claim. As above, we get
+  maps $H^p_c(U_i) \to H^p_c(U)$, so we
+  get a map
+  \[
+    \lim_i H^p_c(U_i) \overset{G}\longrightarrow H^p_c(U)
+  \]
+  on the direct limit. For any
+  $K \subseteq U$ compact, there exists
+  some $j$ such that $K \subseteq U_i$
+  for any $i \ge j$ (since the $U_i$ are
+  increasing and an open cover of $U$).
+  Thus, for $i \le j$, we get a map
+  \[
+    H^p(U, U - K) \underset{\text{excision}}{\overset{\cong}{\longrightarrow}} H^p(U_i, U_i - K)
+    \longrightarrow H^p_c(U_i),
+  \]
+  so we get a map $H^p_c(U) \overset{H}{\longrightarrow} H^p_c(U_i)$.
+  Show as an exercise that $G, H$ are
+  inverses of each other.
+
+  (i) This is an involved Mayer-Vietoris
+  argument,
+  see the \href{https://etnyre.math.gatech.edu/class/6441Spring21/SectionIV.pdf}{course notes}.
+\end{proof}
+
+\section{Next Steps in Algebraic Topology}
+
+The following are some further topics to
+study in algebraic topology:
+\begin{enumerate}
+  \item \emph{Homotopy groups}: Recall that
+    $\pi_n(X, x_0) = [S^n, X]_0$, and
+    for $f : X \to Y$, we get a map
+    \[f_* : \pi_n(X, x_0) \to \pi_n(Y, f(x_0)).\]
+    \begin{itemize}
+      \item One has the following theorem:
+        \begin{theorem}[Whitehead]
+          If $f : X \to Y$ is a map of
+          CW complexes and $f_* : \pi_n(X) \to \pi_n(Y)$
+          is an isomorphism for all $n$,
+          then $f$ is a homotopy equivalence.
+        \end{theorem}
+      \item For $n \ge 2$, the $n$th
+        homotopy
+        group $\pi_n(X, x_0)$ is abelian.
+      \item $\pi_n$ is very, very hard
+        to compute in general, e.g.
+        \[
+          \pi_n(S^2) \cong
+          \begin{cases}
+            0 & \text{if $n = 1$}, \\
+            \Z & \text{if $n = 2, 3$}, \\
+            \Z / 2\Z & \text{if $n = 4, 5, 6, 7, 8$}, \\
+            \Z / 3\Z & \text{if $n = 9$}, \\
+            \Z / 15\Z & \text{if $n = 10$}, \\
+            \dots.
+          \end{cases}
+        \]
+      \item Given any abelian group $G$
+        and integer $n$, there exists a
+        space $K(g, n)$ such that
+        \[
+          \pi_k(K(G, n)) =
+          \begin{cases}
+            G & \text{if $k = n$}, \\
+            0 & \text{otherwise}.
+          \end{cases}
+        \]
+      \item One has the following two theorems:
+        \begin{theorem}[Brown]
+          $H^n(X; G) \cong [X, K(G, n)]$.
+        \end{theorem}
+
+        \begin{theorem}[Hurewicz]
+          Let $n \ge 2$.
+          If $\pi_k(X) = 0$ for all
+          $k < n$, then
+          $\widetilde{H}_k(X) = 0$ for all
+          $k < n$ and $H_n(X) \cong \pi_n(X)$.
+        \end{theorem}
+    \end{itemize}
+  \item \emph{Spectral sequences}:
+    A map $p : E \to B$ is a \emph{fibration}
+    if it has the \emph{homotopy lifting property}, i.e. if
+    $f_t : X \to B$ is a homotopy and
+    $\widetilde{f}_0$ is a lift of
+    $f_0$ to $E$ (i.e. $\widetilde{f}_0 : X \to E$
+    and $p \circ \widetilde{f}_0 = f_0$),
+    then there exists a lift of
+    $\widetilde{f}_t$ for all $t$.
+    Note that fibrations are everywhere,
+    but computing the homology of a
+    fibration is very difficult in general.
+
+    A group is \emph{bigraded} if
+    $E = \{E_{s, t}\}_{s, t \in \Z}$.
+    A map $d : E \to E$ is
+    of \emph{bidegree} $(a, b)$ if
+    $d(E_{s, t}) = E_{s + a, t + b}$, and
+    if $d^2 = 0$ also, then we call it a
+    \emph{differential.}
+    A \emph{spectral sequence} is a sequence
+    $\{(E^n, d^n)\}$ where each
+    $E^r$ is a bigraded group, $d^n$ is a
+    differential of degree $(-r, r - 1)$,
+    and $E^{r + 1} = H(E^r, d^r)$.
+
+    \begin{theorem}[Leray-Serre]
+      If $p : E \to B$ is a fibration, where
+      $B$ is a simply connected CW complex,
+      then there exists a spectral
+      sequence with
+      $E_{s, t}^2 = H_s(B; H_t(F))$,
+      where $F = p^{-1}$ and
+      ``$E^\infty$'' more or less
+      gives us $H_*(E)$.
+    \end{theorem}
+  \item \emph{Obstruction theory and
+    characteristic classes}:
+    See the \href{https://etnyre.math.gatech.edu/class/6441Spring21/SectionIV.pdf}{course notes}.
+\end{enumerate}
